@@ -30,6 +30,10 @@ iframe {
   overflow: hidden;
 }
 
+.hidden {
+  display:none;
+}
+
 .CodeMirror {
   height: auto;
   min-height: 500px;

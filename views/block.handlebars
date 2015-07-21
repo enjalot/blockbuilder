@@ -20,12 +20,19 @@
 <script src="/inlet/inlet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
+
 <script>
   var gistId = "{{gistId}}";
 </script>
 
 <h1 id="title">
 </h1>
+
+<header>
+
+<a href="#" id="save" class="hidden">Save</a>
+<a href="#" id="fork">Fork</a>
+</header>
 
 <!-- we will "fill" this iframe by setting a blobURL with javascript. -->
 <iframe id="block"></iframe>
@@ -43,4 +50,7 @@
   </div>
 </div>
 
+<script src="/build/js/main.js"></script>
+<!--
 <script src="/js/client.js"></script>
+-->

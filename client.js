@@ -1,4 +1,6 @@
 
+var request = require('superagent')
+
 var defaultText =
 '<!DOCTYPE html>' + 
 '<meta charset="utf-8">' +
@@ -7,25 +9,27 @@ var defaultText =
 // TODO refactor with React
 main();
 
+// I'm hacking together some basic UI functionality to prove the concepts.
+// Trying to keep the most reusable stuff in functions for easy porting to whatever
+// architecture we come up with.
 function main() {
-  getGist(gistId, function(err, data) {
+  getGist(gistId, function(err, gist) {
     if(err) {
       console.log("error loading gist!", err)
     }
-    console.log("gist!", data)
+    console.log("loading gist!", gist)
 
     //select the iframe node we want to use
     var iframe = d3.select("#block").node();
     iframe.sandbox = "allow-scripts"
 
-    if(!(data && data.files && data.files["index.html"])) {
-      console.log("couldn't find index file!", data)
+    if(!(gist && gist.files && gist.files["index.html"])) {
+      console.log("couldn't find index file!", gist)
       return;
     }
-    var index = data.files["index.html"];
-    console.log("index", index)
+    var index = gist.files["index.html"];
 
-    var template = parseCode(index.content, data.files);
+    var template = parseCode(index.content, gist.files);
     updateIframe(template, iframe);
 
     var htmlCM = CodeMirror(document.getElementById("indexhtml"), {
@@ -43,10 +47,17 @@ function main() {
     Inlet(htmlCM)
     htmlCM.on('change', function() {
       console.log("changed")
-      var template = parseCode(htmlCM.getValue(), data.files);
+      var template = parseCode(htmlCM.getValue(), gist.files);
       updateIframe(template, iframe);
     })
 
+    d3.select("#fork").on("click", function() {
+      //update the gist with our edited content
+      gist.files["index.html"].content = htmlCM.getValue();
+      forkGist(gist, function(err, data){ 
+        console.log("cb of forkGist")
+      });
+    })
 
   });
 }
@@ -60,7 +71,7 @@ function updateIframe(template, iframe) {
 }
 
 function getGist(gId, cb) {
-  d3.json("/gist/" + gistId, function(err, data) {
+  d3.json("/api/gist/" + gistId, function(err, data) {
     if(err) return cb(err);
     try {
       return cb(null, JSON.parse(data.body));
@@ -68,6 +79,20 @@ function getGist(gId, cb) {
       return cb(e)
     }
   })
+}
+
+function saveGist(gist, cb) {
+  //request.post('/api/save')
+}
+
+function forkGist(gist, cb) {
+  request.post('/api/fork')
+    .send({ "gist" : JSON.stringify(gist)})
+    .end(function(err, res) {
+      console.log("done forking")
+      console.log("err", err);
+      console.log("res", res)
+    })
 }
 
 function parseCode(template, files) {
