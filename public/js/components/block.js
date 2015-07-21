@@ -49,6 +49,10 @@ var Block = React.createClass({
         <h1> {this.props.params.username} </h1>
         <h3> {this.props.params.gistId} </h3>
 
+        <div id='block__fork'>
+            Fork
+        </div>
+
         <iframe id='block__iframe'></iframe>
 
         <div id="block__description">

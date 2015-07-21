@@ -34,33 +34,26 @@ app.set('view engine', 'handlebars');
 // App routes
 // ------------------------------------
 app.get('/', function (req, res) {
-  return res.render('base', {
-    initialData: JSON.stringify({})
-  });
+  return res.render('base');
 });
 
 // Get a user's profile page
 app.get('/:username', function (req, res) {
+  // NOTE: no data needs to be passed into template; react router gets url
+  // params
   var username = req.params.username;
 
-  return res.render('base', {
-    initialData: JSON.stringify({
-      username: username
-    })
-  });
+  return res.render('base');
 });
 
 // Get the block editing page for a particular gist
 app.get('/:username/:gistId', function (req, res) {
+  // NOTE: no data needs to be passed into template; react router gets url
+  // params
   var username = req.params.username;
   var gistId = req.params.gistId;
 
-  return res.render('base', {
-    initialData: JSON.stringify({
-      username: username,
-      gistId: gistId
-    })
-  });
+  return res.render('base');
 });
 
 
