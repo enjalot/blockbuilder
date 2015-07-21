@@ -27,4 +27,5 @@ iframe {
   width: 960px;
   height: 500px;
   border: 1px solid #DEDEDE;
+  overflow: hidden;
 }

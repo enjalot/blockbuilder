@@ -26,9 +26,28 @@ function main() {
     console.log("index", index)
 
     var template = parseCode(index.content, data.files);
-    console.log("template", template)
-
     updateIframe(template, iframe);
+
+    var htmlCM = CodeMirror(document.getElementById("indexhtml"), {
+      tabSize: 2,
+      value: index.content,
+      mode:  'htmlmixed',
+      htmlMode: true,
+      lineNumbers: true,
+      theme: 'twilight',
+      //theme: 'elegant',
+      lineWrapping: true,
+      viewportMargin: Infinity
+    })
+
+    Inlet(htmlCM)
+    htmlCM.on('change', function() {
+      console.log("changed")
+      var template = parseCode(htmlCM.getValue(), data.files);
+      updateIframe(template, iframe);
+    })
+
+
   });
 }
 

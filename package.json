@@ -24,6 +24,7 @@
   "homepage": "https://github.com/enjalot/building-blocks#readme",
   "dependencies": {
     "codemirror": "^5.5.0",
+    "codemirror-inlet": "^0.1.2",
     "express": "^4.13.1",
     "express-handlebars": "^2.0.1",
     "request": "^2.59.0"
