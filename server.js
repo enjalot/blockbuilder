@@ -3,10 +3,19 @@ var exphbs  = require('express-handlebars');
 var request = require('request');
 var bodyParser = require('body-parser')
 var app = express();
+var compression = require('compression');
 
+// App middleware
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/public', express.static(__dirname + '/public'));
+// don't expose server info
+app.disable('x-powered-by');
+// Show stack errors
+app.set('showStackError', true);
+// Compress (gzip) everything
+app.use(compression());
 
 var hbs = exphbs.create({
   helpers: {
@@ -20,11 +29,6 @@ app.set('view engine', 'handlebars');
 // process.env.NODE_ENV === "production"
 // to turn on caching
 //app.enable('view cache')
-
-
-app.get('/js/client.js', function (req, res) {
-  res.sendFile(__dirname + '/client.js');
-});
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/templates/home.html');
