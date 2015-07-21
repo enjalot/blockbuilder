@@ -29,3 +29,9 @@ iframe {
   border: 1px solid #DEDEDE;
   overflow: hidden;
 }
+
+.CodeMirror {
+  height: auto;
+  min-height: 500px;
+  font-size: 18px;
+}
