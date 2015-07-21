@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Building Bl.ocks</title>
+
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,400italic|Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+<style>
+  @import url("/css/style.css?20150720");
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/theme/twilight.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/theme/elegant.css">
+
+<link rel="stylesheet" href="/inlet/inlet.css" type="text/css" media="screen"  title="no title" charset="utf-8">
+
+<link rel="stylesheet" href="/public/build/css/main.css" type="text/css" charset="utf-8">
+
+<script>
+    // Set initial bootstrapped data
+    window._INITIAL_DATA = {{{ initialData }}};
+</script>
+
+<!-- All react views are rendered inside of app -->
+<div id='app'></div>
+
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/xml/xml.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/javascript/javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/css/css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.4.0/mode/htmlmixed/htmlmixed.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<script src="/inlet/inlet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<script src="/public/build/js/main.js"></script>
+</body>
+</html>

@@ -30,10 +30,43 @@ app.set('view engine', 'handlebars');
 // to turn on caching
 //app.enable('view cache')
 
+// ------------------------------------
+// App routes
+// ------------------------------------
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/templates/home.html');
+  return res.render('base', {
+    initialData: JSON.stringify({})
+  });
 });
 
+// Get a user's profile page
+app.get('/:username', function (req, res) {
+  var username = req.params.username;
+
+  return res.render('base', {
+    initialData: JSON.stringify({
+      username: username
+    })
+  });
+});
+
+// Get the block editing page for a particular gist
+app.get('/:username/:gistId', function (req, res) {
+  var username = req.params.username;
+  var gistId = req.params.gistId;
+
+  return res.render('base', {
+    initialData: JSON.stringify({
+      username: username,
+      gistId: gistId
+    })
+  });
+});
+
+
+// ------------------------------------
+// API
+// ------------------------------------
 // Get a gist by id
 app.get('/api/gist/:gistId', function(req, res) {
   // we have a proxy for getting a gist using the app's auth token.
@@ -42,46 +75,29 @@ app.get('/api/gist/:gistId', function(req, res) {
   var gistId = req.params.gistId;
   getGist(gistId, function(err, gist) {
     if(err) {
-      res.send(500, {error: err})
+      res.send(500, {error: err});
     }
-    res.send(gist)
-  })
-})
-
-// Get a user's profile page
-app.get('/:userName', function (req, res) {
-  res.sendFile(__dirname + '/templates/user.html');
+    res.send(gist);
+  });
 });
-
-// Get the block editing page for a particular gist
-app.get('/:userName/:gistId', function (req, res) {
-  var userName = req.params.userName
-  var gistId = req.params.gistId
-  res.render('block', {gistId: gistId, userName: userName})
-});
-
-
-
 app.post('/api/save', function(req, res){
   var data = req.body.gist;
   console.log("SAVING", data.id);
   saveGist(data, "PATCH", function(err, response) {
-  })
-
-
-})
+  });
+});
 
 // Create a new gist 
 app.post('/api/fork', function (req, res) {
   var gist = req.body.gist;
   saveGist(gist, "POST", function(err, data) {
-    if(err) return res.send({error: err, statusCode: 400});
-    res.send(data)
-  })
-})
+    if(err){ return res.send({error: err, statusCode: 400}); }
+    res.send(data);
+  });
+});
 
 function saveGist(gist, method, cb) {
-  var url = 'https://api.github.com/gists'
+  var url = 'https://api.github.com/gists';
 
   var parsed = JSON.parse(gist);
   console.log("saving", parsed.id)
@@ -99,14 +115,14 @@ function saveGist(gist, method, cb) {
     body: gist.toString(),
     method: method,
     headers: headers
-  }, onResponse)
+  }, onResponse);
 
   function onResponse(error, response, body) {
     //console.log("error", error)
     //console.log("response", response)
     //console.log("body", body)
-    if(error) { return cb(error, null)}
-    if (!error && response.statusCode == 201) {
+    if(error) { return cb(error, null); }
+    if (!error && response.statusCode === 201) {
       cb(null, JSON.parse(body));
     } else if(!error) {
       cb(body, null);
@@ -125,7 +141,7 @@ function getGist(gistId, cb) {
     headers: {
       'User-Agent': 'Building Bl.ocks'
     }
-  }
+  };
   request.get(options, cb);
 }
 

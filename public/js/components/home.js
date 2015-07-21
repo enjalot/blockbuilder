@@ -1,33 +1,37 @@
 /* =========================================================================
  *
- * main.js
- *  Main entry point into app
+ * Home.js
+ *  Default index / home view
  *
  * ========================================================================= */
-
 // External Dependencies
 // ------------------------------------
-// react
 import React from 'react';
-
-// Configure logger
+import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
-logger.transports.get('console').property('showMeta', false);
-//logger.options.groupsEnabled = false;
-//logger.options.groupsEnabled = [/[Ss]tore/];
-//logger.options.groupsEnabled = [/ItemList/];
 
 // Internal Dependencies
 // ------------------------------------
-import router from './router.js';
 
 // ========================================================================
 //
 // Functionality
 //
 // ========================================================================
-logger.log('app', 'initializing');
+var Home = React.createClass({
+  componentWillMount: function(){
+    logger.log('Home:component:componentWillMount', 'called');
+  },
 
-router.run((Handler, state) => {
-  React.render(<Handler {...state} />, document.getElementById('app'));
+  render: function render(){
+    logger.log('Home:component:render', 'called');
+
+    return (
+      <div>
+        Home
+      </div>
+    );
+  }
 });
+
+export default Home;
