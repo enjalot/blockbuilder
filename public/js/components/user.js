@@ -1,7 +1,7 @@
 /* =========================================================================
  *
- * Home.js
- *  Default index / home view
+ * User.js
+ *  Individual user view page
  *
  * ========================================================================= */
 // External Dependencies
@@ -18,23 +18,31 @@ import logger from 'bragi-browser';
 // Functionality
 //
 // ========================================================================
-var Home = React.createClass({
+var User = React.createClass({
   componentWillMount: function(){
-    logger.log('Home:component:componentWillMount', 'called');
+    logger.log('User:component:componentWillMount', 'called');
   },
 
   render: function render(){
-    logger.log('Home:component:render', 'called');
+    logger.log('User:component:render', 'called | %O', {
+      state: this.state, props: this.props, params: this.props.params
+    });
+
+    // TODO: Fetch all of the user's blocks and render them
+    var userBlocks = (
+        <Link to="block" params={ {username: 'enjalot', gistId: 'a89c6592b82db2aec99b'} }>
+            Small multiples
+        </Link>
+    );
 
     return (
       <div>
-        <h1> Home </h1>
+        <h1> User { this.props.params.username } </h1>
 
-        {/* If we want to have links which use the router, we can use the Link element and pass in params which map to the URL params */}
-        <Link to="user" params={ {username: "enjalot"} }>enjalot's page</Link>
+        {userBlocks}
       </div>
     );
   }
 });
 
-export default Home;
+export default User;

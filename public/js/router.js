@@ -18,6 +18,8 @@ import {create, HistoryLocation} from 'react-router';
 import App from './components/app.js';
 import Home from './components/home.js';
 import Block from './components/block.js';
+import User from './components/user.js';
+
 import NotFound from './components/not-found.js';
 
 // ========================================================================
@@ -28,6 +30,7 @@ import NotFound from './components/not-found.js';
 var routes = (
   <Route handler={App} >
     <Route name="home" path="/" handler={Home}></Route>
+    <Route name="user" path="/:username" handler={User}></Route>
     <Route name="block" path="/:username/:gistId" handler={Block}></Route>
     <NotFoundRoute handler={NotFound}/>
   </Route>

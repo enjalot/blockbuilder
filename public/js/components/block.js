@@ -46,7 +46,8 @@ var Block = React.createClass({
 
     return (
       <div>
-        Block
+        <h1> {this.props.params.username} </h1>
+        <h3> {this.props.params.gistId} </h3>
 
         <iframe id='block__iframe'></iframe>
 

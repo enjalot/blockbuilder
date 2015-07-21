@@ -33,7 +33,7 @@ var App = React.createClass({
     return (
       <div id='site-wrapper'>
         <div id='site-header'>
-          BUILD BLOCKS
+            {/* Static content which does NOT depend on route can go anywhere */}
         </div>
 
         <div id='site-wrapper__content'>
