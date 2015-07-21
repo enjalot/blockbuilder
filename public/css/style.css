@@ -1,0 +1,30 @@
+html {
+  min-width: 1040px;
+}
+
+body {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  margin: 1em auto 4em auto;
+  position: relative;
+  tab-size: 2;
+  width: 960px;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+h1, h2 {
+  font-family: Roboto;
+  text-rendering: optimizeLegibility;
+}
+
+iframe {
+  width: 960px;
+  height: 500px;
+  border: 1px solid #DEDEDE;
+}

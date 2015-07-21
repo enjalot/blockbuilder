@@ -1,0 +1,31 @@
+{
+  "name": "building-blocks",
+  "version": "0.0.1",
+  "description": "Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enjalot/building-blocks.git"
+  },
+  "keywords": [
+    "d3.js",
+    "blocks",
+    "data",
+    "visualization"
+  ],
+  "author": "Ian Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enjalot/building-blocks/issues"
+  },
+  "homepage": "https://github.com/enjalot/building-blocks#readme",
+  "dependencies": {
+    "codemirror": "^5.5.0",
+    "express": "^4.13.1",
+    "express-handlebars": "^2.0.1",
+    "request": "^2.59.0"
+  }
+}
