@@ -4,6 +4,7 @@
  *  Main entry point into app
  *
  * ========================================================================= */
+import '../css/main.scss'; // Builds the main CSS file!
 
 // External Dependencies
 // ------------------------------------
