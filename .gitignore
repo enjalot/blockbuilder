@@ -4,3 +4,4 @@ public/build/css
 *.swp
 .DS_Store
 .DS_Store?
+secrets.json

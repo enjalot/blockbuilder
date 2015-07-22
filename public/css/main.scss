@@ -33,6 +33,21 @@ h1, h2 {
   font-size: 18px;
 }
 
+#auth {
+  float: right;
+  margin: 0 5px;
+  line-height: 25px;
+}
+#user {
+  float: right;
+  margin: 0 5px;
+}
+#user img {
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
+}
+
 #block__code-title {
   padding: 5px;
   padding-bottom: 10px;

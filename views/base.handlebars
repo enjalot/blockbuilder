@@ -16,6 +16,21 @@
 <link rel="stylesheet" href="/public/build/css/main.css" type="text/css" charset="utf-8">
 
 <!-- All react views are rendered inside of app -->
+<div id='header'>
+  <div id='auth'>
+    {{#if user.id}}
+      <a id="logout">logout</a>
+    {{else}}
+      <a id="login">login</a>
+    {{/if}}
+  </div>
+  {{#if user.id}}
+  <div id='user'>
+    <img src="{{user.avatar_url}}">
+    <a href="">{{user.login}}</a>
+  </div>
+  {{/if}}
+</div>
 <div id='app'></div>
 
 
