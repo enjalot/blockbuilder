@@ -20,11 +20,11 @@ import logger from 'bragi-browser';
 // ========================================================================
 var Home = React.createClass({
   componentWillMount: function(){
-    logger.log('Home:component:componentWillMount', 'called');
+    logger.log('components/Home:component:componentWillMount', 'called');
   },
 
   render: function render(){
-    logger.log('Home:component:render', 'called');
+    logger.log('components/Home:component:render', 'called');
 
     return (
       <div>

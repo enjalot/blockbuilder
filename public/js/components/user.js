@@ -20,11 +20,11 @@ import logger from 'bragi-browser';
 // ========================================================================
 var User = React.createClass({
   componentWillMount: function(){
-    logger.log('User:component:componentWillMount', 'called');
+    logger.log('components/User:component:componentWillMount', 'called');
   },
 
   render: function render(){
-    logger.log('User:component:render', 'called | %O', {
+    logger.log('components/User:component:render', 'called | %O', {
       state: this.state, props: this.props, params: this.props.params
     });
 
