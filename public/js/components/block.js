@@ -125,6 +125,12 @@ var Block = React.createClass({
 
     var template = parseCode(index.content, this.state.gistData.files);
     this.updateIFrame(template, iframe);
+
+    this.descriptionIFrame = window.d3.select('#block__description-iframe').node()
+    if(this.state.gistData.files['README.md']) {
+      var description = marked(this.state.gistData.files['README.md'].content)
+      this.updateIFrame(description, this.descriptionIFrame)
+    }
   },
 
   updateIFrame: function updateIFrame(template, iframe) {
@@ -206,6 +212,18 @@ var Block = React.createClass({
 
     } else {
       // SUCCESS - data exists
+      var gist = this.state.gistData;
+
+      let files = Object.keys(gist.files).map(function(name) {
+        var file = gist.files[name]
+        return <a className="file" href={ file.raw_url } key={ file.filename } target="_blank">{ file.filename }</a>
+      })
+
+      var description = "";
+      if(gist.files["README.md"]){
+        description = gist.files["README.md"].content
+      }
+
       blockContent = (
         <div>
           <div id='block__fork'>
@@ -216,25 +234,33 @@ var Block = React.createClass({
 
           <div id='block__description'>
             {/* we render README.md if it is present in the gist */}
+            <iframe id='block__description-iframe'></iframe>
           </div>
 
           <div id='block__code-wrapper'>
             {/* codemirror will use this div to setup editor */}
+            <span id="block__code-title">index.html</span>
             <div id='block__code-index'></div>
 
             {/* any other files included in the gist will show up here */}
-            <div id='block__code-files'></div>
+            <div id='block__code-files'>
+              {files}
+            </div>
           </div>
         </div>
       );
-  }
+    }
 
 
+    var gistUrl = "https://gist.github.com/" + this.props.params.username + '/' + this.props.params.gistId
+    var blocksUrl = "http://bl.ocks.org/" + this.props.params.username + '/' + this.props.params.gistId
 
     return (
       <div id='block__wrapper'>
-        <h1> {this.props.params.username} </h1>
-        <h3> {this.props.params.gistId} </h3>
+        <div id='block__nav'>
+          <a href={ gistUrl } id="block__nav-gist" target="_blank"> gist </a>
+          <a href={ blocksUrl } id="block__nav-block" target="_blank"> bl.ock </a>
+        </div>
   
         {blockContent}
       </div>

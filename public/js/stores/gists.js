@@ -33,8 +33,8 @@ var GistsStore = Reflux.createStore({
     init: function(){
         // Get data
         // NOTE: could use localstorage to load initial gist store data
-        this.data = gistsById;
-        logger.log('stores/gists:init', 'called. data: %O', this.data);
+        this.gistsById = gistsById;
+        logger.log('stores/gists:init', 'called. data: %O', this.gistsById);
 
         return this;
     },
@@ -50,7 +50,7 @@ var GistsStore = Reflux.createStore({
      * is in the local data store
      */
     getGistMaybe: function getGistMaybe(gistId){
-        logger.log('stores/gists:getGistMaybe', 'called. data: %O', this.data);
+        logger.log('stores/gists:getGistMaybe', 'called. data: %O', this.gistsById);
         // return gist if it exists
         return gistsById[gistId];
     },

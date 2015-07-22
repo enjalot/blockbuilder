@@ -92,6 +92,7 @@ app.post('/api/fork', function (req, res) {
 function saveGist(gist, method, cb) {
   var url = 'https://api.github.com/gists';
 
+  // if we are to save over a user's gist we need the id
   var parsed = JSON.parse(gist);
   console.log("saving", parsed.id)
   if(method === "PATCH" && parsed && parsed.id) {

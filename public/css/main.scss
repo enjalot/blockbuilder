@@ -39,3 +39,28 @@ iframe {
   min-height: 500px;
   font-size: 18px;
 }
+
+#block__code-title {
+  padding: 5px;
+  padding-bottom: 10px;
+  font-size: 20px
+}
+
+#block__description-iframe {
+  height: auto;
+  border: none;
+}
+
+#block__fork {
+  float:right;
+}
+
+#block__nav a {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.file {
+  padding: 5px;
+  font-size: 20px;
+}
