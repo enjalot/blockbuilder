@@ -29,4 +29,13 @@ var Actions = Reflux.createActions({
 // Setup async action handlers
 //
 // ------------------------------------
+Actions.fetchGist.listen(function(gistId) {
+    logger.log('actions:fetchGist', 'called : ' + gistId);
+
+    // fetch gists, which returns a promise. this.completed and this.failed
+    // are setup for us automatically since we set `asyncResult:true` for this
+    // action
+    WebAPIUtils.fetchGist(gistId).then(this.completed).catch(this.failed);
+});
+
 export default Actions;

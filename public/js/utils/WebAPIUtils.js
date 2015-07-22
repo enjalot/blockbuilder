@@ -32,8 +32,12 @@ var WebAPIUtils = {
           if(err){ return reject(err); }
 
           try {
-            data = JSON.parse(data.body);
+            data = {
+              response: JSON.parse(data.body),
+              gistId: gistId
+            };
             return fulfill(data);
+
           } catch(e) {
             return reject(e);
           }
