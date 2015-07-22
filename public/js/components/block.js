@@ -16,9 +16,14 @@ import logger from 'bragi-browser';
 import GistsStore from '../stores/gists.js';
 import Actions from '../actions/actions.js';
 
+import parseCode from '../utils/parseCode.js';
+
 // ========================================================================
 //
 // Functionality
+//
+//  NOTE: This component requires that a `gistId` param be passed into it
+//  when the component is used
 //
 // ========================================================================
 var Block = React.createClass({
@@ -43,7 +48,23 @@ var Block = React.createClass({
     'gist store updated : %O', data);
 
     if(data.type === 'fetch:completed'){
-      this.setState({ gistData: data.response, failed: false });
+      // Ensure the gist has an indexHtml
+      if(!data.response.files || !data.response.files['index.html']){
+        // invalid gist
+        var failMessage = 'Could not find index.html';
+        if(data.response.message){
+          failMessage = data.response.message;
+        }
+
+        this.setState({
+          gistData: null, failed: true,
+          failMessage: failMessage
+        });
+
+      } else {
+        // All good!
+        this.setState({ gistData: data.response, failed: false });
+      }
 
     } else if(data.type === 'fetch:failed'){
       this.setState({ gistData: null, failed: true });
@@ -58,22 +79,60 @@ var Block = React.createClass({
    * fetch it
    */
   componentWillMount: function componentWillMount(){
-    // If the gist data doesn't yet exist, fetch it
-    if(!this.state.gistData){ Actions.fetchGist('a89c6592b82db2aec99b');
+    if(!this.state.gistData){
+      // trigger action to fetch gist. When the response returns, the
+      // store will update, which this component listens for (above)
+      Actions.fetchGist(this.props.params.gistId);
     }
   },
 
   componentDidMount: function componentDidMount(){
     logger.log('components/Block:component:componentDidUpdate', 'called');
-    this.setupCodeMirror();
+
+    if(this.state.gistData){
+      this.setupIFrame();
+      this.setupCodeMirror();
+    }
   },
+
   componentDidUpdate: function componentDidUpdate(){
     // NOTE: This should only ever be called once the data has been loaded.
     // No other state changes currently happen. If we want to add more state
     // changes, we'll need to slightly restructure this so this won't get
     // called on every setData() call
     logger.log('components/Block:component:componentDidUpdate', 'called');
-    this.setupCodeMirror();
+
+    if(this.state.gistData){
+      this.setupIFrame();
+      this.setupCodeMirror();
+    }
+  },
+
+  // Uility functions
+  // ----------------------------------
+  setupIFrame: function setupIFrame(){
+    logger.log('components/Block:component:setupIFrame', 'called');
+    //select the iframe node we want to use
+
+    // if the element doesn't exist, we're outta here
+    if(!document.getElementById('block__iframe')){ return false; }
+    window.d3.select('#block__iframe').empty();
+
+    var iframe = window.d3.select('#block__iframe').node();
+    this.codeMirrorIFrame = iframe;
+    iframe.sandbox = 'allow-scripts';
+    var index = this.state.gistData.files['index.html'];
+
+    var template = parseCode(index.content, this.state.gistData.files);
+    this.updateIFrame(template, iframe);
+  },
+
+  updateIFrame: function updateIFrame(template, iframe) {
+    var blobUrl;
+    window.URL.revokeObjectURL(blobUrl);
+    var blob = new Blob([template], {type: 'text/html'});
+    blobUrl = URL.createObjectURL(blob);
+    iframe.src = blobUrl;
   },
 
   setupCodeMirror: function setupCodeMirror(){
@@ -81,7 +140,6 @@ var Block = React.createClass({
 
     // if the element doesn't exist, we're outta here
     if(!document.getElementById('block__code-index')){ return false; }
-
     // TODO: NOTE: Is just wiping this out efficient? Is there some
     // destructor we need to call instead?
     document.getElementById('block__code-index').innerHTML = '';
@@ -100,7 +158,7 @@ var Block = React.createClass({
     // put this behind a request animation frame so we're sure the element
     // is in the DOM
     requestAnimationFrame(()=>{
-      window.z = window.CodeMirror(document.getElementById('block__code-index'), {
+      this.codeMirrorEl = window.CodeMirror(document.getElementById('block__code-index'), {
         tabSize: 2,
         value: codeMirrorValue,
         mode: 'htmlmixed',
@@ -111,9 +169,18 @@ var Block = React.createClass({
         lineWrapping: true,
         viewportMargin: Infinity
       });
+
+      window.Inlet(this.codeMirrorEl);
+
+      this.codeMirrorEl.on('change', ()=>{
+        var template = parseCode(this.codeMirrorEl.getValue(), this.state.gistData.files);
+        this.updateIFrame(template, this.codeMirrorIFrame);
+      });
     });
   },
 
+  // Render
+  // ----------------------------------
   render: function render(){
     logger.log('components/Block:component:render', 'called | state: %O', this.state);
 
@@ -132,7 +199,7 @@ var Block = React.createClass({
         // FAILURE - could not load gist
         blockContent = (
             <div id='block__failure'>
-              Failed to load gist.
+              {this.state.failMessage || 'Failed to load gist.'}
             </div>
         );
       }
@@ -147,7 +214,7 @@ var Block = React.createClass({
 
           <iframe id='block__iframe'></iframe>
 
-          <div id="block__description">
+          <div id='block__description'>
             {/* we render README.md if it is present in the gist */}
           </div>
 
