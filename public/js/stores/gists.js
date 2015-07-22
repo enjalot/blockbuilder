@@ -64,6 +64,10 @@ var GistsStore = Reflux.createStore({
         logger.log('stores/gists:onFetchGistCompleted',
         'fetched gist : %O', data);
 
+        // store the response for this gist ID. Allows components to avoid
+        // making another fetch request if they look at the same gistId
+        this.gistsById[data.gistId] = data.response;
+
         this.trigger({
             type: 'fetch:completed',
             gistId: data.gistId,
