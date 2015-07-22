@@ -23,13 +23,6 @@ h1, h2 {
   text-rendering: optimizeLegibility;
 }
 
-iframe {
-  width: 960px;
-  height: 500px;
-  border: 1px solid #DEDEDE;
-  overflow: hidden;
-}
-
 .hidden {
   display:none;
 }
@@ -46,6 +39,14 @@ iframe {
   font-size: 20px
 }
 
+#block__iframe {
+  width: 960px;
+  height: 500px;
+  border: 1px solid #DEDEDE;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
 #block__description-iframe {
   height: auto;
   border: none;
@@ -53,7 +54,14 @@ iframe {
 
 #block__fork {
   float:right;
+  padding: 5px 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  background-color: steelblue;
+  color: white;
+  border-radius: 3px
 }
+
 
 #block__nav a {
   padding: 5px;

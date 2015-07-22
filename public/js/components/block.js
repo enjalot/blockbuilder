@@ -10,6 +10,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
+import router from '../router.js';
 
 // Internal Dependencies
 // ------------------------------------
@@ -69,6 +70,22 @@ var Block = React.createClass({
     } else if(data.type === 'fetch:failed'){
       this.setState({ gistData: null, failed: true });
 
+    } else if(data.type === 'fork:completed'){
+      // Navigate to the new gist
+      var username = "anon"
+      if(data.gist.owner) username = data.gist.owner;
+      var url = "/" + username + "/" + data.gist.id
+      logger.log('components/Block:component:storeChange:fork:completed',
+        url);
+
+      router.transitionTo(url);
+
+    } else if(data.type === 'fork:failed'){
+      var failMessage = 'Could not fork gist';
+      if(data.response.message){
+        failMessage = data.response.message;
+      }
+      this.setState({ failed: true, failMessage: failMessage})
     }
   },
 
@@ -164,7 +181,7 @@ var Block = React.createClass({
     // put this behind a request animation frame so we're sure the element
     // is in the DOM
     requestAnimationFrame(()=>{
-      this.codeMirrorEl = window.CodeMirror(document.getElementById('block__code-index'), {
+      this.codeMirror = window.CodeMirror(document.getElementById('block__code-index'), {
         tabSize: 2,
         value: codeMirrorValue,
         mode: 'htmlmixed',
@@ -176,13 +193,20 @@ var Block = React.createClass({
         viewportMargin: Infinity
       });
 
-      window.Inlet(this.codeMirrorEl);
+      window.Inlet(this.codeMirror);
 
-      this.codeMirrorEl.on('change', ()=>{
-        var template = parseCode(this.codeMirrorEl.getValue(), this.state.gistData.files);
+      this.codeMirror.on('change', ()=>{
+        var template = parseCode(this.codeMirror.getValue(), this.state.gistData.files);
         this.updateIFrame(template, this.codeMirrorIFrame);
       });
     });
+  },
+
+  fork: function fork() {
+    console.log("fork");
+    var gist = this.state.gistData;
+    gist.files["index.html"].content = this.codeMirror.getValue();
+    Actions.forkGist(gist);
   },
 
   // Render
@@ -226,11 +250,11 @@ var Block = React.createClass({
 
       blockContent = (
         <div>
-          <div id='block__fork'>
+          <div id='block__fork' onClick={ this.fork }>
               Fork
           </div>
 
-          <iframe id='block__iframe'></iframe>
+          <iframe id='block__iframe' scrolling="no"></iframe>
 
           <div id='block__description'>
             {/* we render README.md if it is present in the gist */}

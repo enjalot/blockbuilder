@@ -85,6 +85,22 @@ var GistsStore = Reflux.createStore({
             response: data.response,
             data: data
         });
+    },
+    onForkGistCompleted: function onForkGistCompleted( data ){
+      logger.log('stores/gists:onForkGistCompleted',
+        'fetched gist : %O', data);
+      this.trigger({
+        type: 'fork:completed',
+        gist: data.body
+      });
+    },
+    onForkGistFailed: function onForkGistFailed( data ){
+      logger.log('stores/gists:onForkGistFailed',
+        'fetched gist : %O', data);
+      this.trigger({
+        type: 'fork:failed',
+        data: data
+      });
     }
 });
 export default GistsStore;
