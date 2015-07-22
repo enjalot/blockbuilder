@@ -24,11 +24,11 @@ var App = React.createClass({
   },
 
   componentDidMount: function(){
-    logger.log('App:component:componentDidMount', 'called');
+    logger.log('components/App:component:componentDidMount', 'called');
   },
 
   render: function render(){
-    logger.log('App:component:render', 'called : ', this.props);
+    logger.log('components/App:component:render', 'called : ', this.props);
 
     return (
       <div id='site-wrapper'>
