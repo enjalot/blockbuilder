@@ -1,10 +1,16 @@
+var request = require('superagent');
 
-var request = require('superagent')
+// setup + configure logger
+var logger = require('bragi-browser');
+logger.transports.get('Console').property({showMeta: false});
+logger.options.groupsEnabled = true; // enable everything
 
 var defaultText =
 '<!DOCTYPE html>' + 
 '<meta charset="utf-8">' +
 '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>'
+
+var gistId = window._INITIAL_DATA.gistId;
 
 // TODO refactor with React
 main();
@@ -86,12 +92,18 @@ function saveGist(gist, cb) {
 }
 
 function forkGist(gist, cb) {
+  logger.log('forkGist:prepare', 'preparing to fork gist...');
+
   request.post('/api/fork')
     .send({ "gist" : JSON.stringify(gist)})
     .end(function(err, res) {
-      console.log("done forking")
-      console.log("err", err);
-      console.log("res", res)
+      if(err){ 
+        logger.log('error:forkGist:response', 'error forking: ' + err);
+        alert('Error forking gist');
+        return false;
+      }
+
+      logger.log('forkGist:response', 'fork response returned! Res: %O', res);
     })
 }
 
