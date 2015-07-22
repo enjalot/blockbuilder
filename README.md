@@ -6,6 +6,8 @@ Eventually we will host this with a domain, but for now let's just get it runnin
 
 # Development
 
+MongoDB and Redis are required (for sessions and users), they are currently configured inside `server.js`
+
 ```
 git clone https://github.com/enjalot/building-blocks.git
 cd building-blocks/
