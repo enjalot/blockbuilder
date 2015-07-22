@@ -66,6 +66,24 @@ var WebAPIUtils = {
             return fulfill(res);
           })
       })
+    },
+
+    /**
+     * Get the authenticated user
+     *
+     */
+    fetchMe() {
+      logger.log('WebAPIUtils:fetchMe:prepare', 'preparing to get me...');
+      return new Promise(function( fulfill, reject){
+        request.get('/api/me')
+          .end(function(err, res) {
+            if(err){ 
+              logger.log('error:fetchMe:response', 'error getting me: ' + err);
+              return reject(err);
+            }
+            return fulfill(res);
+          })
+      })
     }
 };
 

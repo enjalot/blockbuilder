@@ -15,6 +15,7 @@ import router from '../router.js';
 // Internal Dependencies
 // ------------------------------------
 import GistsStore from '../stores/gists.js';
+import UsersStore from '../stores/users.js';
 import Actions from '../actions/actions.js';
 
 import parseCode from '../utils/parseCode.js';
@@ -28,7 +29,10 @@ import parseCode from '../utils/parseCode.js';
 //
 // ========================================================================
 var Block = React.createClass({
-  mixins: [Reflux.listenTo(GistsStore, 'storeChange')],
+  mixins: [
+    Reflux.listenTo(GistsStore, 'storeChange'),
+    Reflux.listenTo(UsersStore, 'storeChange')
+  ],
 
   /**
    * Get the initial gist data. Similar to a maybe monad - will return either
@@ -37,7 +41,8 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false };
+    var user = UsersStore.getMeMaybe();
+    return { gistData: gistData, user: user, failed: false };
   },
 
   /**
@@ -86,6 +91,10 @@ var Block = React.createClass({
         failMessage = data.response.message;
       }
       this.setState({ failed: true, failMessage: failMessage})
+    } else if(data.type === 'getme:completed'){
+      this.setState({ user: data.user });
+    } else if(data.type === 'getme:failed'){
+      this.setState({ user: {} })
     }
   },
 
@@ -100,6 +109,9 @@ var Block = React.createClass({
       // trigger action to fetch gist. When the response returns, the
       // store will update, which this component listens for (above)
       Actions.fetchGist(this.props.params.gistId);
+    }
+    if(!this.state.user.login) {
+      Actions.fetchMe();
     }
   },
 
@@ -197,15 +209,18 @@ var Block = React.createClass({
 
       this.codeMirror.on('change', ()=>{
         var template = parseCode(this.codeMirror.getValue(), this.state.gistData.files);
+        this.state.gistData.files["index.html"].content = this.codeMirror.getValue();
         this.updateIFrame(template, this.codeMirrorIFrame);
       });
     });
   },
 
+  save: function save() {
+
+  },
+
   fork: function fork() {
     console.log("fork");
-    var gist = this.state.gistData;
-    gist.files["index.html"].content = this.codeMirror.getValue();
     Actions.forkGist(gist);
   },
 
@@ -247,12 +262,15 @@ var Block = React.createClass({
       if(gist.files["README.md"]){
         description = gist.files["README.md"].content
       }
+      var save = "";
+      if(this.state.user.id === gist.owner.id) {
+        save = <div id='block__save' onClick={ this.save}>Save</div>
+      }
 
       blockContent = (
         <div>
-          <div id='block__fork' onClick={ this.fork }>
-              Fork
-          </div>
+          <div id='block__fork' onClick={ this.fork }>Fork</div>
+          {save}
 
           <iframe id='block__iframe' scrolling="no"></iframe>
 

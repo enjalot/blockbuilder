@@ -22,7 +22,8 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 var Actions = Reflux.createActions({
     // fetching gist is an async data call
     'fetchGist': {asyncResult: true},
-    'forkGist': {asyncResult: true}
+    'forkGist': {asyncResult: true},
+    'fetchMe': {asyncResult: true}
 });
 
 // ------------------------------------
@@ -32,7 +33,6 @@ var Actions = Reflux.createActions({
 // ------------------------------------
 Actions.fetchGist.listen(function(gistId) {
     logger.log('actions:fetchGist', 'called : ' + gistId);
-
     // fetch gists, which returns a promise. this.completed and this.failed
     // are setup for us automatically since we set `asyncResult:true` for this
     // action
@@ -41,11 +41,12 @@ Actions.fetchGist.listen(function(gistId) {
 
 Actions.forkGist.listen(function(gist) {
     logger.log('actions:forkGist', 'called : %O', gist);
-
-    // fork gist, which returns a promise. this.completed and this.failed
-    // are setup for us automatically since we set `asyncResult:true` for this
-    // action
     WebAPIUtils.forkGist(gist).then(this.completed).catch(this.failed);
+});
+
+Actions.fetchMe.listen(function(gist) {
+    logger.log('actions:fetchMe', 'called : %O', gist);
+    WebAPIUtils.fetchMe().then(this.completed).catch(this.failed);
 });
 
 export default Actions;

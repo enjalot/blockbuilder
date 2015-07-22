@@ -67,10 +67,10 @@ h1, h2 {
   border: none;
 }
 
-#block__fork {
+#block__fork, #block__save {
   float:right;
   padding: 5px 10px;
-  margin: 10px 0;
+  margin: 10px 5px;
   cursor: pointer;
   background-color: steelblue;
   color: white;

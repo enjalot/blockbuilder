@@ -160,37 +160,15 @@ app.get('/auth/logout', function(req, res) {
   res.redirect('/');
 })
 
-// ------------------------------------
-// App routes
-// ------------------------------------
-app.get('/', function (req, res) {
-  console.log("user", req.session.passport)
-  return res.render('base', {user: req.session.passport.user});
-});
-
-// Get a user's profile page
-app.get('/:username', function (req, res) {
-  // NOTE: no data needs to be passed into template; react router gets url
-  // params
-  var username = req.params.username;
-
-  return res.render('base', {user: req.session.passport.user});
-});
-
-// Get the block editing page for a particular gist
-app.get('/:username/:gistId', function (req, res) {
-  // NOTE: no data needs to be passed into template; react router gets url
-  // params
-  var username = req.params.username;
-  var gistId = req.params.gistId;
-
-  return res.render('base', {user: req.session.passport.user});
-});
-
 
 // ------------------------------------
 // API
 // ------------------------------------
+// Get the authenticated user
+app.get('/api/me', function(req, res) {
+  // this is safe as it is just the user id, login name and avatar url
+  res.send(req.session.passport.user);
+})
 // Get a gist by id
 app.get('/api/gist/:gistId', function(req, res) {
   // we have a proxy for getting a gist using the app's auth token.
@@ -218,6 +196,34 @@ app.post('/api/fork', function (req, res) {
     if(err){ return res.send({error: err, statusCode: 400}); }
     res.send(data);
   });
+});
+
+
+// ------------------------------------
+// App routes
+// ------------------------------------
+app.get('/', function (req, res) {
+  console.log("user", req.session.passport)
+  return res.render('base', {user: req.session.passport.user});
+});
+
+// Get a user's profile page
+app.get('/:username', function (req, res) {
+  // NOTE: no data needs to be passed into template; react router gets url
+  // params
+  var username = req.params.username;
+
+  return res.render('base', {user: req.session.passport.user});
+});
+
+// Get the block editing page for a particular gist
+app.get('/:username/:gistId', function (req, res) {
+  // NOTE: no data needs to be passed into template; react router gets url
+  // params
+  var username = req.params.username;
+  var gistId = req.params.gistId;
+
+  return res.render('base', {user: req.session.passport.user});
 });
 
 function saveGist(gist, method, cb) {
