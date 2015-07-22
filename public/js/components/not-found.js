@@ -21,7 +21,7 @@ import logger from 'bragi-browser';
 // ========================================================================
 var NotFound = React.createClass({
   render: function render(){
-    logger.log('NotFound:component:render', 'called');
+    logger.log('components/NotFound:component:render', 'called');
 
     return (
       <div>
