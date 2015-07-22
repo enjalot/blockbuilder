@@ -263,7 +263,7 @@ var Block = React.createClass({
         description = gist.files["README.md"].content
       }
       var save = "";
-      if(this.state.user.id === gist.owner.id) {
+      if(this.state.user && gist.owner && this.state.user.id === gist.owner.id) {
         save = <div id='block__save' onClick={ this.save}>Save</div>
       }
 
