@@ -1,16 +1,16 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var request = require('request');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
-var redis = require('redis')
-var mongodb = require('mongodb')
+var redis = require('redis');
+var mongodb = require('mongodb');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
-var nconf = require('nconf')
+var nconf = require('nconf');
 var compression = require('compression');
-var passport = require('passport')
-
+var passport = require('passport');
+var winston = require('winston');
 
 var app = express();
 
