@@ -49,13 +49,34 @@ var WebAPIUtils = {
     /**
      * forks gist
      *
-     * @param {String} gistId - ID of the gist
+     * @param {Object} gist
      */
     forkGist( gist ) {
       logger.log('WebAPIUtils:forkGist:prepare', 'preparing to fork gist...');
 
       return new Promise(function( fulfill, reject){
         request.post('/api/fork')
+          .send({ "gist" : JSON.stringify(gist)})
+          .end(function(err, res) {
+            if(err){ 
+              logger.log('error:forkGist:response', 'error forking: ' + err);
+              return reject(err);
+            }
+            logger.log('WebAPIUtils:forkGist:response', 'fork response returned! Res: %O', res);
+            return fulfill(res);
+          })
+      })
+    },
+    /**
+     * saves gist
+     *
+     * @param {Object} gist
+     */
+    saveGist( gist ) {
+      logger.log('WebAPIUtils:saveGist:prepare', 'preparing to save gist...');
+
+      return new Promise(function( fulfill, reject){
+        request.post('/api/save')
           .send({ "gist" : JSON.stringify(gist)})
           .end(function(err, res) {
             if(err){ 

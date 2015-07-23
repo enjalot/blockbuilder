@@ -15,10 +15,14 @@ import router from '../router.js';
 // Internal Dependencies
 // ------------------------------------
 import GistsStore from '../stores/gists.js';
-import UsersStore from '../stores/users.js';
 import Actions from '../actions/actions.js';
 
 import parseCode from '../utils/parseCode.js';
+
+import SiteNav from './header__nav-site.js'
+import UserNav from './header__nav-user.js'
+import GistNav from './header__nav-gist.js'
+import SaveForkNav from './header__nav-save-fork.js'
 
 // ========================================================================
 //
@@ -30,8 +34,7 @@ import parseCode from '../utils/parseCode.js';
 // ========================================================================
 var Block = React.createClass({
   mixins: [
-    Reflux.listenTo(GistsStore, 'storeChange'),
-    Reflux.listenTo(UsersStore, 'storeChange')
+    Reflux.listenTo(GistsStore, 'storeChange')
   ],
 
   /**
@@ -41,10 +44,8 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    var user = UsersStore.getMeMaybe();
-    return { gistData: gistData, user: user, failed: false };
+    return { gistData: gistData, failed: false };
   },
-
   /**
    * called when the gists store changes. If the triggered change was the result
    * of a fetch, update the store (on success) or show an error (on failure)
@@ -78,12 +79,14 @@ var Block = React.createClass({
     } else if(data.type === 'fork:completed'){
       // Navigate to the new gist
       var username = "anon"
-      if(data.gist.owner) username = data.gist.owner;
+      if(data.gist.owner) username = data.gist.owner.login;
       var url = "/" + username + "/" + data.gist.id
       logger.log('components/Block:component:storeChange:fork:completed',
         url);
 
-      router.transitionTo(url);
+      //this.setState({ gistData: data.gist, failed: false })
+      window.location = url;
+      //router.transitionTo(url);
 
     } else if(data.type === 'fork:failed'){
       var failMessage = 'Could not fork gist';
@@ -91,10 +94,10 @@ var Block = React.createClass({
         failMessage = data.response.message;
       }
       this.setState({ failed: true, failMessage: failMessage})
-    } else if(data.type === 'getme:completed'){
-      this.setState({ user: data.user });
-    } else if(data.type === 'getme:failed'){
-      this.setState({ user: {} })
+    } else if(data.type === 'save:completed'){
+      console.log("SAVED");
+    } else if(data.type === 'save:failed'){
+      console.log("SAVE FAILED :(");
     }
   },
 
@@ -110,13 +113,10 @@ var Block = React.createClass({
       // store will update, which this component listens for (above)
       Actions.fetchGist(this.props.params.gistId);
     }
-    if(!this.state.user.login) {
-      Actions.fetchMe();
-    }
   },
 
   componentDidMount: function componentDidMount(){
-    logger.log('components/Block:component:componentDidUpdate', 'called');
+    logger.log('components/Block:component:componentDidMount', 'called');
 
     if(this.state.gistData){
       this.setupIFrame();
@@ -135,6 +135,10 @@ var Block = React.createClass({
       this.setupIFrame();
       this.setupCodeMirror();
     }
+  },
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    // log arguments
+    logger.log('components/Block:component:componentWillReceiveProps nextProps: %O', nextProps);
   },
 
   // Uility functions
@@ -215,15 +219,6 @@ var Block = React.createClass({
     });
   },
 
-  save: function save() {
-
-  },
-
-  fork: function fork() {
-    console.log("fork");
-    Actions.forkGist(gist);
-  },
-
   // Render
   // ----------------------------------
   render: function render(){
@@ -255,23 +250,20 @@ var Block = React.createClass({
 
       let files = Object.keys(gist.files).map(function(name) {
         var file = gist.files[name]
-        return <a className="file" href={ file.raw_url } key={ file.filename } target="_blank">{ file.filename }</a>
+        return (
+          <a className="file" href={ file.raw_url } key={ file.filename } target="_blank">
+            { file.filename }
+          </a>
+        )
       })
 
       var description = "";
       if(gist.files["README.md"]){
         description = gist.files["README.md"].content
-      }
-      var save = "";
-      if(this.state.user && gist.owner && this.state.user.id === gist.owner.id) {
-        save = <div id='block__save' onClick={ this.save}>Save</div>
-      }
+      } 
 
       blockContent = (
         <div>
-          <div id='block__fork' onClick={ this.fork }>Fork</div>
-          {save}
-
           <iframe id='block__iframe' scrolling="no"></iframe>
 
           <div id='block__description'>
@@ -293,18 +285,22 @@ var Block = React.createClass({
       );
     }
 
-
-    var gistUrl = "https://gist.github.com/" + this.props.params.username + '/' + this.props.params.gistId
-    var blocksUrl = "http://bl.ocks.org/" + this.props.params.username + '/' + this.props.params.gistId
-
-    return (
+    return ( 
       <div id='block__wrapper'>
-        <div id='block__nav'>
-          <a href={ gistUrl } id="block__nav-gist" target="_blank"> gist </a>
-          <a href={ blocksUrl } id="block__nav-block" target="_blank"> bl.ock </a>
+        <div id='block__header'>
+          <SiteNav></SiteNav>
+          <div id='site-header__gist'>
+            <GistNav {...this.props}></GistNav>
+            <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
+          </div>
+          <div id='site-header__user'>
+            <UserNav {...this.props}></UserNav>
+          </div>
         </div>
-  
-        {blockContent}
+
+        <div id='block__content'>
+          {blockContent}
+        </div>
       </div>
     );
   }

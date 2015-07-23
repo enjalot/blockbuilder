@@ -63,7 +63,6 @@ nconf.add('app', {
     }
   }
 });
-console.log("REDIS",nconf.get('app:redis:host'))
 
 app.use(cookieParser());
 
@@ -95,16 +94,15 @@ var MongoClient = mongodb.MongoClient
 var url = 'mongodb://' + nconf.get('app:mongo:host') 
   + ':' + nconf.get('app:mongo:port') 
   + '/' + nconf.get('app:mongo:db');
-console.log("mongo URL", url)
 MongoClient.connect(url, function(err, db) {
   var users = db.collection('users')
 
   passport.serializeUser(function(user, done) {
-    done(null, {id: user.id, login: user.login, avatar_url: user.avatar_url });
+    done(null, {id: user.id, login: user.login, avatar_url: user.avatar_url, accessToken: user.accessToken });
   });
   passport.deserializeUser(function(id, done) {
     // This is called to return a user from a passport
-    // stategy (e.g., after user logs in with FB)
+    // stategy (e.g., after user logs in with GitHub)
     // This also is what req.user is set to
     users.findOne({ _id: id }, function (err, user) {
       done(err, user);
@@ -123,9 +121,11 @@ MongoClient.connect(url, function(err, db) {
           user = profile._json;
           user._id = profile.id;
           users.update({_id: profile.id}, user, {upsert: true}, function(err){
+            profile.accessToken = accessToken;
             return done(err, profile);
           })
         } else {
+          user.accessToken = accessToken;
           return done(err, user);
         }
       });
@@ -153,7 +153,6 @@ app.get('/auth/github/callback',
 });
 app.get('/auth/logout', function(req, res) {
   req.logout();
-  console.log("req", req.query, req.params)
   if(req.query.redirect){
     return res.redirect(req.query.redirect)
   }
@@ -167,7 +166,9 @@ app.get('/auth/logout', function(req, res) {
 // Get the authenticated user
 app.get('/api/me', function(req, res) {
   // this is safe as it is just the user id, login name and avatar url
-  res.send(req.session.passport.user);
+  var user = req.session.passport.user;
+  if(!user) return res.send({});
+  res.send({id: user.id, login: user.login, avatar_url: user.avatar_url});
 })
 // Get a gist by id
 app.get('/api/gist/:gistId', function(req, res) {
@@ -177,23 +178,26 @@ app.get('/api/gist/:gistId', function(req, res) {
   var gistId = req.params.gistId;
   getGist(gistId, function(err, gist) {
     if(err) {
-      res.send(500, {error: err});
+      res.status(500).send({error: err});
     }
     res.send(gist);
   });
 });
 app.post('/api/save', function(req, res){
-  var data = req.body.gist;
-  console.log("SAVING", data.id);
-  saveGist(data, "PATCH", function(err, response) {
+  var gist = req.body.gist;
+  var token = req.session.passport.user.accessToken;
+  saveGist(gist, "PATCH", token, function(err, response) {
+    if(err){ return res.status(400).send({error: err}); }
+    res.send(response)
   });
 });
 
 // Create a new gist 
 app.post('/api/fork', function (req, res) {
   var gist = req.body.gist;
-  saveGist(gist, "POST", function(err, data) {
-    if(err){ return res.send({error: err, statusCode: 400}); }
+  var token = req.session.passport.user.accessToken;
+  saveGist(gist, "POST", token, function(err, data) {
+    if(err){ return res.status(400).send({error: err}); }
     res.send(data);
   });
 });
@@ -203,7 +207,6 @@ app.post('/api/fork', function (req, res) {
 // App routes
 // ------------------------------------
 app.get('/', function (req, res) {
-  console.log("user", req.session.passport)
   return res.render('base', {user: req.session.passport.user});
 });
 
@@ -226,12 +229,13 @@ app.get('/:username/:gistId', function (req, res) {
   return res.render('base', {user: req.session.passport.user});
 });
 
-function saveGist(gist, method, cb) {
+function saveGist(gist, method, token, cb) {
   var url = 'https://api.github.com/gists';
 
   // if we are to save over a user's gist we need the id
   var parsed = JSON.parse(gist);
-  console.log("saving", parsed.id)
+  if(parsed.id) console.log("saving", parsed.id)
+
   if(method === "PATCH" && parsed && parsed.id) {
     url += "/" + parsed.id;
   }
@@ -240,6 +244,9 @@ function saveGist(gist, method, cb) {
   , 'content-type': 'application/json'
   , 'accept': 'application/json'
   };
+  if(token) {
+    headers['Authorization'] = 'token ' + token
+  }
 
   request({
     url: url,
@@ -250,10 +257,10 @@ function saveGist(gist, method, cb) {
 
   function onResponse(error, response, body) {
     //console.log("error", error)
-    //console.log("response", response)
+    //console.log("response", response.statusCode)
     //console.log("body", body)
     if(error) { return cb(error, null); }
-    if (!error && response.statusCode === 201) {
+    if (!error && (response.statusCode === 201 || response.statusCode === 200)) {
       cb(null, JSON.parse(body));
     } else if(!error) {
       cb(body, null);
@@ -262,8 +269,6 @@ function saveGist(gist, method, cb) {
     }
   }
 }
-
-
 
 function getGist(gistId, cb) {
   // TODO: add our app's token to avoid rate limiting

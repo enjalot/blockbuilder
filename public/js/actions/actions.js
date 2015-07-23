@@ -23,6 +23,7 @@ var Actions = Reflux.createActions({
     // fetching gist is an async data call
     'fetchGist': {asyncResult: true},
     'forkGist': {asyncResult: true},
+    'saveGist': {asyncResult: true},
     'fetchMe': {asyncResult: true}
 });
 
@@ -42,6 +43,11 @@ Actions.fetchGist.listen(function(gistId) {
 Actions.forkGist.listen(function(gist) {
     logger.log('actions:forkGist', 'called : %O', gist);
     WebAPIUtils.forkGist(gist).then(this.completed).catch(this.failed);
+});
+
+Actions.saveGist.listen(function(gist) {
+    logger.log('actions:saveGist', 'called : %O', gist);
+    WebAPIUtils.saveGist(gist).then(this.completed).catch(this.failed);
 });
 
 Actions.fetchMe.listen(function(gist) {

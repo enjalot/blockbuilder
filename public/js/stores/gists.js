@@ -88,7 +88,7 @@ var GistsStore = Reflux.createStore({
     },
     onForkGistCompleted: function onForkGistCompleted( data ){
       logger.log('stores/gists:onForkGistCompleted',
-        'fetched gist : %O', data);
+        'forked gist : %O', data);
       this.trigger({
         type: 'fork:completed',
         gist: data.body
@@ -96,9 +96,25 @@ var GistsStore = Reflux.createStore({
     },
     onForkGistFailed: function onForkGistFailed( data ){
       logger.log('stores/gists:onForkGistFailed',
-        'fetched gist : %O', data);
+        'forked gist : %O', data);
       this.trigger({
         type: 'fork:failed',
+        data: data
+      });
+    },
+    onSaveGistCompleted: function onSaveGistCompleted( data ){
+      logger.log('stores/gists:onSaveGistCompleted',
+        'saved gist : %O', data);
+      this.trigger({
+        type: 'save:completed',
+        gist: data.body
+      });
+    },
+    onSaveGistFailed: function onSaveGistFailed( data ){
+      logger.log('stores/gists:onSaveGistFailed',
+        'saved gist : %O', data);
+      this.trigger({
+        type: 'save:failed',
         data: data
       });
     }
