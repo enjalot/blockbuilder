@@ -72,7 +72,7 @@ var redisClient = redis.createClient(
 ); 
 redisClient.on('error', function(err) {
     //catch redis errors so server doesn't blow up
-    winston.error('Redis client error:' + err);
+    console.error('Redis client error:' + err);
 });
 app.use(session({
   secret: "f023u0fu0fi2039if023r09390jljnvcvoejfpeiqur384092830",
