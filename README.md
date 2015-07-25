@@ -8,10 +8,13 @@ Eventually we will host this with a domain, but for now let's just get it runnin
 
 MongoDB and Redis are required (for sessions and users), they are currently configured inside `server.js`
 
-```
+```bash
 git clone https://github.com/enjalot/building-blocks.git
 cd building-blocks/
 npm install
+# run webpack to build the js & css bundles
+npm run local
+# run the server (use node-dev server.js for auto-restarting on changes to server code)
 node server.js
 ```
 Then take any bl.ock and replace the bl.ocks.org part with localhost:8889 like  
