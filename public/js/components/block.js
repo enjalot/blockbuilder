@@ -78,7 +78,7 @@ var Block = React.createClass({
 
     } else if(data.type === 'fork:completed'){
       // Navigate to the new gist
-      var username = "anon"
+      var username = "anonymous"
       if(data.gist.owner) username = data.gist.owner.login;
       var url = "/" + username + "/" + data.gist.id
       logger.log('components/Block:component:storeChange:fork:completed',
@@ -290,7 +290,7 @@ var Block = React.createClass({
         <div id='block__header'>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
-            <GistNav {...this.props}></GistNav>
+            <GistNav {...this.props} gist={this.state.gistData}></GistNav>
             <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
           </div>
           <div id='site-header__user'>

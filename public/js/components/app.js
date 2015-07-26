@@ -52,10 +52,8 @@ var App = React.createClass({
     logger.log('components/App:component:render', 'called : ', this.props);
     return (
       <div id='site-wrapper'>
-        <div id='site-wrapper__content'>
           {/* The actual page from the route gets rendered here */}
           <RouteHandler {...this.props} user={ this.state.user } />
-        </div>
       </div>
     );
   }

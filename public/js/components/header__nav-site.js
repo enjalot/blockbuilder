@@ -8,7 +8,8 @@ import React from 'react';
 
 var SiteNav = React.createClass({
   render: function render() {
-    return ( <h3>Building Bl.ocks</h3> )
+    //return ( <div id="block__title">Building Bl.ocks</div> )
+    return (<div></div>)
   }
 })
 

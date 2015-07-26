@@ -185,7 +185,9 @@ app.get('/api/gist/:gistId', function(req, res) {
 });
 app.post('/api/save', function(req, res){
   var gist = req.body.gist;
-  var token = req.session.passport.user.accessToken;
+  var token;
+  if(req.session.passport.user) token = req.session.passport.user.accessToken;
+  if(!token) return res.status(403).send({error: "Not logged in"})
   saveGist(gist, "PATCH", token, function(err, response) {
     if(err){ return res.status(400).send({error: err}); }
     res.send(response)
@@ -195,7 +197,8 @@ app.post('/api/save', function(req, res){
 // Create a new gist 
 app.post('/api/fork', function (req, res) {
   var gist = req.body.gist;
-  var token = req.session.passport.user.accessToken;
+  var token;
+  if(req.session.passport.user) token = req.session.passport.user.accessToken;
   saveGist(gist, "POST", token, function(err, data) {
     if(err){ return res.status(400).send({error: err}); }
     res.send(data);

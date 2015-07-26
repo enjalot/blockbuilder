@@ -27,6 +27,79 @@ h1, h2 {
   display:none;
 }
 
+svg.icon {
+  margin: 0 5px;
+}
+
+/********************
+  LAYOUT
+*********************/
+
+#site-wrapper {
+  position: absolute;
+}
+
+$headerHeight: 80px;
+
+#block__header {
+  position: fixed;
+  height: $headerHeight;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: orange;
+}
+
+
+#block__title {
+  float: left; 
+  height: 80px;
+  line-height: $headerHeight;
+  padding: 0 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#block__nav {
+  margin: 0 10px;
+  float: left;  
+  height: $headerHeight;
+  line-height: $headerHeight;
+  a {
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+  }
+
+  a:hover {
+    color: #fff;
+    path {
+      fill: #fff;
+    }
+  }
+}
+
+#block__nav-gist-title {
+  font-size: 28px;
+  font-weight: bold;
+  padding-right: 5px;
+  margin-right: 20px;
+}
+
+#block__fork {
+  float: right;
+  height: $headerHeight;
+  line-height: $headerHeight;
+}
+
+#block__content {
+  position:absolute;
+  top: $headerHeight;
+}
+
+
 .CodeMirror {
   height: auto;
   min-height: 500px;
@@ -47,6 +120,8 @@ h1, h2 {
   height: 26px;
   vertical-align: middle;
 }
+
+
 
 #block__code-title {
   padding: 5px;
@@ -78,12 +153,72 @@ h1, h2 {
 }
 
 
-#block__nav a {
-  padding: 5px;
-  font-size: 18px;
-}
-
 .file {
   padding: 5px;
   font-size: 20px;
+}
+
+
+
+/* -------------------
+borrowed styles
+----------------------*/
+/* css loader from http://tobiasahlin.com/spinkit/ */
+.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: #333;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1); 
+  }
+}
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  } 
 }
