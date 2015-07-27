@@ -39,7 +39,7 @@ svg.icon {
   position: absolute;
 }
 
-$headerHeight: 80px;
+$headerHeight: 60px;
 
 #block__header {
   position: fixed;
@@ -142,12 +142,16 @@ a.header-link:hover {
 #block__fork, #block__save {
   float:right;
   padding: 5px 10px;
-  margin: 26px 5px;
+  margin: 16px 5px;
   cursor: pointer;
   background-color: steelblue;
   color: white;
   border-radius: 3px;
   height: 22px;
+  &:hover {
+    color: steelblue;
+    background-color: white;
+  }
 }
 
 
