@@ -291,10 +291,12 @@ var Block = React.createClass({
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData}></GistNav>
-            <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
           </div>
           <div id='site-header__user'>
             <UserNav {...this.props}></UserNav>
+          </div>
+          <div id='site-header__save-fork'>
+            <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
           </div>
         </div>
 

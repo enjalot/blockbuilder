@@ -18,7 +18,7 @@ var GistNav = React.createClass({
       userName = gist.owner.login;
       var profileUrl = "http://bl.ocks.org/" + userName;
       profile = ( 
-        <span>by <a href={ profileUrl } target="_blank">{userName}</a></span>
+        <span>by <a className="header-link" href={ profileUrl } target="_blank">{userName}</a></span>
       )
     } else {
       profile = ( <span> by {userName} </span> )
@@ -40,8 +40,8 @@ var GistNav = React.createClass({
         <span id='block__nav-gist-title'>
           { title }
         </span>
-        <a href={ gistUrl } id="block__nav-gist" target="_blank">gist<IconExternalLink></IconExternalLink></a>
-        <a href={ blocksUrl } id="block__nav-block" target="_blank">bl.ock<IconExternalLink></IconExternalLink></a>
+        <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank">gist<IconExternalLink></IconExternalLink></a>
+        <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">bl.ock<IconExternalLink></IconExternalLink></a>
         <span id='block__nav-gist-author'>
           {profile} 
         </span>

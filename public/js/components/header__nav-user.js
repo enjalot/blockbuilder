@@ -16,12 +16,12 @@ var UserNav = React.createClass({
     var auth;
     var user = this.props.user;
     if(!user || !user.login) {
-      auth = ( <a id="login" href={ "/auth/github/?redirect=" + this.props.path }>login</a> )
+      auth = ( <a className="header-link" id="login" href={ "/auth/github/?redirect=" + this.props.path }>login</a> )
     } else {
       auth = (
         <div id="user">
           <img src={ user.avatar_url }></img>
-          <a id="logout" href={ "/auth/logout/?redirect=" + this.props.path }>logout</a>
+          <a className="header-link" id="logout" href={ "/auth/logout/?redirect=" + this.props.path }>logout</a>
         </div>
       )
     }

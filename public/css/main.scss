@@ -48,6 +48,7 @@ $headerHeight: 80px;
   left: 0;
   right: 0;
   background-color: orange;
+  z-index: 100;
 }
 
 
@@ -61,24 +62,24 @@ $headerHeight: 80px;
   font-weight: bold;
 }
 
+a.header-link {
+  padding: 5px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+a.header-link:hover {
+  color: #fff;
+  path {
+    fill: #fff;
+  }
+}
+
 #block__nav {
   margin: 0 10px;
   float: left;  
   height: $headerHeight;
   line-height: $headerHeight;
-  a {
-    padding: 5px;
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-  }
-
-  a:hover {
-    color: #fff;
-    path {
-      fill: #fff;
-    }
-  }
 }
 
 #block__nav-gist-title {
@@ -86,12 +87,6 @@ $headerHeight: 80px;
   font-weight: bold;
   padding-right: 5px;
   margin-right: 20px;
-}
-
-#block__fork {
-  float: right;
-  height: $headerHeight;
-  line-height: $headerHeight;
 }
 
 #block__content {
@@ -109,7 +104,10 @@ $headerHeight: 80px;
 #auth {
   float: right;
   margin: 0 5px;
-  line-height: 25px;
+  line-height: $headerHeight;
+  a {
+    text-decoration: none;
+  }
 }
 #user {
   float: right;
@@ -120,7 +118,6 @@ $headerHeight: 80px;
   height: 26px;
   vertical-align: middle;
 }
-
 
 
 #block__code-title {
@@ -145,11 +142,12 @@ $headerHeight: 80px;
 #block__fork, #block__save {
   float:right;
   padding: 5px 10px;
-  margin: 10px 5px;
+  margin: 26px 5px;
   cursor: pointer;
   background-color: steelblue;
   color: white;
-  border-radius: 3px
+  border-radius: 3px;
+  height: 22px;
 }
 
 
