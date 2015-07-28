@@ -20,6 +20,10 @@ node server.js
 Then take any bl.ock and replace the bl.ocks.org part with localhost:8889 like  
 [http://localhost:8889/syntagmatic/0d4f736796ab7b465020](http://localhost:8889/syntagmatic/0d4f736796ab7b465020)  
 
+If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to:  
+1) [Register a GitHub application](https://github.com/settings/developers)  
+2) copy `secrets.json-example` to `secrets.json` and fill it in with the client ID and secret key from GitHub  
+
 
 # Deploy your own
 TODO

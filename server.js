@@ -189,8 +189,9 @@ app.post('/api/save', function(req, res){
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
   if(!token) return res.status(403).send({error: "Not logged in"})
   saveGist(gist, "PATCH", token, function(err, response) {
-    if(err){ return res.status(400).send({error: err}); }
-    res.send(response)
+    if(err){ console.log(err); return res.status(400).send({error: err}); }
+    console.log("saved to", response.id)
+    res.status(200).send(response)
   });
 });
 
@@ -199,9 +200,10 @@ app.post('/api/fork', function (req, res) {
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
-  saveGist(gist, "POST", token, function(err, data) {
-    if(err){ return res.status(400).send({error: err}); }
-    res.send(data);
+  saveGist(gist, "POST", token, function(err, response) {
+    if(err){ console.log(err); return res.status(400).send({error: err}); }
+    console.log("forked to", response.id)
+    res.status(200).send(response);
   });
 });
 
