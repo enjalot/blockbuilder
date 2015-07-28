@@ -23,6 +23,7 @@ import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
 import GistNav from './header__nav-gist.js'
 import SaveForkNav from './header__nav-save-fork.js'
+import {IconLoader} from './icons.js';
 
 // ========================================================================
 //
@@ -159,11 +160,13 @@ var Block = React.createClass({
     var template = parseCode(index.content, this.state.gistData.files);
     this.updateIFrame(template, iframe);
 
+    /*
     this.descriptionIFrame = window.d3.select('#block__description-iframe').node()
     if(this.state.gistData.files['README.md']) {
       var description = marked(this.state.gistData.files['README.md'].content)
       this.updateIFrame(description, this.descriptionIFrame)
     }
+    */
   },
 
   updateIFrame: function updateIFrame(template, iframe) {
@@ -184,7 +187,7 @@ var Block = React.createClass({
     document.getElementById('block__code-index').innerHTML = '';
 
     // get text to place in codemirror
-    var codeMirrorValue = 'Loading...';
+    var codeMirrorValue = '';
 
     if(this.state.gistData){
       if(!this.state.gistData.files || !this.state.gistData.files['index.html']){
@@ -232,7 +235,9 @@ var Block = React.createClass({
       if(!this.state.failed){
         // LOADING
         blockContent = (
-          <h3>Loading</h3>
+          <div id='block__loading'>
+            <IconLoader></IconLoader>
+          </div>
         );
 
       } else if(this.state.failed){
@@ -257,18 +262,21 @@ var Block = React.createClass({
         )
       })
 
+      /*
       var description = "";
       if(gist.files["README.md"]){
         description = gist.files["README.md"].content
       } 
+      */
 
       blockContent = (
         <div>
           <iframe id='block__iframe' scrolling="no"></iframe>
 
           <div id='block__description'>
-            {/* we render README.md if it is present in the gist */}
+            {/* we render README.md if it is present in the gist 
             <iframe id='block__description-iframe'></iframe>
+            */}
           </div>
 
           <div id='block__code-wrapper'>

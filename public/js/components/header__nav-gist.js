@@ -23,7 +23,7 @@ var GistNav = React.createClass({
     } else {
       profile = ( <span> by {userName} </span> )
     }
-    console.log("PROFILE", profile)
+
     var gistUrl = "https://gist.github.com/" + userName + '/' + this.props.params.gistId
     var blocksUrl = "http://bl.ocks.org/" + userName + '/' + this.props.params.gistId
 
@@ -31,9 +31,8 @@ var GistNav = React.createClass({
     if(gist) {
       title = gist.description || gist.id;
     }
-    console.log("title", title)
 
-    if(!gist) return (<div id='block__nav'><IconLoader></IconLoader></div>)
+    if(!gist) return (<div id='block__nav'></div>)// (<div id='block__nav'><IconLoader></IconLoader></div>)
 
     return (
       <div id='block__nav'>

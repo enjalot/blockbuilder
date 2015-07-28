@@ -1,3 +1,7 @@
+
+$blue: steelblue; /* #3182bd; */
+$gray: #efefef;
+
 html {
   min-width: 1040px;
 }
@@ -45,9 +49,10 @@ $headerHeight: 60px;
   position: fixed;
   height: $headerHeight;
   top: 0;
-  left: 0;
-  right: 0;
-  background-color: orange;
+  width: 960px;
+  margin: 0px auto;
+  background-color: white;
+  border-bottom: 1px solid $gray;
   z-index: 100;
 }
 
@@ -69,9 +74,9 @@ a.header-link {
   font-size: 18px;
 }
 a.header-link:hover {
-  color: #fff;
+  color: $blue;
   path {
-    fill: #fff;
+    fill: $blue;
   }
 }
 
@@ -129,7 +134,7 @@ a.header-link:hover {
 #block__iframe {
   width: 960px;
   height: 500px;
-  border: 1px solid #DEDEDE;
+  border: 1px solid $gray;
   overflow: hidden;
   border-radius: 3px;
 }
@@ -144,14 +149,24 @@ a.header-link:hover {
   padding: 5px 10px;
   margin: 16px 5px;
   cursor: pointer;
-  background-color: steelblue;
+  background-color: $blue;
   color: white;
   border-radius: 3px;
   height: 22px;
+  border: 1px solid white;
   &:hover {
-    color: steelblue;
+    color: $blue;
     background-color: white;
+    border: 1px solid $blue;
   }
+}
+
+#block__loading {
+  width: 960px;
+  .sk-cube-grid {
+    margin: 10px auto;
+  }
+
 }
 
 
@@ -165,16 +180,18 @@ a.header-link:hover {
 /* -------------------
 borrowed styles
 ----------------------*/
-/* css loader from http://tobiasahlin.com/spinkit/ */
+/* 
+  css loader from http://tobiasahlin.com/spinkit/ 
+*/
 .sk-cube-grid {
-  width: 40px;
-  height: 40px;
+  width: 400px;
+  height: 400px;
   margin: 10px;
 }
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
-  background-color: #333;
+  background-color: $blue;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
           animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
@@ -206,13 +223,15 @@ borrowed styles
 .sk-cube-grid .sk-cube9 {
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
+$min: 0.2;
 @-webkit-keyframes sk-cubeGridScaleDelay {
   0%, 70%, 100% {
     -webkit-transform: scale3D(1, 1, 1);
             transform: scale3D(1, 1, 1);
   } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
+    -webkit-transform: scale3D($min, $min, 1);
+            transform: scale3D($min, $min, 1); 
   }
 }
 @keyframes sk-cubeGridScaleDelay {
@@ -220,7 +239,7 @@ borrowed styles
     -webkit-transform: scale3D(1, 1, 1);
             transform: scale3D(1, 1, 1);
   } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1);
+    -webkit-transform: scale3D($min, $min, 1);
+            transform: scale3D($min, $min, 1);
   } 
 }
