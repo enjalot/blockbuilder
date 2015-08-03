@@ -5,3 +5,4 @@ public/build/css
 .DS_Store
 .DS_Store?
 secrets.json
+dump.rdb
