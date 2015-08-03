@@ -8,9 +8,9 @@ Eventually we will host this with a domain, but for now let's just get it runnin
 MongoDB and Redis are required (for sessions and users) so make sure you install them before proceeding any further. If you would like to tweak the default parameters, you can do so my modifying `server.js`. 
 
 ### Setting up databases
-Make sure you initialize both Redis and MongoDB before 
-1) Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
-2) Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
+Make sure you initialize both Redis and MongoDB before running. 
+1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
+2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
 ```bash
 git clone https://github.com/enjalot/building-blocks.git
@@ -28,8 +28,8 @@ Then take any bl.ock and replace the bl.ocks.org part with localhost:8889 like
 
 ### Registering Github Credentials
 If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to:  
-1) [Register a GitHub application](https://github.com/settings/developers)  
-2) Fill `secrets.json` with the client ID and secret key from GitHub  
+1. [Register a GitHub application](https://github.com/settings/developers)  
+2. Fill `secrets.json` with the client ID and secret key from GitHub  
 
 
 # Deploy your own
