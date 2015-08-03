@@ -18,6 +18,8 @@ mkdir -p /data/db
 mongod
 # now set up redis with the following commands
 redis-server
+# building-blocks expects something in the secrets.json file, so the last step is: (to place replace this with your credentials, see Registering Github Credentials below)
+mv secrets.json-example secrets.json
 # run the server (use nodemon server.js for auto-restarting on changes to server code). see http://nodemon.io for information on installing nodemon.
 nodemon server.js
 ```
