@@ -9,6 +9,7 @@ MongoDB and Redis are required (for sessions and users) so make sure you install
 
 ### Setting up databases
 Make sure you initialize both Redis and MongoDB before running. 
+
 1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
@@ -27,7 +28,8 @@ Then take any bl.ock and replace the bl.ocks.org part with localhost:8889 like
 [http://localhost:8889/syntagmatic/0d4f736796ab7b465020](http://localhost:8889/syntagmatic/0d4f736796ab7b465020)  
 
 ### Registering Github Credentials
-If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to:  
+If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to: 
+
 1. [Register a GitHub application](https://github.com/settings/developers)  
 2. Fill `secrets.json` with the client ID and secret key from GitHub  
 
