@@ -24,7 +24,8 @@ var Actions = Reflux.createActions({
     'fetchGist': {asyncResult: true},
     'forkGist': {asyncResult: true},
     'saveGist': {asyncResult: true},
-    'fetchMe': {asyncResult: true}
+    'fetchMe': {asyncResult: true},
+    'setActiveFile': {}
 });
 
 // ------------------------------------

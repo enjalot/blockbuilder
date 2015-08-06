@@ -11,13 +11,23 @@ import Reflux from 'reflux';
 import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
 import router from '../router.js';
+import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+
+logger.options.groupsEnabled = [];
 
 // Internal Dependencies
 // ------------------------------------
 import GistsStore from '../stores/gists.js';
+import FilesStore from '../stores/files.js';
 import Actions from '../actions/actions.js';
 
 import parseCode from '../utils/parseCode.js';
+
+/*
+import Renderer from './renderer.js'
+import Editor from './editor.js'
+import Files from './files.js'
+*/
 
 import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
@@ -35,7 +45,8 @@ import {IconLoader} from './icons.js';
 // ========================================================================
 var Block = React.createClass({
   mixins: [
-    Reflux.listenTo(GistsStore, 'storeChange')
+    Reflux.listenTo(GistsStore, 'gistStoreChange'),
+    Reflux.listenTo(FilesStore, 'fileStoreChange')
   ],
 
   /**
@@ -45,15 +56,27 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false };
+    return { gistData: gistData, failed: false, activeFile: 'index.html' };
+  },
+
+  /**
+   * called when the file store changes.
+   */
+  fileStoreChange: function fileStoreChange(data){
+    logger.log('components/Block:component:fileStoreChange',
+      'file store updated : %O', data);
+
+    if(data.type === 'setActiveFile') { 
+      this.setState({activeFile: data.activeFile})
+    }
   },
   /**
    * called when the gists store changes. If the triggered change was the result
    * of a fetch, update the store (on success) or show an error (on failure)
    */
-  storeChange: function storeChange(data){
-    logger.log('components/Block:component:storeChange',
-    'gist store updated : %O', data);
+  gistStoreChange: function gistStoreChange(data){
+    logger.log('components/Block:component:gistStoreChange',
+      'gist store updated : %O', data);
 
     if(data.type === 'fetch:completed'){
       // Ensure the gist has an indexHtml
@@ -116,8 +139,28 @@ var Block = React.createClass({
     }
   },
 
+  handleScroll: function handleScroll() {
+    // we track the scroll behavior so we can adjust the UI
+    var scrollTop = document.body.scrollTop;
+    // TODO: optomize this so that we dont select/update classes every scroll tick
+    var files = window.d3.select('#block__code-files');
+    // TODO make this always be the same as the iframe height/offset
+    // currently its slightly fudged due to diff between abs and fixed position
+    if(scrollTop >= 515) { 
+      files.classed("fixed-files", true)
+      files.classed("absolute-files", false)
+    } else {
+      files.classed("fixed-files", false)
+      files.classed("absolute-files", true)
+    }
+  },
+
   componentDidMount: function componentDidMount(){
     logger.log('components/Block:component:componentDidMount', 'called');
+
+    if(ExecutionEnvironment.canUseDOM) {
+      document.body.onscroll = this.handleScroll;
+    }
 
     if(this.state.gistData){
       this.setupIFrame();
@@ -271,23 +314,23 @@ var Block = React.createClass({
 
       blockContent = (
         <div>
+          {/*<div id='block__popper' onMouseOver={handleMouseOver}></div>*/}
+          <div id='block__popper'></div>
           <iframe id='block__iframe' scrolling="no"></iframe>
 
-          <div id='block__description'>
-            {/* we render README.md if it is present in the gist 
-            <iframe id='block__description-iframe'></iframe>
-            */}
+          {/*
+          <Renderer gist={this.state.gistData} active={this.state.activeFile}></Renderer>
+          <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
+          <Editor gist={this.state.gistData} active={this.state.activeFile}></Editor>
+          */}
+
+          <div id='block__code-files' className='absolute-files'>
+            {files}
           </div>
 
           <div id='block__code-wrapper'>
             {/* codemirror will use this div to setup editor */}
-            <span id="block__code-title">index.html</span>
             <div id='block__code-index'></div>
-
-            {/* any other files included in the gist will show up here */}
-            <div id='block__code-files'>
-              {files}
-            </div>
           </div>
         </div>
       );

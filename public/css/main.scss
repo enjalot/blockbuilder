@@ -1,6 +1,9 @@
 
 $blue: steelblue; /* #3182bd; */
 $gray: #efefef;
+$blockWidth: 960px;
+$blockHeight: 500px;
+$filesHeight: 30px;
 
 html {
   min-width: 1040px;
@@ -56,7 +59,6 @@ $headerHeight: 60px;
   z-index: 100;
 }
 
-
 #block__title {
   float: left; 
   height: 80px;
@@ -99,7 +101,6 @@ a.header-link:hover {
   top: $headerHeight;
 }
 
-
 .CodeMirror {
   height: auto;
   min-height: 500px;
@@ -125,19 +126,68 @@ a.header-link:hover {
 }
 
 
-#block__code-title {
-  padding: 5px;
-  padding-bottom: 10px;
-  font-size: 20px
-}
-
 #block__iframe {
-  width: 960px;
-  height: 500px;
+  position: fixed;
+  top: $headerHeight;
+  width: $blockWidth;
+  height: $blockHeight;
   border: 1px solid $gray;
   overflow: hidden;
   border-radius: 3px;
+  background: white;
 }
+
+#block__code-files {
+  background: white;
+  border: 1px solid $gray;
+  width: $blockWidth;
+  height: $filesHeight;
+  z-index: 100;
+}
+.absolute-files {
+  position: absolute;
+  top: $blockHeight; 
+}
+.fixed-files {
+  position: fixed;
+  top: $headerHeight;
+}
+
+.file {
+  padding: 5px;
+  font-size: 20px;
+}
+
+#block__code-wrapper {
+  position: absolute;
+  top: $blockHeight;
+  width: $blockWidth;
+  margin-top: $filesHeight;
+}
+
+
+#block__popper {
+  position: fixed;
+  top: $headerHeight + 10px;
+  left: 0;
+  right: 0;
+  height: $blockHeight - 20px;
+  background: white;
+  &:hover {
+    background: $gray;
+    transition-propert: background;
+    transition-duration: 0.5s;
+  }
+  .popped {
+    background: $gray;
+  }
+}
+
+.popped {
+  z-index: 150;
+  box-shadow: 0px 3px 10px $blue;
+}
+
 
 #block__description-iframe {
   height: auto;
@@ -167,12 +217,6 @@ a.header-link:hover {
     margin: 10px auto;
   }
 
-}
-
-
-.file {
-  padding: 5px;
-  font-size: 20px;
 }
 
 
