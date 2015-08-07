@@ -45,6 +45,7 @@ var Renderer = React.createClass({
     //select the iframe node we want to use
 
     var gist = this.props.gist;
+    var active = this.props.active;
 
     // if the element doesn't exist, we're outta here
     if(!document.getElementById('block__iframe')){ return false; }
@@ -53,18 +54,14 @@ var Renderer = React.createClass({
     var iframe = window.d3.select('#block__iframe').node();
     this.codeMirrorIFrame = iframe;
     iframe.sandbox = 'allow-scripts';
-    var index = gist.files['index.html'];
 
-    var template = parseCode(index.content, gist.files);
-    this.updateIFrame(template, iframe);
-
-    /*
-    this.descriptionIFrame = window.d3.select('#block__description-iframe').node()
-    if(this.state.gistData.files['README.md']) {
-      var description = marked(this.state.gistData.files['README.md'].content)
-      this.updateIFrame(description, this.descriptionIFrame)
+    var template;
+    if(active.indexOf('.md') >= 0) {
+      template = marked(gist.files[active].content)
+    } else {
+      template = parseCode(gist.files['index.html'].content, gist.files);
     }
-    */
+    this.updateIFrame(template, iframe);
   },
 
   updateIFrame: function updateIFrame(template, iframe) {
