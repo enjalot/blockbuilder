@@ -14,42 +14,43 @@ import logger from 'bragi-browser';
 // ------------------------------------
 import FilesTab from './files__tab.js';
 
-var defaults = ['index.html', 'README.md', 'thumbnail.png']
+var defaults = ['index.html', 'README.md', 'thumbnail.png'];
 
 var Files = React.createClass({
   getInitialState: function getInitialState(){
-    return { show: false }
+    return { show: false };
   },
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     // we close the menu if any selection is made...
-    this.setState({show: false})
+    this.setState({show: false});
   },
-  showMore: function showMore(){ 
-    this.setState({show: !this.state.show})
+  showMore: function showMore(){
+    this.setState({show: !this.state.show});
   },
   addFile: function addFile(){
 
   },
   render: function render() {
+    logger.log('components/files:render', 'render called');
     var gist = this.props.gist;
 
     // build the list of files that will render in the "more" menu
-    let files = []
-    Object.keys(gist.files).forEach(function(name) {
+    let files = [];
+    Object.keys(gist.files).forEach(function(name, i) {
       if(defaults.indexOf(name) >= 0) return;
-      var file = gist.files[name]
-      files.push( (<FilesTab file={ file }></FilesTab>) );
-    })
+      var file = gist.files[name];
+      files.push( (<FilesTab file={ file } key={name + '_' + i} ></FilesTab>) );
+    });
 
     // render the filename of the active tab if it's not one of the defaults
-    let extra = ''
+    let extra = '';
     if(defaults.indexOf(this.props.active) < 0) {
-      extra = (<FilesTab file={gist.files[this.props.active]} {...this.props}></FilesTab>)
+      extra = (<FilesTab file={gist.files[this.props.active]} {...this.props}></FilesTab>);
     }
 
-    let show = ''
-    if(this.state.show){ 
-      show = 'show'
+    let show = '';
+    if(this.state.show){
+      show = 'show';
     }
 
     return (
@@ -64,9 +65,8 @@ var Files = React.createClass({
           {files}
         </div>
       </div>
-    )
+    );
   }
-
-})
+});
 
 export default Files;
