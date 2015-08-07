@@ -36,19 +36,6 @@ var EditorHTML = React.createClass({
     }
   },
 
-  /*
-  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) { 
-    logger.log('components/EditorHTML:component:shouldComponentUpdate nextProps: %O', nextProps);
-    if(!nextProps) return true;
-    var gist = nextProps.gist
-    if(!gist || !gist.files || !gist.files[this.props.active]) return true;
-    if(gist.files[this.props.active].template === this.props.gist.files[this.props.active].template){
-      return false;
-    }
-    return true;
-  },
-  */
-
   // Uility functions
   // ----------------------------------
   setupCodeMirror: function setupCodeMirror(){
@@ -91,7 +78,6 @@ var EditorHTML = React.createClass({
       window.Inlet(this.codeMirror);
 
       this.codeMirror.on('change', ()=>{
-        var template = parseCode(this.codeMirror.getValue(), gist.files);
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
       });

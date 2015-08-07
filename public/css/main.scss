@@ -194,12 +194,19 @@ a.header-link:hover {
   display: inline-block;
 }
 
-
 #block__code-wrapper {
   position: absolute;
   top: $blockHeight;
   width: $blockWidth;
   margin-top: $filesHeight;
+}
+
+#editor__txt {
+  width: 100%;
+  min-height: 500px;
+  padding: 5px;
+  background-color: white;
+  resize: vertical;
 }
 
 
