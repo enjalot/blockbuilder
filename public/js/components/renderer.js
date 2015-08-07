@@ -75,7 +75,8 @@ var Renderer = React.createClass({
   },
 
   handleMouseOver: function handleMouseOver() {
-    d3.select("div.renderer").classed("popped", true)
+    if(document.body.scrollTop > 0)
+      d3.select("div.renderer").classed("popped", true)
   },
   handleMouseOut: function handleMouseOut() {
     if(d3.event.toElement === d3.select("#block__iframe").node()) return;

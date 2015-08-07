@@ -217,17 +217,13 @@ a.header-link:hover {
   right: 0;
   height: $blockHeight - 20px;
   background: white;
-  &:hover {
-    background: $gray;
-    transition-propert: background;
-    transition-duration: 0.5s;
-  }
-  
 }
 
 .popped {
   #block__popper {
     background: $gray;
+    transition-property: background;
+    transition-duration: 0.5s;
   }
   #block__iframe {
     z-index: 150;
