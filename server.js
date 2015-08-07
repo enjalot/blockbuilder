@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var request = require('request');
@@ -41,9 +42,13 @@ app.set('view engine', 'handlebars');
 
 // Load the configuration
 nconf.file('secrets', __dirname + '/secrets.json');
+if(!nconf.get('github')){
+    throw new Error('secrets.json file NOT found. be sure to `cp secrets.json-example secrets.json`');
+}
+
 nconf.add('app', {
   'type': 'literal',
-  'app': { 
+  'app': {
     'port': 8889,
     'allowedDomains': '*',
     'cookie': {
@@ -65,19 +70,19 @@ nconf.add('app', {
 });
 
 app.use(cookieParser());
-
 var redisClient = redis.createClient(
-    nconf.get('app:redis:port'), 
+    nconf.get('app:redis:port'),
     nconf.get('app:redis:host')
-); 
+);
 redisClient.on('error', function(err) {
     //catch redis errors so server doesn't blow up
     console.error('Redis client error:' + err);
 });
+
 app.use(session({
   secret: "f023u0fu0fi2039if023r09390jljnvcvoejfpeiqur384092830",
   cookie: nconf.get('app:cookie'),
-  store: new RedisStore({ 
+  store: new RedisStore({
     host: nconf.get('app:redis:host'),
     port: nconf.get('app:redis:port'),
     ttl: 60 * 60 * 24 * 14, //2 weeks, in seconds
@@ -90,12 +95,12 @@ app.use(session({
 // ------------------------------------
 app.use(passport.initialize());
 
-var MongoClient = mongodb.MongoClient
-var url = 'mongodb://' + nconf.get('app:mongo:host') 
-  + ':' + nconf.get('app:mongo:port') 
+var MongoClient = mongodb.MongoClient;
+var mongoUrl = 'mongodb://' + nconf.get('app:mongo:host')
+  + ':' + nconf.get('app:mongo:port')
   + '/' + nconf.get('app:mongo:db');
-MongoClient.connect(url, function(err, db) {
-  var users = db.collection('users')
+MongoClient.connect(mongoUrl, function(err, db) {
+  var users = db.collection('users');
 
   passport.serializeUser(function(user, done) {
     done(null, {id: user.id, login: user.login, avatar_url: user.avatar_url, accessToken: user.accessToken });
@@ -108,7 +113,7 @@ MongoClient.connect(url, function(err, db) {
       done(err, user);
     });
   });
-  GitHubStrategy = require('passport-github').Strategy
+  GitHubStrategy = require('passport-github').Strategy;
   passport.use(new GitHubStrategy({
       clientID: nconf.get('github:clientId'),
       clientSecret: nconf.get('github:secret'),
@@ -123,7 +128,7 @@ MongoClient.connect(url, function(err, db) {
           users.update({_id: profile.id}, user, {upsert: true}, function(err){
             profile.accessToken = accessToken;
             return done(err, profile);
-          })
+          });
         } else {
           user.accessToken = accessToken;
           return done(err, user);
@@ -135,14 +140,14 @@ MongoClient.connect(url, function(err, db) {
   app.use(passport.session());
 });
 
-app.get('/auth/github',function(req, res, next) {
+app.get('/auth/github', function(req, res, next) {
   if(req.query.redirect){
-    req.session.redirectTo = req.query.redirect
+    req.session.redirectTo = req.query.redirect;
   }
   passport.authenticate('github', {scope: 'gist'})(req, res, next);
 });
 
-app.get('/auth/github/callback', 
+app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
@@ -154,10 +159,10 @@ app.get('/auth/github/callback',
 app.get('/auth/logout', function(req, res) {
   req.logout();
   if(req.query.redirect){
-    return res.redirect(req.query.redirect)
+    return res.redirect(req.query.redirect);
   }
   res.redirect('/');
-})
+});
 
 
 // ------------------------------------
@@ -169,7 +174,7 @@ app.get('/api/me', function(req, res) {
   var user = req.session.passport.user;
   if(!user) return res.send({});
   res.send({id: user.id, login: user.login, avatar_url: user.avatar_url});
-})
+});
 // Get a gist by id
 app.get('/api/gist/:gistId', function(req, res) {
   // we have a proxy for getting a gist using the app's auth token.
@@ -187,22 +192,22 @@ app.post('/api/save', function(req, res){
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
-  if(!token) return res.status(403).send({error: "Not logged in"})
+  if(!token) return res.status(403).send({error: "Not logged in"});
   saveGist(gist, "PATCH", token, function(err, response) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
-    console.log("saved to", response.id)
-    res.status(200).send(response)
+    console.log("saved to", response.id);
+    res.status(200).send(response);
   });
 });
 
-// Create a new gist 
+// Create a new gist
 app.post('/api/fork', function (req, res) {
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
   saveGist(gist, "POST", token, function(err, response) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
-    console.log("forked to", response.id)
+    console.log("forked to", response.id);
     res.status(200).send(response);
   });
 });
@@ -239,7 +244,7 @@ function saveGist(gist, method, token, cb) {
 
   // if we are to save over a user's gist we need the id
   var parsed = JSON.parse(gist);
-  if(parsed.id) console.log("saving", parsed.id)
+  if(parsed.id) console.log("saving", parsed.id);
 
   if(method === "PATCH" && parsed && parsed.id) {
     url += "/" + parsed.id;

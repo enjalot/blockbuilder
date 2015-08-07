@@ -13,11 +13,12 @@ Make sure you initialize both Redis and MongoDB before running.
 1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
+### Project Setup and Running Server
 ```bash
 git clone https://github.com/enjalot/building-blocks.git
 cd building-blocks/
 npm install
-# run webpack to build the js & css bundles (this process watches for any changes to any client-side files and repacks them during development so there might not be any apparent progress in the terminal)
+# Built JS / CSS are not included. Run webpack to build the js & css bundles (this process watches for any changes to any client-side files and repacks them during development so there might not be any apparent progress in the terminal)
 npm run local 
 # building-blocks expects something in the secrets.json file, so the last step is: (to place replace this with your credentials, see Registering Github Credentials below)
 cp secrets.json-example secrets.json
