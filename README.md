@@ -13,6 +13,7 @@ Make sure you initialize both Redis and MongoDB before running.
 1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
+### Project Setup and Running Server
 ```bash
 git clone https://github.com/enjalot/building-blocks.git
 cd building-blocks/
