@@ -8,12 +8,10 @@
 // ------------------------------------
 import React from 'react';
 import Reflux from 'reflux';
-import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
-import router from '../router.js';
 import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
-logger.options.groupsEnabled = [];
+//logger.options.groupsEnabled = [];
 
 // Internal Dependencies
 // ------------------------------------
@@ -21,13 +19,10 @@ import GistsStore from '../stores/gists.js';
 import FilesStore from '../stores/files.js';
 import Actions from '../actions/actions.js';
 
-import parseCode from '../utils/parseCode.js';
 
-/*
 import Renderer from './renderer.js'
 import Editor from './editor.js'
 import Files from './files.js'
-*/
 
 import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
@@ -108,9 +103,7 @@ var Block = React.createClass({
       logger.log('components/Block:component:storeChange:fork:completed',
         url);
 
-      //this.setState({ gistData: data.gist, failed: false })
       window.location = url;
-      //router.transitionTo(url);
 
     } else if(data.type === 'fork:failed'){
       var failMessage = 'Could not fork gist';
@@ -122,6 +115,8 @@ var Block = React.createClass({
       console.log("SAVED");
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
+    } else if(data.type === 'local:update'){
+      this.setState({ gistData: data.data })
     }
   },
 
@@ -141,6 +136,8 @@ var Block = React.createClass({
 
   handleScroll: function handleScroll() {
     // we track the scroll behavior so we can adjust the UI
+    // TODO this should probably be architected so that the file component takes care of itself...
+    // but this is using the global scroll behavior, and is particular to this layout.
     var scrollTop = document.body.scrollTop;
     // TODO: optomize this so that we dont select/update classes every scroll tick
     var files = window.d3.select('#block__code-files');
@@ -157,112 +154,17 @@ var Block = React.createClass({
 
   componentDidMount: function componentDidMount(){
     logger.log('components/Block:component:componentDidMount', 'called');
-
     if(ExecutionEnvironment.canUseDOM) {
       document.body.onscroll = this.handleScroll;
-    }
-
-    if(this.state.gistData){
-      this.setupIFrame();
-      this.setupCodeMirror();
     }
   },
 
   componentDidUpdate: function componentDidUpdate(){
-    // NOTE: This should only ever be called once the data has been loaded.
-    // No other state changes currently happen. If we want to add more state
-    // changes, we'll need to slightly restructure this so this won't get
-    // called on every setData() call
-    logger.log('components/Block:component:componentDidUpdate', 'called');
-
-    if(this.state.gistData){
-      this.setupIFrame();
-      this.setupCodeMirror();
-    }
+    //logger.log('components/Block:component:componentDidUpdate', 'called');
   },
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     // log arguments
-    logger.log('components/Block:component:componentWillReceiveProps nextProps: %O', nextProps);
-  },
-
-  // Uility functions
-  // ----------------------------------
-  setupIFrame: function setupIFrame(){
-    logger.log('components/Block:component:setupIFrame', 'called');
-    //select the iframe node we want to use
-
-    // if the element doesn't exist, we're outta here
-    if(!document.getElementById('block__iframe')){ return false; }
-    window.d3.select('#block__iframe').empty();
-
-    var iframe = window.d3.select('#block__iframe').node();
-    this.codeMirrorIFrame = iframe;
-    iframe.sandbox = 'allow-scripts';
-    var index = this.state.gistData.files['index.html'];
-
-    var template = parseCode(index.content, this.state.gistData.files);
-    this.updateIFrame(template, iframe);
-
-    /*
-    this.descriptionIFrame = window.d3.select('#block__description-iframe').node()
-    if(this.state.gistData.files['README.md']) {
-      var description = marked(this.state.gistData.files['README.md'].content)
-      this.updateIFrame(description, this.descriptionIFrame)
-    }
-    */
-  },
-
-  updateIFrame: function updateIFrame(template, iframe) {
-    var blobUrl;
-    window.URL.revokeObjectURL(blobUrl);
-    var blob = new Blob([template], {type: 'text/html'});
-    blobUrl = URL.createObjectURL(blob);
-    iframe.src = blobUrl;
-  },
-
-  setupCodeMirror: function setupCodeMirror(){
-    logger.log('components/Block:component:setupCodeMirror', 'called');
-
-    // if the element doesn't exist, we're outta here
-    if(!document.getElementById('block__code-index')){ return false; }
-    // TODO: NOTE: Is just wiping this out efficient? Is there some
-    // destructor we need to call instead?
-    document.getElementById('block__code-index').innerHTML = '';
-
-    // get text to place in codemirror
-    var codeMirrorValue = '';
-
-    if(this.state.gistData){
-      if(!this.state.gistData.files || !this.state.gistData.files['index.html']){
-        codeMirrorValue = 'ERROR: Gist does not have an index.html';
-      } else {
-        codeMirrorValue = this.state.gistData.files['index.html'].content;
-      }
-    }
-
-    // put this behind a request animation frame so we're sure the element
-    // is in the DOM
-    requestAnimationFrame(()=>{
-      this.codeMirror = window.CodeMirror(document.getElementById('block__code-index'), {
-        tabSize: 2,
-        value: codeMirrorValue,
-        mode: 'htmlmixed',
-        htmlMode: true,
-        lineNumbers: true,
-        theme: 'twilight',
-        //theme: 'elegant',
-        lineWrapping: true,
-        viewportMargin: Infinity
-      });
-
-      window.Inlet(this.codeMirror);
-
-      this.codeMirror.on('change', ()=>{
-        var template = parseCode(this.codeMirror.getValue(), this.state.gistData.files);
-        this.state.gistData.files["index.html"].content = this.codeMirror.getValue();
-        this.updateIFrame(template, this.codeMirrorIFrame);
-      });
-    });
+    //logger.log('components/Block:component:componentWillReceiveProps nextProps: %O', nextProps);
   },
 
   // Render
@@ -294,44 +196,11 @@ var Block = React.createClass({
 
     } else {
       // SUCCESS - data exists
-      var gist = this.state.gistData;
-
-      let files = Object.keys(gist.files).map(function(name) {
-        var file = gist.files[name]
-        return (
-          <a className="file" href={ file.raw_url } key={ file.filename } target="_blank">
-            { file.filename }
-          </a>
-        )
-      })
-
-      /*
-      var description = "";
-      if(gist.files["README.md"]){
-        description = gist.files["README.md"].content
-      } 
-      */
-
       blockContent = (
         <div>
-          {/*<div id='block__popper' onMouseOver={handleMouseOver}></div>*/}
-          <div id='block__popper'></div>
-          <iframe id='block__iframe' scrolling="no"></iframe>
-
-          {/*
           <Renderer gist={this.state.gistData} active={this.state.activeFile}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
           <Editor gist={this.state.gistData} active={this.state.activeFile}></Editor>
-          */}
-
-          <div id='block__code-files' className='absolute-files'>
-            {files}
-          </div>
-
-          <div id='block__code-wrapper'>
-            {/* codemirror will use this div to setup editor */}
-            <div id='block__code-index'></div>
-          </div>
         </div>
       );
     }

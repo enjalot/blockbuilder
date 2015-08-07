@@ -117,6 +117,18 @@ var GistsStore = Reflux.createStore({
         type: 'save:failed',
         data: data
       });
+    },
+    onLocalGistUpdate: function onLocalGistUpdate( data) {
+      logger.log('stores/gists:onLocalGistUpdate',
+        'updated gist : %O', data);
+
+      this.gistsById[data.id] = data;
+        this.trigger({
+          type: 'local:update',
+          gistId: data.id,
+          data: data
+      });
     }
+
 });
 export default GistsStore;

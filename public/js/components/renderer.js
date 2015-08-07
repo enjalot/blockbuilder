@@ -1,0 +1,90 @@
+
+/* =========================================================================
+ *
+ *  renderer.js
+ *  Render gist content into an iframe
+ *
+ * ========================================================================= */
+// External Dependencies
+// ------------------------------------
+import React from 'react';
+import logger from 'bragi-browser';
+
+// Internal Dependencies
+// ------------------------------------
+import Actions from '../actions/actions.js';
+
+import parseCode from '../utils/parseCode.js';
+
+// ========================================================================
+//
+// Functionality
+// ========================================================================
+var Renderer = React.createClass({
+
+  componentDidMount: function componentDidMount(){
+    logger.log('components/Renderer:component:componentDidMount', 'called');
+    if(this.props.gist){
+      this.setupIFrame();
+    }
+  },
+  componentDidUpdate: function componentDidUpdate(){
+    logger.log('components/Renderer:component:componentDidUpdate', 'called');
+    if(this.props.gist){
+      this.setupIFrame();
+    }
+  },
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    logger.log('components/Renderer:component:componentWillReceiveProps nextProps: %O', nextProps);
+  },
+
+  // Uility functions
+  // ----------------------------------
+  setupIFrame: function setupIFrame(){
+    logger.log('components/Renderer:component:setupIFrame', 'called');
+    //select the iframe node we want to use
+
+    var gist = this.props.gist;
+
+    // if the element doesn't exist, we're outta here
+    if(!document.getElementById('block__iframe')){ return false; }
+    window.d3.select('#block__iframe').empty();
+
+    var iframe = window.d3.select('#block__iframe').node();
+    this.codeMirrorIFrame = iframe;
+    iframe.sandbox = 'allow-scripts';
+    var index = gist.files['index.html'];
+
+    var template = parseCode(index.content, gist.files);
+    this.updateIFrame(template, iframe);
+
+    /*
+    this.descriptionIFrame = window.d3.select('#block__description-iframe').node()
+    if(this.state.gistData.files['README.md']) {
+      var description = marked(this.state.gistData.files['README.md'].content)
+      this.updateIFrame(description, this.descriptionIFrame)
+    }
+    */
+  },
+
+  updateIFrame: function updateIFrame(template, iframe) {
+    var blobUrl;
+    window.URL.revokeObjectURL(blobUrl);
+    var blob = new Blob([template], {type: 'text/html'});
+    blobUrl = URL.createObjectURL(blob);
+    iframe.src = blobUrl;
+  },
+
+  render: function render() {
+    return (
+      <div className='renderer'>
+        {/*<div id='block__popper' onMouseOver={handleMouseOver}></div>*/}
+        <div id='block__popper'></div>
+        <iframe id='block__iframe' scrolling="no"></iframe>
+      </div>
+    )
+  }
+
+})
+
+export default Renderer;

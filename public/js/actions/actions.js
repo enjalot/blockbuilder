@@ -20,11 +20,14 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 //
 // ====================================
 var Actions = Reflux.createActions({
-    // fetching gist is an async data call
+    // GISTS
     'fetchGist': {asyncResult: true},
     'forkGist': {asyncResult: true},
     'saveGist': {asyncResult: true},
+    'localGistUpdate': {},
+    // USERS
     'fetchMe': {asyncResult: true},
+    // FILES
     'setActiveFile': {}
 });
 
