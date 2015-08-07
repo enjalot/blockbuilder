@@ -36,10 +36,10 @@ var Files = React.createClass({
 
     // build the list of files that will render in the "more" menu
     let files = [];
-    Object.keys(gist.files).forEach(function(name, i) {
+    Object.keys(gist.files).forEach(function(name) {
       if(defaults.indexOf(name) >= 0) return;
       var file = gist.files[name];
-      files.push( (<FilesTab file={ file } key={name + '_' + i} ></FilesTab>) );
+      files.push( (<FilesTab file={ file } key={name} ></FilesTab>) );
     });
 
     // render the filename of the active tab if it's not one of the defaults
