@@ -30,16 +30,11 @@ var Renderer = React.createClass({
       this.setupIFrame();
     }
   },
-  /*
-  componentDidUpdate: function componentDidUpdate(){
+  componentDidUpdate: function componentDidUpdate(prevProps, prevState){
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupIFrame();
     }
-  },
-  */
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    logger.log('components/Renderer:component:componentWillReceiveProps nextProps: %O', nextProps);
   },
 
   // Uility functions
@@ -66,6 +61,9 @@ var Renderer = React.createClass({
       template = parseCode(gist.files['index.html'].content, gist.files);
     }
     this.updateIFrame(template, iframe);
+
+    d3.select(".renderer").on("mouseover", this.handleMouseOver)
+    d3.select(".renderer").on("mouseout", this.handleMouseOut)
   },
 
   updateIFrame: function updateIFrame(template, iframe) {
@@ -76,20 +74,16 @@ var Renderer = React.createClass({
     iframe.src = blobUrl;
   },
 
-  handleMouseOver: function handleMouseOver(evt) {
-    this.setState({'popped': true})
+  handleMouseOver: function handleMouseOver() {
+    d3.select("div.renderer").classed("popped", true)
   },
-  handleMouseOut: function handleMouseOut(evt) {
-    this.setState({'popped': false})
-
+  handleMouseOut: function handleMouseOut() {
+    if(d3.event.toElement === d3.select("#block__iframe").node()) return;
+    d3.select("div.renderer").classed("popped", false)
   },
   render: function render() {
-    var popped = ''
-    if(this.state.popped) {
-      popped = 'popped '
-    }
     return (
-      <div className={popped + 'renderer'} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+      <div className='renderer'>
         <div id='block__popper'></div>
         <iframe id='block__iframe' scrolling="no"></iframe>
       </div>
