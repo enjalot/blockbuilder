@@ -1,6 +1,6 @@
 
 $blue: #66B5AF; /* #3182bd; */
-$gray: #efefef;
+$gray: #F7E2AD; /* #efefef; */
 $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
@@ -138,6 +138,7 @@ a.header-link:hover {
 
 #block__code-files {
   background: white;
+  border: 1px solid $gray;
   padding-right: 1px;
   width: $blockWidth;
   height: $filesHeight;
@@ -214,14 +215,17 @@ a.header-link:hover {
     transition-propert: background;
     transition-duration: 0.5s;
   }
-  .popped {
-    background: $gray;
-  }
+  
 }
 
 .popped {
-  z-index: 150;
-  box-shadow: 0px 3px 10px $blue;
+  #block__popper {
+    background: $gray;
+  }
+  #block__iframe {
+    z-index: 150;
+    box-shadow: 0px 3px 10px $blue;
+  }
 }
 
 

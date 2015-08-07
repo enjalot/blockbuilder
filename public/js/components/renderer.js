@@ -21,19 +21,23 @@ import parseCode from '../utils/parseCode.js';
 // Functionality
 // ========================================================================
 var Renderer = React.createClass({
-
+  getInitialState: function getInitialState(){
+    return { popped: false }
+  },
   componentDidMount: function componentDidMount(){
     logger.log('components/Renderer:component:componentDidMount', 'called');
     if(this.props.gist){
       this.setupIFrame();
     }
   },
+  /*
   componentDidUpdate: function componentDidUpdate(){
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupIFrame();
     }
   },
+  */
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     logger.log('components/Renderer:component:componentWillReceiveProps nextProps: %O', nextProps);
   },
@@ -72,10 +76,20 @@ var Renderer = React.createClass({
     iframe.src = blobUrl;
   },
 
+  handleMouseOver: function handleMouseOver(evt) {
+    this.setState({'popped': true})
+  },
+  handleMouseOut: function handleMouseOut(evt) {
+    this.setState({'popped': false})
+
+  },
   render: function render() {
+    var popped = ''
+    if(this.state.popped) {
+      popped = 'popped '
+    }
     return (
-      <div className='renderer'>
-        {/*<div id='block__popper' onMouseOver={handleMouseOver}></div>*/}
+      <div className={popped + 'renderer'} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
         <div id='block__popper'></div>
         <iframe id='block__iframe' scrolling="no"></iframe>
       </div>
