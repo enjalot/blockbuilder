@@ -243,7 +243,7 @@ a.header-link:hover {
 }
 
 
-#block__fork, #block__save {
+#block__fork, #block__save, #block__new {
   float:right;
   padding: 5px 10px;
   margin: 16px 5px;
@@ -258,6 +258,12 @@ a.header-link:hover {
     background-color: white;
     border: 1px solid $blue;
   }
+}
+#block__new {
+  background: white;
+  color: $blue;
+  border: 1px solid white;
+  text-decoration: underline;
 }
 
 #block__loading {

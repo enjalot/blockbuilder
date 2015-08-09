@@ -21,6 +21,10 @@ var SaveForkNav = React.createClass({
     }
     Actions.forkGist(this.props.gist);
   },
+  newBlock: function newBlock() {
+    // TODO: add the "are you sure you want to leave?" prompt
+    window.location = "/"
+  },
   render: function render() {
     var gist = this.props.gist;
     var user = this.props.user;
@@ -31,6 +35,7 @@ var SaveForkNav = React.createClass({
 
     return (
       <div>
+        <div id='block__new' onClick={ this.newBlock }>New</div>
         <div id='block__fork' onClick={ this.fork }>Fork</div>
         {save}
       </div>
