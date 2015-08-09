@@ -9,6 +9,12 @@ import React from 'react';
 import {IconExternalLink,IconLoader} from './icons.js';
 
 var GistNav = React.createClass({
+  componentDidUpdate: function componentDidUpdate() {
+    var gist = this.props.gist;
+    if(gist && gist.description){ 
+      d3.select("title").node().innerHTML = "Building Bl.ocks - " + gist.description;
+    }
+  },
   render: function render() {
     var gist = this.props.gist;
     var gistUrl;
@@ -35,8 +41,7 @@ var GistNav = React.createClass({
     if(!gist) return (<div id='block__nav'></div>)// (<div id='block__nav'><IconLoader></IconLoader></div>)
 
     if(!gist.id) {
-      //title = (<input value={ gist.description }></input>)
-      title = (<input className="description" ></input>)
+      title = (<input className="description" defaultValue={ gist.description }></input>)
     }
 
     return (

@@ -96,7 +96,6 @@ var Block = React.createClass({
           });
           return true 
         }
-        console.log("FILE", file)
         // TODO: this is synchronously loading truncated files. not ideal
         Actions.fetchTruncatedFile(file.raw_url, gist.id, file.filename)
         return true;
@@ -138,10 +137,7 @@ var Block = React.createClass({
     } else if(data.type === 'fetch-truncated:completed') {
       //we listen for our requests that fetch truncated files
       var gist = GistsStore.getGistMaybe(data.gistId);
-      if(!gist) return; // something's really wrong if this happens
-      console.log("checking again", gist.id)
       if(!this.checkForTruncated(gist)) {
-        console.log("nothing left!")
         this.setState({ gistData: gist, failed: false });
       }
     } else if(data.type === 'fetch-truncated:failed'){

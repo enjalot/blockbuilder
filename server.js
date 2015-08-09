@@ -248,6 +248,9 @@ function saveGist(gist, method, token, cb) {
 
   if(method === "PATCH" && parsed && parsed.id) {
     url += "/" + parsed.id;
+  } else {
+    // FORKED
+    gist = modifyGistForHistory(parsed);
   }
   var headers = {
     'User-Agent': 'Building Bl.ocks'
@@ -280,21 +283,25 @@ function saveGist(gist, method, token, cb) {
   }
 }
 
-function modifyGistForHistory(gistString) {
-  var modified;
-  var gist = JSON.parse(gistString);
-  // null check
-  if(!gist || !gist.files) return gistString;
+function modifyGistForHistory(gist) {
   // make sure this gist was forked from an existing gist
-  if(!gist.id) return gistString;
+  if(!gist.id) return JSON.stringify(gist);
 
-  historyLine = "\n\nforked from " + username + "'s block: <a href='http://bl.ocks.org/" + username + "/" + gist.id
-
-  if(!gist.files['README.md']) {
-
+  var username = "anonymous";
+  if(gist.owner) {
+    username = gist.owner.login;
   }
 
-  return modified;
+  historyLine = "\n\nforked from <a href='http://bl.ocks.org/" + username + "/'>"
+    + username + "</a>'s block: <a href='http://bl.ocks.org/" + username + "/" + gist.id + "'>" 
+    + gist.description + "</a>"
+
+  if(!gist.files['README.md']) {
+    gist.files['README.md'] = { filename: 'README.md', content: historyLine }
+  } else {
+    gist.files['README.md'].content += historyLine;
+  }
+  return JSON.stringify(gist);
 }
 
 function getGist(gistId, cb) {
