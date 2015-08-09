@@ -34,6 +34,14 @@ var Renderer = React.createClass({
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupIFrame();
+
+      if(this.props.mode === "☮" && this.props.mode !== prevProps.mode) {
+        var iframe = window.d3.select('#block__iframe').node();
+        d3.select(iframe).attr({scrolling: null})
+        var parent = iframe.parentNode;
+        parent.removeChild(iframe);
+        parent.appendChild(iframe.cloneNode(true));
+      }
     }
   },
 
@@ -51,6 +59,7 @@ var Renderer = React.createClass({
     window.d3.select('#block__iframe').empty();
 
     var iframe = window.d3.select('#block__iframe').node();
+
     this.codeMirrorIFrame = iframe;
     iframe.sandbox = 'allow-scripts';
 
@@ -83,10 +92,16 @@ var Renderer = React.createClass({
     d3.select("div.renderer").classed("popped", false)
   },
   render: function render() {
+    var iframe;
+    if(this.props.mode === "☯") {
+      iframe = ( <iframe id='block__iframe' scrolling='no'></iframe> )
+    } else {
+      iframe = ( <iframe id='block__iframe'></iframe> )
+    }
     return (
-      <div className='renderer'>
+      <div className={'renderer'}>
         <div id='block__popper'></div>
-        <iframe id='block__iframe' scrolling="no"></iframe>
+        {iframe}
       </div>
     )
   }

@@ -129,7 +129,7 @@ a.header-link:hover {
   position: fixed;
   top: $headerHeight;
   width: $blockWidth;
-  height: $blockHeight;
+  height: 100%;
   border: 1px solid $gray;
   overflow: hidden;
   border-radius: 3px;
@@ -238,9 +238,65 @@ a.header-link:hover {
   }
 }
 
+#block__mode {
+  position: fixed;
+  top: $headerHeight/3;
+  right: 20px;
+  cursor: pointer;
+}
 .description {
   width: 300px;
 }
+
+.☯ {
+   .renderer {
+    height: $blockHeight;
+    #block__iframe {
+      height: $blockHeight;
+      overflow: hidden;
+    }
+  }
+}
+
+$frameHeight: $filesHeight + $headerHeight;
+.☮ {
+  .renderer {
+    position: fixed;
+    top: $frameHeight;
+    left: 0px;
+    bottom: 0px;
+    #block__iframe {
+      top: $frameHeight;
+      overflow: scroll;
+    }
+    #block__popper {
+      display: none;
+    }
+  }
+
+  #block__code-files {
+    position: fixed;
+    top: $headerHeight;
+    left: 0;
+    right: 0;
+    width: auto;
+  }
+  #block__code-wrapper {
+    position: fixed;
+    top: $frameHeight;
+    right: 0;
+    width: calc(100% - 960px);
+    bottom: 0;
+    margin: 0;
+    #block__code-index {
+      height: 100%;
+      .CodeMirror {
+        height: 100%;
+      }
+    }
+  }
+}
+
 
 
 #block__fork, #block__save, #block__new {

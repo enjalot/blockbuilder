@@ -15,6 +15,7 @@ import logger from 'bragi-browser';
 // ------------------------------------
 import GistsStore from '../stores/gists.js';
 import FilesStore from '../stores/files.js';
+import AppStore from '../stores/app.js';
 import Actions from '../actions/actions.js';
 
 import Renderer from './renderer.js'
@@ -25,6 +26,7 @@ import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
 import GistNav from './header__nav-gist.js'
 import SaveForkNav from './header__nav-save-fork.js'
+import ModeNav from './header__nav-mode.js'
 import {IconLoader} from './icons.js';
 
 // ========================================================================
@@ -35,7 +37,8 @@ import {IconLoader} from './icons.js';
 var Home = React.createClass({
   mixins: [
     Reflux.listenTo(GistsStore, 'gistStoreChange'),
-    Reflux.listenTo(FilesStore, 'fileStoreChange')
+    Reflux.listenTo(FilesStore, 'fileStoreChange'),
+    Reflux.listenTo(AppStore, 'appStoreChange')
   ],
   getInitialState: function getInitialState(){
     logger.log('components/Home:getInitialState', 'called');
@@ -47,7 +50,7 @@ var Home = React.createClass({
       },
       public: true
     }
-    return { gistData: gistData, activeFile: 'index.html' };
+    return { gistData: gistData, activeFile: 'index.html', mode: "☯" };
   },
   /**
   * called when the file store changes.
@@ -58,6 +61,14 @@ var Home = React.createClass({
 
     if(data.type === 'setActiveFile') { 
       this.setState({activeFile: data.activeFile})
+    }
+  },
+  appStoreChange: function appStoreChange(data){
+    logger.log('components/Home:appStoreChange',
+      'file store updated : %O', data);
+
+    if(data.type === 'setMode') { 
+      this.setState({mode: data.mode})
     }
   },
 
@@ -116,12 +127,13 @@ var Home = React.createClass({
           <div id='site-header__save-fork'>
             <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
           </div>
+          <ModeNav mode={this.state.mode}></ModeNav>
         </div>
 
-        <div id='block__content'>
-          <Renderer gist={this.state.gistData} active={this.state.activeFile}></Renderer>
+        <div id='block__content' className={this.state.mode}>
+          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} active={this.state.activeFile}></Editor>
+          <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
         </div>
       </div>
     );

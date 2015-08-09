@@ -31,6 +31,7 @@ var Editor = React.createClass({
     logger.log('components/Editor:component:shouldComponentUpdate', 'nextProps: %0', nextProps);
     if(!nextProps) return true;
     if(nextProps.active !== this.props.active) return true;
+    if(nextProps.mode !== this.props.mode) return true;
     var gist = nextProps.gist
     if(!gist || !gist.files || !gist.files[this.props.active]) return true;
     if(gist.files[this.props.active].template === this.props.gist.files[this.props.active].template){

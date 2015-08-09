@@ -28,7 +28,8 @@ var Actions = Reflux.createActions({
     // USERS
     'fetchMe': {asyncResult: true},
     // FILES
-    'setActiveFile': {}
+    'setActiveFile': {},
+    'setMode': {}
 });
 
 // ------------------------------------

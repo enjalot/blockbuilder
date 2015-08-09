@@ -17,6 +17,7 @@ import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 // ------------------------------------
 import GistsStore from '../stores/gists.js';
 import FilesStore from '../stores/files.js';
+import AppStore from '../stores/app.js';
 import Actions from '../actions/actions.js';
 
 
@@ -28,6 +29,7 @@ import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
 import GistNav from './header__nav-gist.js'
 import SaveForkNav from './header__nav-save-fork.js'
+import ModeNav from './header__nav-mode.js'
 import {IconLoader} from './icons.js';
 
 // ========================================================================
@@ -41,7 +43,8 @@ import {IconLoader} from './icons.js';
 var Block = React.createClass({
   mixins: [
     Reflux.listenTo(GistsStore, 'gistStoreChange'),
-    Reflux.listenTo(FilesStore, 'fileStoreChange')
+    Reflux.listenTo(FilesStore, 'fileStoreChange'),
+    Reflux.listenTo(AppStore, 'appStoreChange')
   ],
 
   /**
@@ -51,7 +54,7 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false, activeFile: 'index.html' };
+    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "☯" };
   },
 
   /**
@@ -65,6 +68,16 @@ var Block = React.createClass({
       this.setState({activeFile: data.activeFile})
     }
   },
+
+  appStoreChange: function appStoreChange(data){
+    logger.log('components/Home:appStoreChange',
+      'file store updated : %O', data);
+
+    if(data.type === 'setMode') { 
+      this.setState({mode: data.mode})
+    }
+  },
+
   /**
    * called when the gists store changes. If the triggered change was the result
    * of a fetch, update the store (on success) or show an error (on failure)
@@ -198,9 +211,9 @@ var Block = React.createClass({
       // SUCCESS - data exists
       blockContent = (
         <div>
-          <Renderer gist={this.state.gistData} active={this.state.activeFile}></Renderer>
+          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} active={this.state.activeFile}></Editor>
+          <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
         </div>
       );
     }
@@ -218,9 +231,10 @@ var Block = React.createClass({
           <div id='site-header__save-fork'>
             <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
           </div>
+          <ModeNav mode={this.state.mode}></ModeNav>
         </div>
 
-        <div id='block__content'>
+        <div id='block__content' className={this.state.mode}>
           {blockContent}
         </div>
       </div>
