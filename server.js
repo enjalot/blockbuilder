@@ -280,6 +280,23 @@ function saveGist(gist, method, token, cb) {
   }
 }
 
+function modifyGistForHistory(gistString) {
+  var modified;
+  var gist = JSON.parse(gistString);
+  // null check
+  if(!gist || !gist.files) return gistString;
+  // make sure this gist was forked from an existing gist
+  if(!gist.id) return gistString;
+
+  historyLine = "\n\nforked from " + username + "'s block: <a href='http://bl.ocks.org/" + username + "/" + gist.id
+
+  if(!gist.files['README.md']) {
+
+  }
+
+  return modified;
+}
+
 function getGist(gistId, cb) {
   // TODO: add our app's token to avoid rate limiting
   var options = {

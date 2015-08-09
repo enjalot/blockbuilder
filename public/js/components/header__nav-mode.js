@@ -16,11 +16,9 @@ var ModeNav = React.createClass({
     } else {
       mode = "☮";
     }
-    console.log("set mode", mode)
     Actions.setMode(mode);
   },
   render: function render() {
-    console.log("mode", this.props.mode)
     return (
       <div id='block__mode' onClick={this.handleModeChange}>{this.props.mode}</div>
     )

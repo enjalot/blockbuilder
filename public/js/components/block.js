@@ -78,6 +78,33 @@ var Block = React.createClass({
     }
   },
 
+  checkForTruncated: function checkForTruncated(gist) {
+    // Checks a gist for truncated files. will return true if one is present.
+    // This will also kick off the fetch 
+    var files = Object.keys(gist.files);
+    for(var i = 0; i < files.length; i++) {
+      var fileName = files[i];
+      var file = gist.files[fileName];
+      if(file.truncated) {
+        if(file.size > 10000000) { 
+          // we can't handle files greater than ~10mb
+          // https://developer.github.com/v3/gists/#truncation
+          var failMessage = "Can't handle files larger than 10mb: " + fileName;
+          this.setState({
+            gistData: null, failed: true,
+            failMessage: failMessage
+          });
+          return true 
+        }
+        console.log("FILE", file)
+        // TODO: this is synchronously loading truncated files. not ideal
+        Actions.fetchTruncatedFile(file.raw_url, gist.id, file.filename)
+        return true;
+      }
+    }
+    return false;
+  },
+
   /**
    * called when the gists store changes. If the triggered change was the result
    * of a fetch, update the store (on success) or show an error (on failure)
@@ -101,12 +128,27 @@ var Block = React.createClass({
         });
 
       } else {
-        // All good!
-        this.setState({ gistData: data.response, failed: false });
+        // We need to check if any files were truncated
+        var gist = data.response;
+        if(!this.checkForTruncated(gist)) {
+          // if nothing is truncated we go on about our business
+          this.setState({ gistData: gist, failed: false });
+        }
       }
+    } else if(data.type === 'fetch-truncated:completed') {
+      //we listen for our requests that fetch truncated files
+      var gist = GistsStore.getGistMaybe(data.gistId);
+      if(!gist) return; // something's really wrong if this happens
+      console.log("checking again", gist.id)
+      if(!this.checkForTruncated(gist)) {
+        console.log("nothing left!")
+        this.setState({ gistData: gist, failed: false });
+      }
+    } else if(data.type === 'fetch-truncated:failed'){
+      this.setState({ gistData: null, failed: true, failMessage: "Couldn't fetch file" });
 
     } else if(data.type === 'fetch:failed'){
-      this.setState({ gistData: null, failed: true });
+      this.setState({ gistData: null, failed: true, failMessage: "Couldn't fetch gist" });
 
     } else if(data.type === 'fork:completed'){
       // Navigate to the new gist

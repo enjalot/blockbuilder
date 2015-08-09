@@ -47,6 +47,33 @@ var WebAPIUtils = {
     },
 
     /**
+     * fetches raw file from github
+     *
+     * @param {String} raw_url - url to fetch
+     */
+    fetchRawFile( raw_url, gistId, fileName ) {
+      logger.log('WebAPIUtils:fetchRawFile', 'fetching : ' + raw_url);
+
+      return new Promise(function( fulfill, reject){
+        window.d3.text(raw_url, function(err, data) {
+          if(err){ return reject(err); }
+
+          try {
+            data = {
+              response: data,
+              gistId: gistId,
+              fileName: fileName
+            };
+            return fulfill(data);
+
+          } catch(e) {
+            return reject(e);
+          }
+        });
+      });
+    },
+
+    /**
      * forks gist
      *
      * @param {Object} gist

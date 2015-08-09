@@ -86,6 +86,37 @@ var GistsStore = Reflux.createStore({
             data: data
         });
     },
+
+    onFetchTruncatedFileCompleted: function onFetchTruncatedFileCompleted( data ){
+        logger.log('stores/gists:onFetchTruncatedFileCompleted',
+        'fetched file: %O', data);
+
+        var file = this.gistsById[data.gistId].files[data.fileName];
+        file.content = data.response;
+        file.truncated = false;
+
+        this.trigger({
+            type: 'fetch-truncated:completed',
+            gistId: data.gistId,
+            fileName: data.fileName,
+            fileText: data.response,
+            data: data
+        });
+    },
+    onFetchTruncatedFileFailed: function onFetchTruncatedFileFailed( data ){
+        logger.log('stores/gists:onFetchTruncatedFileFailed',
+        'fetched file: %O', data);
+
+        this.trigger({
+            type: 'fetch-truncated:failed',
+            gistId: data.gistId,
+            fileName: data.fileName,
+            response: data.response,
+            data: data
+        });
+    },
+
+
     onForkGistCompleted: function onForkGistCompleted( data ){
       logger.log('stores/gists:onForkGistCompleted',
         'forked gist : %O', data);

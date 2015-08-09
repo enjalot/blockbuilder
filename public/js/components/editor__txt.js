@@ -74,9 +74,10 @@ var EditorTXT = React.createClass({
   render: function render() {
     var gist = this.props.gist;
     var text = gist.files[this.props.active].content;
+    var textarea = ( <textarea id='editor__txt' defaultValue={text}></textarea> );
     return (
       <div id='block__code-index'>
-        <textarea id='editor__txt'>{text}</textarea>
+        {textarea}
       </div>
     )
   }

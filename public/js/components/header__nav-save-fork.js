@@ -37,11 +37,15 @@ var SaveForkNav = React.createClass({
     if(user && gist && gist.owner && user.id === gist.owner.id) {
       save = ( <div id='block__save' onClick={ this.save }>Save</div> )
     }
+    var forkText = "Fork";
+    if(gist && !gist.id) {
+      forkText = "Save";
+    }
 
     return (
       <div>
         <div id='block__new' onClick={ this.newBlock }>New</div>
-        <div id='block__fork' onClick={ this.fork }>Fork</div>
+        <div id='block__fork' onClick={ this.fork }>{forkText}</div>
         {save}
       </div>
     )

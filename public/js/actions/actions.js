@@ -22,6 +22,7 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 var Actions = Reflux.createActions({
     // GISTS
     'fetchGist': {asyncResult: true},
+    'fetchTruncatedFile': {asyncResult: true},
     'forkGist': {asyncResult: true},
     'saveGist': {asyncResult: true},
     'localGistUpdate': {},
@@ -43,6 +44,10 @@ Actions.fetchGist.listen(function(gistId) {
     // are setup for us automatically since we set `asyncResult:true` for this
     // action
     WebAPIUtils.fetchGist(gistId).then(this.completed).catch(this.failed);
+});
+Actions.fetchTruncatedFile.listen(function(raw_url, gistId, fileName) {
+    logger.log('actions:fetchGist', 'called : ' + gistId);
+    WebAPIUtils.fetchRawFile(raw_url, gistId, fileName).then(this.completed).catch(this.failed);
 });
 
 Actions.forkGist.listen(function(gist) {
