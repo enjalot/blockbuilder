@@ -59,8 +59,8 @@ var Files = React.createClass({
         <FilesTab file={gist.files['README.md']} {...this.props}></FilesTab>
         <FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>
         {extra}
-        <a onClick={this.addFile} className="file">➕</a>
-        <a onClick={this.showMore} className="file">⋯</a>
+        <a id="files__add" onClick={this.addFile} className="file">➕</a>
+        <a id="files__show" onClick={this.showMore} className="file">⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>

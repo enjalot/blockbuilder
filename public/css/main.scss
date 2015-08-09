@@ -182,7 +182,7 @@ a.header-link:hover {
 
 #files__more {
   display: none;
-  position: absolute;
+  float:right;
   max-width: 200px;
   z-index: 200;
   background-color: white;
@@ -192,6 +192,13 @@ a.header-link:hover {
 }
 #files__more.show {
   display: inline-block;
+}
+
+#files__add {
+  float:right;
+}
+#files__show {
+  float: right;
 }
 
 #block__code-wrapper {

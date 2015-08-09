@@ -20,11 +20,14 @@ import Actions from '../actions/actions.js';
 // ========================================================================
 var FilesTab = React.createClass({
   setActive: function setActive() {
+    console.log("SET ACTIVE")
     var name = this.props.file.filename
     Actions.setActiveFile(name)
   },
   render: function render() {
     var file = this.props.file;
+    console.log("FILE", file)
+    if(!file) return (<div></div>);
     var activeClass = ""
     if(this.props.active === file.filename) activeClass = "active "
     return (
