@@ -238,11 +238,10 @@ a.header-link:hover {
   }
 }
 
-
-#block__description-iframe {
-  height: auto;
-  border: none;
+.description {
+  width: 300px;
 }
+
 
 #block__fork, #block__save {
   float:right;

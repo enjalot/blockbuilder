@@ -34,6 +34,11 @@ var GistNav = React.createClass({
 
     if(!gist) return (<div id='block__nav'></div>)// (<div id='block__nav'><IconLoader></IconLoader></div>)
 
+    if(!gist.id) {
+      //title = (<input value={ gist.description }></input>)
+      title = (<input className="description" ></input>)
+    }
+
     return (
       <div id='block__nav'>
         <span id='block__nav-gist-title'>

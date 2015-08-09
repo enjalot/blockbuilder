@@ -52,6 +52,7 @@ var Files = React.createClass({
     if(this.state.show){
       show = 'show';
     }
+    if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
 
     return (
       <div id='block__code-files' className='absolute-files'>

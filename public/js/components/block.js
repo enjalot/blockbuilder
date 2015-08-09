@@ -107,7 +107,7 @@ var Block = React.createClass({
 
     } else if(data.type === 'fork:failed'){
       var failMessage = 'Could not fork gist';
-      if(data.response.message){
+      if(data.response && data.response.message){
         failMessage = data.response.message;
       }
       this.setState({ failed: true, failMessage: failMessage})

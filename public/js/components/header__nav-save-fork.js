@@ -14,6 +14,11 @@ var SaveForkNav = React.createClass({
   },
 
   fork: function fork() {
+    var files = this.props.gist.files;
+    if(files["thumbnail.png"] && !files["thumbnail.png"].content){ 
+      // TODO: this is probably bad practice. right now redirecting after fork so shouldnt matter
+      delete files["thumbnail.png"]
+    }
     Actions.forkGist(this.props.gist);
   },
   render: function render() {
