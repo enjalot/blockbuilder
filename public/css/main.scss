@@ -267,6 +267,7 @@ $frameHeight: $filesHeight + $headerHeight;
     bottom: 0px;
     #block__iframe {
       top: $frameHeight;
+      height: calc(100% - 90px);
       overflow: scroll;
     }
     #block__popper {

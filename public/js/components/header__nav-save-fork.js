@@ -10,6 +10,11 @@ import Actions from '../actions/actions.js';
 
 var SaveForkNav = React.createClass({
   save: function save() {
+    var files = this.props.gist.files;
+    if(files["thumbnail.png"] && !files["thumbnail.png"].content){ 
+      // TODO: this is probably bad practice.
+      delete files["thumbnail.png"]
+    }
     Actions.saveGist(this.props.gist);
   },
 
