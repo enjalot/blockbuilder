@@ -43,7 +43,7 @@ var Home = React.createClass({
   getInitialState: function getInitialState(){
     logger.log('components/Home:getInitialState', 'called');
     var gistData = {
-      description: "new gist",
+      description: "fresh block",
       files: {
         "index.html":{content: '<!DOCTYPE html>\n<meta charset="utf-8">\n<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>\nhello world\n\n\n\n\n\n\n\n\n\n\n', filename:"index.html"},
         "README.md":{content:"## hello markdown\n\n\n\n\n\n\n\n\n\n\n", filename:"README.md"},
