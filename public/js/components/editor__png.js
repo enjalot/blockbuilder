@@ -39,15 +39,9 @@ var EditorPNG = React.createClass({
 
   componentDidMount: function componentDidMount(){
     logger.log('components/EditorTXT:component:componentDidMount', 'called');
-    if(this.props.gist){
-      this.setupImage();
-    }
   },
   componentDidUpdate: function componentDidUpdate(){
     logger.log('components/EditorTXT:component:componentDidUpdate', 'called');
-    if(this.props.gist){
-      this.setupImage();
-    }
   },
 
   selectFile: function selectFile(evt) {
