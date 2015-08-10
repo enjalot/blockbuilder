@@ -66,6 +66,20 @@ var Block = React.createClass({
 
     if(data.type === 'setActiveFile') { 
       this.setState({activeFile: data.activeFile})
+    } else if(data.type === 'addFile') {
+      this.setState({ fileAdded: true})
+      var gist = this.state.gistData;
+      gist.files[data.file.name] = {content: data.file.content };
+      if(gist.files["thumbnail.png"] && !gist.files["thumbnail.png"].content){ 
+        // TODO: this is probably bad practice.
+        delete gist.files["thumbnail.png"]
+      }
+      var user = this.props.user;
+      if(user && gist && gist.owner && user.id === gist.owner.id) {
+        Actions.saveGist(gist);
+      } else {
+        Actions.forkGist(gist);
+      }
     }
   },
 
@@ -164,6 +178,13 @@ var Block = React.createClass({
       this.setState({ failed: true, failMessage: failMessage})
     } else if(data.type === 'save:completed'){
       console.log("SAVED");
+      // If we've added a file we want to refresh the page
+      if(this.state.fileAdded) {
+        if(data.gist.owner) username = data.gist.owner.login;
+        var url = "/" + username + "/" + data.gist.id
+        window.location = url;
+      }
+
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
     } else if(data.type === 'local:update'){

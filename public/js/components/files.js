@@ -13,6 +13,7 @@ import logger from 'bragi-browser';
 // Internal Dependencies
 // ------------------------------------
 import FilesTab from './files__tab.js';
+import FilesAdd from './files__add.js';
 
 var defaults = ['index.html', 'README.md', 'thumbnail.png'];
 
@@ -26,9 +27,6 @@ var Files = React.createClass({
   },
   showMore: function showMore(){
     this.setState({show: !this.state.show});
-  },
-  addFile: function addFile(){
-
   },
   render: function render() {
     logger.log('components/files:render', 'render called');
@@ -53,6 +51,10 @@ var Files = React.createClass({
       show = 'show';
     }
     if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
+      var hideShowButton = ""
+    if(!files.length){
+      hideShowButton = "hidden"      
+    }
 
     return (
       <div id='block__code-files' className='absolute-files'>
@@ -60,8 +62,8 @@ var Files = React.createClass({
         <FilesTab file={gist.files['README.md']} {...this.props}></FilesTab>
         <FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>
         {extra}
-        <a id="files__add" onClick={this.addFile} className="file">➕</a>
-        <a id="files__show" onClick={this.showMore} className="file">⋯</a>
+        <FilesAdd {...this.props}></FilesAdd>
+        <a id="files__show" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>

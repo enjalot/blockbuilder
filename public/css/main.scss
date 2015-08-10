@@ -193,13 +193,29 @@ a.header-link:hover {
 #files__more.show {
   display: inline-block;
 }
-
-#files__add {
-  float:right;
-}
 #files__show {
   float: right;
 }
+.hidden {
+  display: none;
+}
+
+#files__add-wrapper {
+  display: inline-block;
+  float:right;
+}
+#files__add-ui {
+  display: none;
+  float:left;
+}
+#files__add-ui.show {
+  display: inline-block;
+}
+#files__add {
+  float:right;
+}
+
+
 
 #block__code-wrapper {
   position: absolute;
