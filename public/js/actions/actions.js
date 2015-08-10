@@ -25,6 +25,7 @@ var Actions = Reflux.createActions({
     'fetchTruncatedFile': {asyncResult: true},
     'forkGist': {asyncResult: true},
     'saveGist': {asyncResult: true},
+    'saveThumbnail': {asyncResult: true},
     'localGistUpdate': {},
     // USERS
     'fetchMe': {asyncResult: true},
@@ -59,6 +60,11 @@ Actions.forkGist.listen(function(gist) {
 Actions.saveGist.listen(function(gist) {
     logger.log('actions:saveGist', 'called : %O', gist);
     WebAPIUtils.saveGist(gist).then(this.completed).catch(this.failed);
+});
+
+Actions.saveThumbnail.listen(function(data) {
+    logger.log('actions:saveThumbnail', 'called : %O', data);
+    WebAPIUtils.saveThumbnail(data).then(this.completed).catch(this.failed);
 });
 
 Actions.fetchMe.listen(function(gist) {

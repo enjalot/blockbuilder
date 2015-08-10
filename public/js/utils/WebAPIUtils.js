@@ -107,10 +107,34 @@ var WebAPIUtils = {
           .send({ "gist" : JSON.stringify(gist)})
           .end(function(err, res) {
             if(err){ 
-              logger.log('error:forkGist:response', 'error forking: ' + err);
+              logger.log('error:saveGist:response', 'error saving: ' + err);
               return reject(err);
             }
-            logger.log('WebAPIUtils:forkGist:response', 'fork response returned! Res: %O', res);
+            logger.log('WebAPIUtils:saveGist:response', 'save response returned! Res: %O', res);
+            return fulfill(res);
+          })
+      })
+    },
+    /**
+     * saves thumbnail (only works for authenticated users on an already existing gist they own)
+     *
+     * @param {Object} data
+     */
+    saveThumbnail( data ) {
+      logger.log('WebAPIUtils:saveGist:prepare', 'preparing to save gist...');
+
+      return new Promise(function( fulfill, reject){
+        request.post('/api/thumbnail')
+          .send({ 
+            "gistId": data.gistId,
+            "image" : data.image 
+          })
+          .end(function(err, res) {
+            if(err){ 
+              logger.log('error:saveThumbnail:response', 'error saving thumbnail: ' + err);
+              return reject(err);
+            }
+            logger.log('WebAPIUtils:saveThumbnail:response', 'save thumbnail response returned! Res: %O', res);
             return fulfill(res);
           })
       })

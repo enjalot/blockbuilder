@@ -180,12 +180,22 @@ var Block = React.createClass({
       console.log("SAVED");
       // If we've added a file we want to refresh the page
       if(this.state.fileAdded) {
-        if(data.gist.owner) username = data.gist.owner.login;
+        var username = data.gist.owner.login;
         var url = "/" + username + "/" + data.gist.id
         window.location = url;
       }
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
+    } else if(data.type === 'save-thumbnail:completed'){
+      console.log("SAVED THUMBNAIL");
+      /*
+      // We want to refresh the page to 
+      var username = data.gist.owner.login;
+      var url = "/" + username + "/" + data.gist.id
+      window.location = url;
+      */
+    } else if(data.type === 'save-thumbnail:failed'){
+      console.log("SAVE THUMBNAIL FAILED")
     } else if(data.type === 'local:update'){
       this.setState({ gistData: data.data })
     }

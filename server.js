@@ -12,6 +12,8 @@ var nconf = require('nconf')
 var compression = require('compression');
 var passport = require('passport')
 
+var thumbnail = require('./thumbnail')
+
 
 var app = express();
 
@@ -212,6 +214,19 @@ app.post('/api/fork', function (req, res) {
   });
 });
 
+app.post('/api/thumbnail', function (req, res){
+  var token;
+  if(req.session.passport.user) token = req.session.passport.user.accessToken;
+  if(!token) return res.status(403).send({error: "Not logged in"});
+  var gistId = req.body.gistId;
+  var image = req.body.image; //base64 encoded png
+  thumbnail.save(gistId, image, token, function(err) {
+    if(err){ console.log(err); return res.status(400).send({error: err}); }
+    console.log("thumbnail saved")
+    res.status(200).send("ok")
+  });
+})
+
 
 // ------------------------------------
 // App routes
@@ -257,7 +272,6 @@ function saveGist(gist, method, token, cb) {
   , 'content-type': 'application/json'
   , 'accept': 'application/json'
   };
-  console.log("TOKEN", token)
   if(token) {
     headers['Authorization'] = 'token ' + token
   }

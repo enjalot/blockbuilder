@@ -50,43 +50,9 @@ var EditorPNG = React.createClass({
     }
   },
 
-  // Uility functions
-  // ----------------------------------
-  setupImage: function setupImage(){
-    logger.log('components/EditorPNG:component:setupImage', 'called');
-
-    var gist = this.props.gist;
-    var active = this.props.active;
-
-    var editor = document.getElementById('editor__png')
-
-    var content = gist.files["thumbnail.png"].content
-    var decoded = UTF8.decode(content)
-    //console.log("DECODED", decoded)
-    //var b64 = btoa(decodeURIComponent(escape(decoded)))
-    //console.log("B64", b64)
-
-    //var decoded = decodeURIComponent(escape(content))
-    var blob = new Blob([content])
-
-    //var blob = new Blob([content],  {type: 'image/png', encoding: 'utf-8'});
-
-    var reader = new FileReader();
-    reader.onload = function ( evt ) {
-      //console.log("RESULT", evt.target.result)
-      //var v = evt.target.result.split(',')[1]; // encoding is messed up here, so we fix it
-      //v = atob(v);
-      //var good_b64 = btoa(decodeURIComponent(escape(v)));
-      // console.log("GOOD", good_b64)
-      editor.src = evt.target.result; //"data:image/png;base64," + good_b64;
-    };
-    reader.readAsDataURL(blob);
-
-    // if the element doesn't exist, we're outta here
-    if(!editor){ return false; }
-  },
-
   selectFile: function selectFile(evt) {
+    var gist = this.props.gist;
+    console.log("GIST", gist)
     var files = evt.target.files;
     var file = files[0];
     console.log("FILE", file)
@@ -103,13 +69,12 @@ var EditorPNG = React.createClass({
         var editor = document.getElementById('editor__png')
         editor.src = data.target.result;
 
-        Actions.addFile({content: btoa(data.target.result), name: "thumbnail.png"});
+        Actions.saveThumbnail({image: data.target.result, gistId: gist.id});
       });
       reader.readAsDataURL(file);
 
     } else {
       console.log("ERROR", "not an image!", file)
-
     }
     
   },

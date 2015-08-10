@@ -149,6 +149,23 @@ var GistsStore = Reflux.createStore({
         data: data
       });
     },
+    onSaveThumbnailCompleted: function onSaveGistCompleted( data ){
+      logger.log('stores/gists:onSaveGistCompleted',
+        'saved thumbnail: %O', data);
+      this.trigger({
+        type: 'save-thumbnail:completed',
+        response: data.body
+      });
+    },
+    onSaveThumbnailFailed: function onSaveThumbnailFailed( data ){
+      logger.log('stores/gists:onSaveThumbnailFailed',
+        'saved thumbnail response: %O', data);
+      this.trigger({
+        type: 'save-thumbnail:failed',
+        data: data
+      });
+    },
+
     onLocalGistUpdate: function onLocalGistUpdate( data) {
       logger.log('stores/gists:onLocalGistUpdate',
         'updated gist : %O', data);
