@@ -184,7 +184,6 @@ var Block = React.createClass({
         var url = "/" + username + "/" + data.gist.id
         window.location = url;
       }
-
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
     } else if(data.type === 'local:update'){

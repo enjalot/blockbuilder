@@ -257,6 +257,7 @@ function saveGist(gist, method, token, cb) {
   , 'content-type': 'application/json'
   , 'accept': 'application/json'
   };
+  console.log("TOKEN", token)
   if(token) {
     headers['Authorization'] = 'token ' + token
   }

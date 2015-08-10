@@ -61,6 +61,15 @@ var Home = React.createClass({
 
     if(data.type === 'setActiveFile') { 
       this.setState({activeFile: data.activeFile})
+    } else if(data.type === 'addFile') {
+      this.setState({ fileAdded: true})
+      var gist = this.state.gistData;
+      gist.files[data.file.name] = {content: data.file.content };
+      if(gist.files["thumbnail.png"] && !gist.files["thumbnail.png"].content){ 
+        // TODO: this is probably bad practice.
+        delete gist.files["thumbnail.png"]
+      }
+      Actions.forkGist(gist);
     }
   },
   appStoreChange: function appStoreChange(data){

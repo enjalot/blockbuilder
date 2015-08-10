@@ -20,6 +20,7 @@ import parseCode from '../utils/parseCode.js';
 import EditorHTML from './editor__html.js'
 import EditorMD from './editor__md.js'
 import EditorTXT from './editor__txt.js'
+import EditorPNG from './editor__png.js'
 
 // ========================================================================
 //
@@ -51,7 +52,7 @@ var Editor = React.createClass({
       editor = ( <EditorMD gist={gist} active={active}></EditorMD>)
     } else if(active.indexOf('.png') >= 0) {
       console.log("PNG")
-      editor = ''
+      editor = ( <EditorPNG gist={gist} active={active}></EditorPNG>)
     } else {
       editor = ( <EditorTXT gist={gist} active={active}></EditorTXT>)
     }
