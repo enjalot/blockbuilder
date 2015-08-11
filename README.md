@@ -5,7 +5,10 @@ Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the 
 Eventually we will host this with a domain, but for now let's just get it running locally by following the instructions in Development.
 
 # Development
-MongoDB and Redis are required (for sessions and users) so make sure you install them before proceeding any further. If you would like to tweak the default parameters, you can do so my modifying `server.js`. 
+To setup the server locally, setup dependencies then setup the server.
+
+## Dependencies
+NodeJS, MongoDB, and Redis are required (for sessions and users) so make sure you install them before proceeding any further. If you would like to tweak the default parameters, you can do so my modifying `server.js`. 
 
 ### Setting up databases
 Make sure you initialize both Redis and MongoDB before running. 
