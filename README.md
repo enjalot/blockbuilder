@@ -10,6 +10,24 @@ MongoDB and Redis are required (for sessions and users) so make sure you install
 ### Setting up databases
 Make sure you initialize both Redis and MongoDB before running. 
 
+#### For OS X
+
+		brew install mongodb
+
+		brew install redis
+
+
+#### To start the databases
+
+To start the mongo database service, open a new terminal tab and run:
+
+		mongod --config /usr/local/etc/mongod.conf
+
+To start the redis server, open a new terminal window and run:
+
+		redis-server
+
+
 1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
