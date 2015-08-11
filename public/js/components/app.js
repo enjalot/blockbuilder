@@ -11,6 +11,7 @@ import Reflux from 'reflux';
 import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
 import router from '../router'
+var ReactTooltip = require("react-tooltip")
 
 // Internal Dependencies
 // ------------------------------------
@@ -54,6 +55,7 @@ var App = React.createClass({
       <div id='site-wrapper'>
           {/* The actual page from the route gets rendered here */}
           <RouteHandler {...this.props} user={ this.state.user } />
+          <ReactTooltip />
       </div>
     );
   }

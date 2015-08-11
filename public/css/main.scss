@@ -1,3 +1,4 @@
+@import "react-tooltip-style";
 
 $blue: #66B5AF; /* #3182bd; */
 $gray: #F7E2AD; /* #efefef; */
@@ -164,6 +165,7 @@ a.header-link:hover {
   height: $filesHeight;
   border-bottom: none;
   cursor: pointer;
+  background-color: white;
   &:hover {
     background-color: $gray;
   }
@@ -192,6 +194,8 @@ a.header-link:hover {
 }
 #files__more.show {
   display: inline-block;
+  margin-top: 30px;
+  margin-right: -20px;
 }
 #files__show {
   float: right;
