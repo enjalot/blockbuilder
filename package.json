@@ -48,6 +48,7 @@
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "react-tools": "^0.13.3",
+    "react-tooltip": "^0.3.5",
     "redis": "^0.12.1",
     "reflux": "^0.2.10",
     "request": "^2.59.0",
