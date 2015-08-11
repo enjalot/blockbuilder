@@ -36,14 +36,14 @@ To start the redis server, open a new terminal window and run:
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
 
 ## Project Setup and Running Server
-**1. Initial Setup**
+#### 1. Initial Setup
 ```bash
 git clone https://github.com/enjalot/building-blocks.git
 cd building-blocks/
 npm install
 ```
 
-**2. Building JS / CSS Files**
+#### 2. Building JS / CSS Files
 Built files are not included in this repo. To build files, [webpack](http://webpack.github.io/) is used. 
 
 To have a continually running watch script, which will leave a process running which will re-build the files anytime run:
@@ -56,7 +56,7 @@ To build the files once, without watching for changes, run:
 npm run build
 ```
 
-**3. Copy secrets**
+#### 3. Copy secrets
 Building-blocks expects something in the secrets.json file.
 
 If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to: 
@@ -70,7 +70,7 @@ Run:
 cp secrets.json-example secrets.json
 ```
 
-**4. Running the server**
+#### 4. Running the server
 This will use node to launch the server:
 ```bash
 node server.js
@@ -81,8 +81,6 @@ Leave the server running, and now you can access [http://localhost:8889](http://
 Then take any bl.ock and replace the bl.ocks.org part with localhost:8889 like  
 [http://localhost:8889/syntagmatic/0d4f736796ab7b465020](http://localhost:8889/syntagmatic/0d4f736796ab7b465020)  
 
-
-### Registering Github Credentials
 
 # Deploy your own
 TODO
