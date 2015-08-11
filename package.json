@@ -4,7 +4,9 @@
   "description": "Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.",
   "main": "server.js",
   "scripts": {
-    "local": "webpack --color --progress --watch"
+    "local": "webpack --color --progress --watch",
+    "buildWatch": "webpack --color --progress --watch",
+    "build": "webpack --color --progress"
   },
   "repository": {
     "type": "git",
