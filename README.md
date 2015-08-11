@@ -62,6 +62,7 @@ Building-blocks expects something in the secrets.json file.
 If you'd like to enable GitHub authentication (for saving and forking as a logged in user) you will need to: 
 
 1. [Register a GitHub application](https://github.com/settings/developers)  
+
 2. Fill `secrets.json` with the client ID and secret key from GitHub  
 
 
