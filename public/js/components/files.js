@@ -9,6 +9,7 @@
 // ------------------------------------
 import React from 'react';
 import logger from 'bragi-browser';
+var ReactTooltip = require("react-tooltip")
 
 // Internal Dependencies
 // ------------------------------------
@@ -63,7 +64,8 @@ var Files = React.createClass({
         <FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
-        <a id="files__show" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
+        <ReactTooltip />
+        <a data-tip="Add a New File" id="files__show" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>
