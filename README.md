@@ -27,6 +27,7 @@ To start the redis server, open a new terminal window and run:
 
 		redis-server
 
+#### For other platforms
 
 1. Refer to [Redis Quick Start](http://redis.io/topics/quickstart) to set up a Redis instance.
 2. Refer to [Install MongoDB](http://docs.mongodb.org/manual/installation/) to set up a MongoDB instance for your platform
