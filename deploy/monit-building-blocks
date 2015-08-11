@@ -1,0 +1,16 @@
+#!monit
+#Instructions: to use, run
+#   sudo /etc/init.d/monit start
+#
+#   sudo monit start building-blocks
+#
+#For status, 
+#   sudo monit status building-blocks
+#
+#   sudo monit summary
+
+set logfile /var/log/monit.log
+
+check process building-blocks with pidfile "/var/run/building-blocks.pid"
+    start program = "/sbin/start building-blocks" 
+    stop program  = "/sbin/stop building-blocks" 
