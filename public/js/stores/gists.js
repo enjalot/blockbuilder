@@ -68,6 +68,9 @@ var GistsStore = Reflux.createStore({
         // making another fetch request if they look at the same gistId
         this.gistsById[data.gistId] = data.response;
 
+        var index = data.response.files["index.html"];
+        index.content = stripRelativeBlock(index.content);
+
         this.trigger({
             type: 'fetch:completed',
             gistId: data.gistId,
@@ -180,3 +183,16 @@ var GistsStore = Reflux.createStore({
 
 });
 export default GistsStore;
+
+function stripRelativeBlock(template) {
+  // https://gist.githubusercontent.com/mbostock/4090846/raw/d534aba169207548a8a3d670c9c2cc719ff05c47/
+
+  // TODO: document this clearly for users
+  // perhaps show a warning when we do this.
+  // e.g.: http://bl.ocks.org/syntagmatic/0613ee9324e989a6fb6b
+  // He is using an absolute URL to load files from another block, at this
+  // point he should really just add "http://bl.ocks.org" to the url on line 74
+  var re = new RegExp("/mbostock/raw/4090846/", 'g')
+  template = template.replace(re, "https://gist.githubusercontent.com/mbostock/4090846/raw/d534aba169207548a8a3d670c9c2cc719ff05c47/");
+  return template;
+}

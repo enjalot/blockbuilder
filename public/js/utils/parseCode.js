@@ -10,11 +10,6 @@ function parseCode(template, files) {
   // obviously this could have some unintended side-effects,
   // but it is presumed that the scenarios where this would fail
   // fall far outside the customary use of blocks.
-
-  // TODO: document this clearly for users so people don't do slick
-  // stuff like this: http://bl.ocks.org/syntagmatic/0613ee9324e989a6fb6b
-  // He is using an absolute URL to load files from another block, at this
-  // point he should really just add "http://bl.ocks.org" to the url on line 74
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
     if(file === "index.html") return;

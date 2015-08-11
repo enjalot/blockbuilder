@@ -44,7 +44,7 @@ var SaveForkNav = React.createClass({
 
     return (
       <div>
-        <div id='block__new' data-tip="Create a brand new file" data-place="bottom" onClick={ this.newBlock }>New</div>
+        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" onClick={ this.newBlock }>New</div>
         <div id='block__fork' data-tip="Create your own copy of this code" data-place="bottom" onClick={ this.fork }>{forkText}</div>
         {save}
       </div>
