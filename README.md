@@ -10,7 +10,7 @@ To setup the server locally, setup dependencies then setup the server.
 Follow this guide: [View Development Wiki](https://github.com/enjalot/building-blocks/wiki/Development#development)
 
 # Deploy your own
-TODO
+Instructions and related files can be found in the [deploy folder](https://github.com/enjalot/building-blocks/tree/master/deploy)
 
 # About this project
 This project began as a [Kickstarter project](https://www.kickstarter.com/projects/1058500513/building-blocks-0) to support it's development. The backers that made it possible will be listed below upon completion of the campaign!
