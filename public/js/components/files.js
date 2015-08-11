@@ -65,7 +65,7 @@ var Files = React.createClass({
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
         <ReactTooltip />
-        <a data-tip="Add a New File" id="files__show" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
+        <a id="files__show" data-tip="Show more files" data-place='left' onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>
