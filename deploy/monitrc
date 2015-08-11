@@ -1,0 +1,25 @@
+###############################################################################
+## Monit control file
+###############################################################################
+set daemon 30 # check services at 2-minute intervals
+set logfile /var/log/monit.log
+
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+
+set eventqueue
+  basedir /var/lib/monit/events # set the base directory where events will be stored
+  slots 100                     # optionally limit the queue size
+set httpd port 2812 and use address localhost
+    allow localhost
+        allow five:fivemon1itit
+check system Building-Blocks___$HOST
+    if loadavg (1min) > 4 then alert
+    if loadavg (5min) > 2 then alert
+    if memory usage > 90% then alert
+    if swap usage > 55% then alert
+    if cpu usage (user) > 90% then alert
+    if cpu usage (system) > 70% then alert
+    if cpu usage (wait) > 50% then alert
+
+include /etc/monit/conf.d/*
