@@ -29,6 +29,15 @@ import SaveForkNav from './header__nav-save-fork.js'
 import ModeNav from './header__nav-mode.js'
 import {IconLoader} from './icons.js';
 
+var defaultIndexContent = '<!DOCTYPE html>\n<head>\n' +
+  '  <meta charset="utf-8">\n' + 
+  '  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>\n' + 
+  '</head>\n\n' + 
+  '<body>\n\n' + 
+  '  <script>\n    console.log("you are now rocking with d3", d3);\n' +
+  '  </script>\n' +
+  '</body>\n\n\n'
+
 // ========================================================================
 //
 // Functionality
@@ -45,7 +54,7 @@ var Home = React.createClass({
     var gistData = {
       description: "fresh block",
       files: {
-        "index.html":{content: '<!DOCTYPE html>\n<meta charset="utf-8">\n<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>\nhello world\n\n\n\n\n\n\n\n\n\n\n', filename:"index.html"},
+        "index.html":{content: defaultIndexContent, filename:"index.html"},
         "README.md":{content:"## hello markdown\n\n\n\n\n\n\n\n\n\n\n", filename:"README.md"},
       },
       public: true
