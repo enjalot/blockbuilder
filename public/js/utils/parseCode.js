@@ -1,4 +1,7 @@
 function parseCode(template, files) {
+
+
+
   // We iterate over all the file names, 
   // search for their usage in index.html
   // and replace them with the raw URL.
@@ -13,6 +16,18 @@ function parseCode(template, files) {
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
     if(file === "index.html") return;
+
+    // We first try to find instances of loading js files through a <script> tag.
+    // We can't fall back on the raw_url because you can't load scripts with MIME type text.
+    var find = "<script src=[\"\']" + file + "[\"\']></script>"
+    var re = new RegExp(find, 'g')
+    var matches = template.match(re)
+    if(matches) {
+      // if we found one, replace it with the code and return.
+      template = template.replace(re, "<script>" + files[file].content + "</script>")
+      return;
+    }
+
     var rawUrl = files[file].raw_url;
 
     var find = "[\"\']" + file + "[\"\']"
