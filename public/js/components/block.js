@@ -223,6 +223,19 @@ var Block = React.createClass({
       // store will update, which this component listens for (above)
       Actions.fetchGist(this.props.params.gistId);
     }
+    /* we can set view state through the # url in the format:
+      activeFile=thumbnail.png;mode=☮
+    */
+    var hash = window.location.hash;
+    if(hash) {
+      var options = hash.slice(1).split(";");
+      var object = {}
+      options.forEach(function(option){
+        var keyvalue = option.split("=");
+        object[keyvalue[0]] = keyvalue[1];
+      })
+      this.setState(object)
+    }
   },
 
   handleScroll: function handleScroll() {

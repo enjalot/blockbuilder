@@ -40,3 +40,4 @@ export default create({
     routes: routes,
     location: HistoryLocation
 });
+
