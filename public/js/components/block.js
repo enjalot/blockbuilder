@@ -178,6 +178,7 @@ var Block = React.createClass({
       this.setState({ failed: true, failMessage: failMessage})
     } else if(data.type === 'save:completed'){
       console.log("SAVED");
+      this.setState({ saving: false })
       // If we've added a file we want to refresh the page
       if(this.state.fileAdded) {
         var username = data.gist.owner.login;
@@ -186,8 +187,11 @@ var Block = React.createClass({
       }
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
+      this.setState({failed: "save"});
+      this.setState({ saving: false });
     } else if(data.type === 'save-thumbnail:completed'){
       console.log("SAVED THUMBNAIL");
+      this.setState({ saving: false });
       /*
       // We want to refresh the page to 
       var username = data.gist.owner.login;
@@ -196,6 +200,12 @@ var Block = React.createClass({
       */
     } else if(data.type === 'save-thumbnail:failed'){
       console.log("SAVE THUMBNAIL FAILED")
+      this.setState({failed: "save thumbnail"});
+      this.setState({ saving: false });
+    } else if(data.type === 'trigger') {
+      var result = {}
+      result[data.data] = true;
+      this.setState(result)
     } else if(data.type === 'local:update'){
       this.setState({ gistData: data.data })
     }
@@ -297,7 +307,7 @@ var Block = React.createClass({
             <UserNav {...this.props}></UserNav>
           </div>
           <div id='site-header__save-fork'>
-            <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
+            <SaveForkNav gist={this.state.gistData} forking={this.state.forking} saving={this.state.saving} {...this.props}></SaveForkNav>
           </div>
           <ModeNav mode={this.state.mode}></ModeNav>
         </div>

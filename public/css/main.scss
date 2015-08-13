@@ -320,7 +320,7 @@ $frameHeight: $filesHeight + $headerHeight;
 
 
 
-#block__fork, #block__save, #block__new {
+#block__fork, #block__save, #block__new, #thumbnail__save {
   float:right;
   padding: 5px 10px;
   margin: 16px 5px;
@@ -328,6 +328,7 @@ $frameHeight: $filesHeight + $headerHeight;
   background-color: $blue;
   color: white;
   border-radius: 3px;
+  width: 35px;
   height: 22px;
   border: 1px solid white;
   &:hover {
@@ -349,6 +350,23 @@ $frameHeight: $filesHeight + $headerHeight;
     margin: 10px auto;
   }
 
+}
+
+#nav__loading {
+  float:right;
+  padding: 5px 10px;
+  margin: 16px 5px;
+  border-radius: 3px;
+  width: 35px;
+  height: 22px;
+  color: $blue;
+  background-color: white;
+  border: 1px solid $blue;
+  .sk-cube-grid {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+  }
 }
 
 

@@ -63,7 +63,8 @@ var EditorPNG = React.createClass({
         var editor = document.getElementById('editor__png')
         editor.src = data.target.result;
 
-        Actions.saveThumbnail({image: data.target.result, gistId: gist.id});
+        Actions.setSaveFork("saving")
+        //Actions.saveThumbnail({image: data.target.result, gistId: gist.id});
       });
       reader.readAsDataURL(file);
 
@@ -88,6 +89,7 @@ var EditorPNG = React.createClass({
         {img}
         <br/>
         <input onChange={this.selectFile} type="file" id="editor__png-input" name="files[]"/>
+        <div id="thumbnail__save">Save</div>
       </div>
     )
   }

@@ -32,7 +32,8 @@ var Actions = Reflux.createActions({
     // FILES
     'addFile': {},
     'setActiveFile': {},
-    'setMode': {}
+    'setMode': {},
+    'setSaveFork': {}
 });
 
 // ------------------------------------
