@@ -36,6 +36,27 @@ var Actions = Reflux.createActions({
     'setSaveFork': {}
 });
 
+Actions.saveGist.preEmit = cleanGist;
+Actions.forkGist.preEmit = cleanGist;
+/*
+  Create a clean gist for sending to GitHub HTTP API
+*/
+function cleanGist(gist) {
+  var newGist = {
+    id: gist.id,
+    description: gist.description,
+    owner: gist.owner,
+    files: {},
+  };
+  var fileNames = Object.keys(gist.files);
+  fileNames.forEach(function(fileName) {
+    if(fileName === "thumbnail.png") return;
+    newGist.files[fileName] = gist.files[fileName];
+  })
+  console.log("CLEANED GIST", newGist)
+  return newGist;
+}
+
 // ------------------------------------
 //
 // Setup async action handlers

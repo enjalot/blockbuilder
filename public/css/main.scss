@@ -236,6 +236,26 @@ a.header-link:hover {
   resize: vertical;
 }
 
+#block__code-thumbnail-edit {
+  position: absolute;
+  top: 0;
+  right: 0px;
+}
+
+#editor__png {
+
+}
+#editor__png-input {
+  float: right;
+  border: 1px solid $blue;
+  background-color: $blue;
+  padding: 5px;
+}
+#thumbnail__save {
+  clear: right;
+
+}
+
 
 #block__popper {
   position: fixed;

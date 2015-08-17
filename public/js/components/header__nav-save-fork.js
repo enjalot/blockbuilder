@@ -11,21 +11,11 @@ import {IconLoader} from './icons.js';
 
 var SaveForkNav = React.createClass({
   save: function save() {
-    var files = this.props.gist.files;
-    if(files["thumbnail.png"] && !files["thumbnail.png"].content){ 
-      // TODO: this is probably bad practice.
-      delete files["thumbnail.png"]
-    }
     Actions.setSaveFork("saving");
     Actions.saveGist(this.props.gist);
   },
 
   fork: function fork() {
-    var files = this.props.gist.files;
-    if(files["thumbnail.png"] && !files["thumbnail.png"].content){ 
-      // TODO: this is probably bad practice. right now redirecting after fork so shouldnt matter
-      delete files["thumbnail.png"]
-    }
     Actions.setSaveFork("forking");
     Actions.forkGist(this.props.gist);
   },

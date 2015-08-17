@@ -56,12 +56,16 @@ var Files = React.createClass({
     if(!files.length){
       hideShowButton = "hidden"      
     }
+    var thumbTab = (<FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>)
+    if(this.props.hidethumb){
+      thumbTab = "";
+    }
 
     return (
       <div id='block__code-files' className='absolute-files'>
         <FilesTab file={gist.files['index.html']} {...this.props}></FilesTab>
         <FilesTab file={gist.files['README.md']} {...this.props}></FilesTab>
-        <FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>
+        {thumbTab}
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
         <ReactTooltip />

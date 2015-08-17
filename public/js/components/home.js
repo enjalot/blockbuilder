@@ -74,10 +74,6 @@ var Home = React.createClass({
       this.setState({ fileAdded: true})
       var gist = this.state.gistData;
       gist.files[data.file.name] = {content: data.file.content };
-      if(gist.files["thumbnail.png"] && !gist.files["thumbnail.png"].content){ 
-        // TODO: this is probably bad practice.
-        delete gist.files["thumbnail.png"]
-      }
       Actions.forkGist(gist);
     }
   },
@@ -163,7 +159,7 @@ var Home = React.createClass({
 
         <div id='block__content' className={this.state.mode}>
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
-          <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
+          <Files gist={this.state.gistData} active={this.state.activeFile} hidethumb={true}></Files>
           <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
         </div>
       </div>

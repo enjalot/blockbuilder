@@ -70,10 +70,6 @@ var Block = React.createClass({
       this.setState({ fileAdded: true})
       var gist = this.state.gistData;
       gist.files[data.file.name] = {content: data.file.content };
-      if(gist.files["thumbnail.png"] && !gist.files["thumbnail.png"].content){ 
-        // TODO: this is probably bad practice.
-        delete gist.files["thumbnail.png"]
-      }
       var user = this.props.user;
       if(user && gist && gist.owner && user.id === gist.owner.id) {
         Actions.saveGist(gist);
@@ -304,7 +300,7 @@ var Block = React.createClass({
         <div>
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
+          <Editor gist={this.state.gistData} user={this.props.user} active={this.state.activeFile} mode={this.state.mode}></Editor>
         </div>
       );
     }

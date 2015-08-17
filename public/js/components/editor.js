@@ -52,7 +52,7 @@ var Editor = React.createClass({
       editor = ( <EditorMD gist={gist} active={active}></EditorMD>)
     } else if(active.indexOf('.png') >= 0) {
       console.log("PNG")
-      editor = ( <EditorPNG gist={gist} active={active}></EditorPNG>)
+      editor = ( <EditorPNG gist={gist} active={active} user={this.props.user}></EditorPNG>)
     } else {
       editor = ( <EditorTXT gist={gist} active={active}></EditorTXT>)
     }
