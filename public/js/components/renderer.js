@@ -73,6 +73,7 @@ var Renderer = React.createClass({
 
     d3.select(".renderer").on("mouseover", this.handleMouseOver)
     d3.select(".renderer").on("mouseout", this.handleMouseOut)
+    d3.select(".renderer").on("click", this.handleMouseClick)
   },
 
   updateIFrame: function updateIFrame(template, iframe) {
@@ -89,7 +90,18 @@ var Renderer = React.createClass({
   },
   handleMouseOut: function handleMouseOut() {
     if(d3.event.toElement === d3.select("#block__iframe").node()) return;
+    if(this.stayPopped) return;
     d3.select("div.renderer").classed("popped", false)
+  },
+  handleMouseClick: function handleMouseClick() {
+    var popped = d3.select("div.renderer").classed("popped");
+    // Doing state outside of react because i don't want to rerender the iframe
+    this.stayPopped = !this.stayPopped;
+    if(this.stayPopped){
+      d3.select("div.renderer").classed("popped", true)
+    } else {
+      d3.select("div.renderer").classed("popped", false)
+    }
   },
   render: function render() {
     var iframe;

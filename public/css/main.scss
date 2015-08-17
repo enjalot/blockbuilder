@@ -53,7 +53,7 @@ $headerHeight: 60px;
   position: fixed;
   height: $headerHeight;
   top: 0;
-  width: 960px;
+  width: 962px;
   margin: 0px auto;
   background-color: white;
   border-bottom: 1px solid $gray;
@@ -135,6 +135,10 @@ a.header-link:hover {
   overflow: hidden;
   border-radius: 3px;
   background: white;
+}
+
+#block__code-index {
+  width: 962px;
 }
 
 #block__code-files {
@@ -263,7 +267,7 @@ a.header-link:hover {
   left: 0;
   right: 0;
   height: $blockHeight - 20px;
-  background: white;
+  background: #efefef;
 }
 
 .popped {
