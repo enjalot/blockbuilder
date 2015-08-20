@@ -22,7 +22,6 @@ var EditorPNG = React.createClass({
 
   componentWillMount: function componentWillMount(nextProps) {
     var gist = this.props.gist;
-    console.log("USER", this.props.user)
     // We are checking if this gist is already owned by the authenticated user.
     // The only case we want to support the adding/editing of a thumbnail is if the gist is already created/owned by the user
     if(gist && gist.id && gist.owner && this.props.user && gist.owner.id === this.props.user.id) {
@@ -54,8 +53,6 @@ var EditorPNG = React.createClass({
       reader.onload = (function(data) {
         var editor = document.getElementById('editor__png')
         editor.src = data.target.result;
-        Actions.setSaveFork("saving")
-        Actions.saveThumbnail({image: data.target.result, gistId: gist.id});
       });
       reader.readAsDataURL(file);
 
@@ -64,6 +61,13 @@ var EditorPNG = React.createClass({
       console.log("ERROR", "not an image!", file)
     }
     
+  },
+
+  handleSave: function handleSave() {
+    var gist = this.props.gist;
+    var editor = document.getElementById('editor__png')
+    Actions.setSaveFork("saving")
+    Actions.saveThumbnail({image: editor.src, gistId: gist.id});
   },
 
   render: function render() {
@@ -81,7 +85,7 @@ var EditorPNG = React.createClass({
     var edit = (
       <div id="block__code-thumbnail-edit">
         <input onChange={this.selectFile} type="file" id="editor__png-input" name="files[]"/>
-        <div id="thumbnail__save">Save</div>
+        <div onClick={this.handleSave} id="thumbnail__save">Save</div>
       </div>
     )
     if(!this.state.canEdit) edit = "";

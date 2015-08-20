@@ -46,6 +46,7 @@ function cleanGist(gist) {
     id: gist.id,
     description: gist.description,
     owner: gist.owner,
+    public: gist.public,
     files: {},
   };
   var fileNames = Object.keys(gist.files);

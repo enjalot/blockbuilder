@@ -40,10 +40,13 @@ var FilesAdd = React.createClass({
   },
   handleBlob: function handleBlob(file) {
     var reader = new FileReader();
+    console.log("TEXT FILES ONLY")
+    /*
     reader.onload = (function(data) {
       console.log("blob data", data)
     });
     reader.readAsBlob(file);
+    */
   },
   selectFile: function selectFile(evt) {
     var files = evt.target.files;
@@ -59,10 +62,11 @@ var FilesAdd = React.createClass({
     if(file.type.indexOf("text/") === 0) {
       console.log("handle text")
       this.handleText(file);
+    } else if(file.type.indexOf("application/json") === 0) {
+      this.handleText(file);
     } else {
       this.handleBlob(file);
     }
-    
   },
   addFile: function addFile() {
     console.log("add file")
