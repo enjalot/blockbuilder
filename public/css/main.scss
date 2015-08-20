@@ -292,6 +292,7 @@ a.header-link:hover {
   width: 300px;
 }
 
+/* standard */
 .☯ {
    .renderer {
     height: $blockHeight;
@@ -302,6 +303,7 @@ a.header-link:hover {
   }
 }
 
+/* sidebyside */
 $frameHeight: $filesHeight + $headerHeight;
 .☮ {
   .renderer {
@@ -333,6 +335,7 @@ $frameHeight: $filesHeight + $headerHeight;
     width: calc(100% - 960px);
     bottom: 0;
     margin: 0;
+    overflow: scroll;
     #block__code-index {
       height: 100%;
       .CodeMirror {
