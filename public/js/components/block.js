@@ -67,15 +67,9 @@ var Block = React.createClass({
     if(data.type === 'setActiveFile') { 
       this.setState({activeFile: data.activeFile})
     } else if(data.type === 'addFile') {
-      this.setState({ fileAdded: true})
       var gist = this.state.gistData;
-      gist.files[data.file.name] = {content: data.file.content };
-      var user = this.props.user;
-      if(user && gist && gist.owner && user.id === gist.owner.id) {
-        Actions.saveGist(gist);
-      } else {
-        Actions.forkGist(gist);
-      }
+      gist.files[data.file.name] = {content: data.file.content, filename: data.file.name };
+      this.setState({ gistData: gist, fileAdded: true})
     }
   },
 
