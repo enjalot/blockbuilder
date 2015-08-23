@@ -85,7 +85,6 @@ var Renderer = React.createClass({
   },
 
   handleMouseOver: function handleMouseOver() {
-    console.log("mouseover", document.body.scrollTop)
     if(document.documentElement.scrollTop > 0) //FireFox
       d3.select("div.renderer").classed("popped", true)
     if(document.body.scrollTop > 0)
