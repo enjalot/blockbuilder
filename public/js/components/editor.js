@@ -35,7 +35,8 @@ var Editor = React.createClass({
     if(nextProps.mode !== this.props.mode) return true;
     var gist = nextProps.gist
     if(!gist || !gist.files || !gist.files[this.props.active]) return true;
-    if(gist.files[this.props.active].template === this.props.gist.files[this.props.active].template){
+    if(gist.files[this.props.active].content === this.props.gist.files[this.props.active].content){
+      if(!this.props.gist.files[this.props.active].content) return true;
       // http://stackoverflow.com/questions/1119289/how-to-show-the-are-you-sure-you-want-to-navigate-away-from-this-page-when-ch
       window.onbeforeunload = function(e) {
         e = e || window.event;
@@ -59,8 +60,8 @@ var Editor = React.createClass({
       console.log("MD")
       editor = ( <EditorMD gist={gist} active={active}></EditorMD>)
     } else if(active.indexOf('.png') >= 0) {
-      console.log("PNG")
-      editor = ( <EditorPNG gist={gist} active={active} user={this.props.user}></EditorPNG>)
+      console.log("PNG", this.props)
+      editor = ( <EditorPNG gist={gist} active={active} {...this.props}></EditorPNG>)
     } else {
       editor = ( <EditorTXT gist={gist} active={active}></EditorTXT>)
     }

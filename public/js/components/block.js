@@ -177,8 +177,10 @@ var Block = React.createClass({
       }
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
-      this.setState({failed: "save"});
+      this.setState({ failed: "save"});
       this.setState({ saving: false });
+      console.log("Data", data)
+      Actions.setModal("Failed to save: " + data.data)
     } else if(data.type === 'save-thumbnail:completed'){
       console.log("SAVED THUMBNAIL");
       this.setState({ saving: false });
@@ -189,7 +191,7 @@ var Block = React.createClass({
       window.location = url;
       */
     } else if(data.type === 'save-thumbnail:failed'){
-      console.log("SAVE THUMBNAIL FAILED")
+      Actions.setModal("Failed to save thumbnail")
       this.setState({failed: "save thumbnail"});
       this.setState({ saving: false });
     } else if(data.type === 'trigger') {
@@ -290,11 +292,12 @@ var Block = React.createClass({
 
     } else {
       // SUCCESS - data exists
+      console.log("SAVING", this.state.saving)
       blockContent = (
         <div>
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} user={this.props.user} active={this.state.activeFile} mode={this.state.mode}></Editor>
+          <Editor gist={this.state.gistData} user={this.props.user} active={this.state.activeFile} mode={this.state.mode} saving={this.state.saving}></Editor>
         </div>
       );
     }

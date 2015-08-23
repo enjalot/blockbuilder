@@ -13,6 +13,7 @@ import logger from 'bragi-browser';
 // Internal Dependencies
 // ------------------------------------
 import Actions from '../actions/actions.js';
+import {IconLoader} from './icons.js';
 
 // ========================================================================
 //
@@ -29,6 +30,8 @@ var EditorPNG = React.createClass({
     } else {
       this.setState({ canEdit: false})
     }
+    console.log("UPDATING", this.props.saving)
+    this.setState({saving: this.props.saving})
 
   },
   componentDidMount: function componentDidMount(){
@@ -36,6 +39,7 @@ var EditorPNG = React.createClass({
   },
   componentDidUpdate: function componentDidUpdate(){
     logger.log('components/EditorTXT:component:componentDidUpdate', 'called');
+    console.log("SUP", this.state.saving, this.props.saving)
   },
 
   selectFile: function selectFile(evt) {
@@ -45,6 +49,7 @@ var EditorPNG = React.createClass({
     // TODO error handling
     if(!file) return;
     if(file.size > 10000000) {
+      Actions.setModal(`ERROR: ${file.name} is too big, ${file.size} > 10mb`)
       console.log("ERROR", "file too big!", file.size, " > 10mb")
       return;
     }
@@ -58,6 +63,7 @@ var EditorPNG = React.createClass({
 
     } else {
       // TODO: error modal
+      Actions.setModal(`ERROR: ${file.name} is Not an image`)
       console.log("ERROR", "not an image!", file)
     }
     
@@ -68,6 +74,7 @@ var EditorPNG = React.createClass({
     var editor = document.getElementById('editor__png')
     Actions.setSaveFork("saving")
     Actions.saveThumbnail({image: editor.src, gistId: gist.id});
+    this.setState({saving: true})
   },
 
   render: function render() {
@@ -82,10 +89,25 @@ var EditorPNG = React.createClass({
       img = ( <img id='editor__png' src="" width="200px"></img> );
     }
 
+    var save
+    var loading = (
+      <div id='nav__loading'>
+        <IconLoader></IconLoader>
+      </div>
+    )
+    if(this.state.saving) {
+      save = loading
+    } else {
+      save = (
+        <div onClick={this.handleSave} id="thumbnail__save">Save</div>
+      )
+    }
+
+
     var edit = (
       <div id="block__code-thumbnail-edit">
         <input onChange={this.selectFile} type="file" id="editor__png-input" name="files[]"/>
-        <div onClick={this.handleSave} id="thumbnail__save">Save</div>
+        {save}
       </div>
     )
     if(!this.state.canEdit) edit = "";

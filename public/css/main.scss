@@ -244,6 +244,9 @@ a.header-link:hover {
   position: absolute;
   top: 0;
   right: 0px;
+  #nav__loading {
+    clear:right;
+  }
 }
 
 #editor__png {
@@ -396,7 +399,19 @@ $frameHeight: $filesHeight + $headerHeight;
   }
 }
 
+.ReactModal__Overlay {
+  z-index: 400
+}
+.ReactModal__Content {
+  z-index: 500;
+  height: 50px;
+  background-color: #FE6675 !important;
 
+  .error {
+    color: #efefef;
+
+  }
+}
 
 /* -------------------
 borrowed styles

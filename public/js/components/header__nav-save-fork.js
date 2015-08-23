@@ -16,11 +16,11 @@ var SaveForkNav = React.createClass({
   },
 
   fork: function fork() {
+    window.onbeforeunload = null;
     Actions.setSaveFork("forking");
     Actions.forkGist(this.props.gist);
   },
   newBlock: function newBlock() {
-    // TODO: add the "are you sure you want to leave?" prompt
     window.location = "/"
   },
   render: function render() {

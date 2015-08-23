@@ -40,6 +40,7 @@ var FilesAdd = React.createClass({
   },
   handleBlob: function handleBlob(file) {
     var reader = new FileReader();
+    Actions.setModal("Sorry, the gist API supports text files only.") 
     console.log("TEXT FILES ONLY")
     /*
     reader.onload = (function(data) {

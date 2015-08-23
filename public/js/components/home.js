@@ -100,10 +100,11 @@ var Home = React.createClass({
       window.location = url;
 
     } else if(data.type === 'fork:failed'){
-      var failMessage = 'Could not fork gist';
+      var failMessage = 'Could not save gist';
       if(data.response && data.response.message){
         failMessage = data.response.message;
       }
+      Actions.setModal(failMessage)
       this.setState({ failed: true, failMessage: failMessage})
     } else if(data.type === 'local:update'){
       this.setState({ gistData: data.data })

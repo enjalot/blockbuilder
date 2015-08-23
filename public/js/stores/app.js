@@ -33,6 +33,14 @@ var AppStore = Reflux.createStore({
         type: 'setMode',
         mode: mode 
       }); 
+    },
+
+    onSetModal: function(message) {
+      this.trigger({
+        type:'setModal',
+        message: message
+      })
+
     }
 
 });
