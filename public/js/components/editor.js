@@ -36,8 +36,16 @@ var Editor = React.createClass({
     var gist = nextProps.gist
     if(!gist || !gist.files || !gist.files[this.props.active]) return true;
     if(gist.files[this.props.active].template === this.props.gist.files[this.props.active].template){
+      // http://stackoverflow.com/questions/1119289/how-to-show-the-are-you-sure-you-want-to-navigate-away-from-this-page-when-ch
+      window.onbeforeunload = function(e) {
+        e = e || window.event;
+        var message = "You have unsaved changes..."
+        if(e) { e.returnValue = message }
+        return message
+      }
       return false;
     }
+    
     return true;
   },
 
