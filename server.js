@@ -119,7 +119,7 @@ MongoClient.connect(mongoUrl, function(err, db) {
   passport.use(new GitHubStrategy({
       clientID: nconf.get('github:clientId'),
       clientSecret: nconf.get('github:secret'),
-      callbackURL: "http://localhost:8889/auth/github/callback"
+      callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       users.findOne({ '_id': profile.id }, function (err, user) {
