@@ -33,21 +33,12 @@ var GistNav = React.createClass({
     var gistUrl = "https://gist.github.com/" + userName + '/' + this.props.params.gistId
     var blocksUrl = "http://bl.ocks.org/" + userName + '/' + this.props.params.gistId
 
-    var title;
-    if(gist) {
-      title = gist.description || gist.id;
-    }
-
     if(!gist) return (<div id='block__nav'></div>)// (<div id='block__nav'><IconLoader></IconLoader></div>)
-
-    if(!gist.id) {
-      title = (<input className="description" defaultValue={ gist.description }></input>)
-    }
 
     return (
       <div id='block__nav'>
         <span id='block__nav-gist-title'>
-          { title }
+          <input className="description" defaultValue={ gist.description }></input>
         </span>
         <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank">gist<IconExternalLink></IconExternalLink></a>
         <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">bl.ock<IconExternalLink></IconExternalLink></a>

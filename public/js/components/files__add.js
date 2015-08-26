@@ -42,12 +42,8 @@ var FilesAdd = React.createClass({
     var reader = new FileReader();
     Actions.setModal("Sorry, the gist API supports text files only.") 
     console.log("TEXT FILES ONLY")
-    /*
-    reader.onload = (function(data) {
-      console.log("blob data", data)
-    });
-    reader.readAsBlob(file);
-    */
+    document.getElementById('files__input').value = '';
+    // TODO: clear the file input
   },
   selectFile: function selectFile(evt) {
     var files = evt.target.files;
