@@ -2,7 +2,14 @@
 These are scripts for deploying your own server.
 
 # Amazon AMI
-You can install everything yourself, or use a pre-packaged AMI running Ubuntu 14.04 with everything up and running. The AMI id is `ami-d52e87be`. The user is `ubuntu` and the code is deployed in `/home/ubuntu/Code/building-blocks`. Just SSH in and `git pull`. Everything is pre-configured: IPTables, upstart script, and monit.
+You can install everything yourself, or use a pre-packaged AMI running Ubuntu 14.04 with everything up and running. The AMI id is `ami-d52e87be`. The user is `ubuntu` and the code is deployed in `/home/ubuntu/Code/building-blocks`. 
+
+## Updating:
+This process also applied if you are running your own server
+
+SSH into server and run `make update`.
+
+This will run `git pull` to update the code base. It will also run `npm install` and `npm run build` to ensure dependencies are up to date after a pull and to build the build artifacts. 
 
 # Rolling Your Own Server
 If you wish to roll your own server, the following steps serve as a guide for getting everything up and running.
