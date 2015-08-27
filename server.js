@@ -232,7 +232,7 @@ app.post('/api/thumbnail', function (req, res){
 // App routes
 // ------------------------------------
 app.get('/', function (req, res) {
-  return res.render('base', {user: req.session.passport.user});
+  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
 });
 
 app.get('/_elb', function(req, res) {
@@ -245,7 +245,7 @@ app.get('/:username', function (req, res) {
   // params
   var username = req.params.username;
 
-  return res.render('base', {user: req.session.passport.user});
+  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
 });
 
 // Get the block editing page for a particular gist
@@ -255,7 +255,7 @@ app.get('/:username/:gistId', function (req, res) {
   var username = req.params.username;
   var gistId = req.params.gistId;
 
-  return res.render('base', {user: req.session.passport.user});
+  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
 });
 
 function saveGist(gist, method, token, cb) {
