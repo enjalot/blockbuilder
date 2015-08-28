@@ -315,7 +315,7 @@ var Block = React.createClass({
         <div id='block__header'>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
-            <GistNav {...this.props} gist={this.state.gistData}></GistNav>
+            <GistNav {...this.props} gist={this.state.gistData} page="block"></GistNav>
           </div>
           <div id='site-header__user'>
             <UserNav {...this.props}></UserNav>

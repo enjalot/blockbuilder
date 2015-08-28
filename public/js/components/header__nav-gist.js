@@ -40,6 +40,13 @@ var GistNav = React.createClass({
     var blocksUrl = "http://bl.ocks.org/" + userName + '/' + this.props.params.gistId
 
     if(!gist) return (<div id='block__nav'></div>)// (<div id='block__nav'><IconLoader></IconLoader></div>)
+    if(this.props.page === "home") return (
+      <div id='block__nav'>
+        <span id='block__nav-gist-title'>
+          <input className="description" defaultValue={ gist.description } onChange={this.handleDescriptionChange}></input>
+        </span>
+      </div>
+    )
 
     return (
       <div id='block__nav'>
