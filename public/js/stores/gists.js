@@ -168,15 +168,19 @@ var GistsStore = Reflux.createStore({
         data: data
       });
     },
-
     onSetSaveFork: function onTrigger( type ) {
       this.trigger({
         type: "trigger",
         data: type
       })
     },
-
-    onLocalGistUpdate: function onLocalGistUpdate( data) {
+    onSetDescription: function onSetDescription( data ) {
+      this.trigger({
+        type: "description:update",
+        description: data
+      })
+    },
+    onLocalGistUpdate: function onLocalGistUpdate( data ) {
       logger.log('stores/gists:onLocalGistUpdate',
         'updated gist : %O', data);
 

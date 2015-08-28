@@ -200,6 +200,10 @@ var Block = React.createClass({
       this.setState(result)
     } else if(data.type === 'local:update'){
       this.setState({ gistData: data.data })
+    } else if(data.type == 'description:update') {
+      var gist = this.state.gistData;
+      gist.description = data.description;
+      this.setState({ gistData: gist })
     }
   },
 
@@ -262,7 +266,6 @@ var Block = React.createClass({
     // log arguments
     //logger.log('components/Block:component:componentWillReceiveProps nextProps: %O', nextProps);
   },
-
   // Render
   // ----------------------------------
   render: function render(){

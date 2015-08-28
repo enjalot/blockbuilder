@@ -32,6 +32,7 @@ var Actions = Reflux.createActions({
     // FILES
     'addFile': {},
     'setActiveFile': {},
+    'setDescription': {},
     'setMode': {},
     'setModal': {},
     'setSaveFork': {}
@@ -55,7 +56,6 @@ function cleanGist(gist) {
     if(fileName === "thumbnail.png") return;
     newGist.files[fileName] = gist.files[fileName];
   })
-  console.log("CLEANED GIST", newGist)
   return newGist;
 }
 

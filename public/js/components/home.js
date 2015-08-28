@@ -108,6 +108,10 @@ var Home = React.createClass({
       this.setState({ failed: true, failMessage: failMessage})
     } else if(data.type === 'local:update'){
       this.setState({ gistData: data.data })
+    } else if(data.type == 'description:update') {
+      var gist = this.state.gistData;
+      gist.description = data.description;
+      this.setState({ gistData: gist })
     }
   },
   componentWillMount: function(){
@@ -128,15 +132,6 @@ var Home = React.createClass({
   },
   componentDidMount: function(){
     logger.log('components/Home:componentDidMount', 'called');
-    var descriptionChange = ()=> {
-      var gist = this.state.gistData;
-      gist.description = description.node().value
-      this.setState({ gistData: gist })
-    }
-
-    var description = d3.select("input.description")
-      .on("keyup", descriptionChange)
-      .on("change", descriptionChange)
   },
 
   render: function render(){

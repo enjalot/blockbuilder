@@ -8,12 +8,18 @@
 import React from 'react';
 import {IconExternalLink,IconLoader} from './icons.js';
 
+import Actions from '../actions/actions.js';
+
 var GistNav = React.createClass({
   componentDidUpdate: function componentDidUpdate() {
     var gist = this.props.gist;
     if(gist && gist.description){ 
       d3.select("title").node().innerHTML = "Building Bl.ocks - " + gist.description;
     }
+  },
+  handleDescriptionChange: function handleDescriptionChange() {
+    var description = d3.select("input.description").node().value
+    Actions.setDescription(description);
   },
   render: function render() {
     var gist = this.props.gist;
@@ -38,7 +44,7 @@ var GistNav = React.createClass({
     return (
       <div id='block__nav'>
         <span id='block__nav-gist-title'>
-          <input className="description" defaultValue={ gist.description }></input>
+          <input className="description" defaultValue={ gist.description } onChange={this.handleDescriptionChange}></input>
         </span>
         <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank">gist<IconExternalLink></IconExternalLink></a>
         <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">bl.ock<IconExternalLink></IconExternalLink></a>

@@ -292,7 +292,9 @@ a.header-link:hover {
   cursor: pointer;
 }
 .description {
+  font-family: Roboto;
   width: 300px;
+  font-size: 24px;
 }
 
 /* standard */
@@ -422,6 +424,12 @@ Inlet styles
   -moz-box-sizing: content-box; 
   -webkit-box-sizing: content-box; 
   box-sizing: content-box; 
+}
+
+// https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+.inlet_slider input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  margin-top: -16px;
 }
 
 
