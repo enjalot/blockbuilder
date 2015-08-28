@@ -7,7 +7,7 @@
  * ========================================================================= */
 import React from 'react';
 import Actions from '../actions/actions.js';
-import {IconLoader} from './icons.js';
+import {IconLoader, IconPublic, IconPrivate} from './icons.js';
 
 var SaveForkNav = React.createClass({
   save: function save() {
@@ -22,6 +22,12 @@ var SaveForkNav = React.createClass({
   },
   newBlock: function newBlock() {
     window.location = "/"
+  },
+  makePublic: function makePublic() {
+    Actions.setPublic(true);
+  },
+  makePrivate: function makePrivate() {
+    Actions.setPublic(false);
   },
   render: function render() {
     var gist = this.props.gist;
@@ -47,15 +53,48 @@ var SaveForkNav = React.createClass({
     if(this.props.forking) {
       fork = loading;
     } else {
-      fork = <div id='block__fork' data-tip="Create your own copy of this code" data-place="bottom" onClick={ this.fork }>{forkText}</div>
+      fork = <div id='block__fork' data-tip="Create your own copy of this code" data-place="bottom" data-effect="solid" onClick={ this.fork }>{forkText}</div>
+    }
+
+    var lock = "";
+    // Because the gist API doesn't allow us to modify the privacy of an existing gist
+    // we need different logic depending on if we are creating a gist or looking at an existing one
+    if(this.props.page === "home") {
+      if(gist && !gist.public) {
+        lock = ( 
+          <div id="block__lock" className="clickable" onClick={ this.makePublic } data-tip="This block is private. Click to make it public on your next save." data-place="bottom" data-effect="solid">
+            <IconPrivate></IconPrivate>
+          </div> 
+        )
+      } else {
+        lock = (
+          <div id="block__lock" className="clickable" onClick={ this.makePrivate } data-tip="This block is public. Click to make it private on your next save." data-place="bottom" data-effect="solid">
+            <IconPublic></IconPublic>
+          </div>
+        )
+      }
+    } else {
+      if(gist && !gist.public) {
+        lock = ( 
+          <div id="block__lock" data-tip="This block is private." data-place="bottom" data-effect="solid">
+            <IconPrivate></IconPrivate>
+          </div> 
+        )
+      } else {
+        lock = (
+          <div id="block__lock" data-tip="This block is public." data-place="bottom" data-effect="solid">
+            <IconPublic></IconPublic>
+          </div>
+        )
+      }
     }
 
     return (
       <div>
-        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" onClick={ this.newBlock }>New</div>
-        
+        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" data-effect="solid" onClick={ this.newBlock }>New</div>
         {fork}
         {save}
+        {lock}
       </div>
     )
   }

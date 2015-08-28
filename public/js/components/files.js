@@ -51,8 +51,11 @@ var Files = React.createClass({
     if(this.state.show){
       show = 'show';
     }
+    if(!gist.files["index.html"]) gist.files["index.html"] = {content: "<html></html>", filename:"index.html"}
+    if(!gist.files["README.md"]) gist.files["README.md"] = {content: "# hello world", filename:"README.md"}
     if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
-      var hideShowButton = ""
+
+    var hideShowButton = ""
     if(!files.length){
       hideShowButton = "hidden"      
     }
@@ -69,7 +72,7 @@ var Files = React.createClass({
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
         <ReactTooltip />
-        <a id="files__show" data-tip="Show more files" data-place='left' onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
+        <a id="files__show" data-tip="Show more files" data-place='left' data-effect="solid" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>

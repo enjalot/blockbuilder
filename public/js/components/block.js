@@ -204,6 +204,11 @@ var Block = React.createClass({
       var gist = this.state.gistData;
       gist.description = data.description;
       this.setState({ gistData: gist })
+    } else if(data.type == 'public:update') {
+      var gist = this.state.gistData;
+      gist.public = data.public;
+      console.log("PUBLIC", gist.public)
+      this.setState({ gistData: gist })
     }
   },
 
@@ -316,7 +321,7 @@ var Block = React.createClass({
             <UserNav {...this.props}></UserNav>
           </div>
           <div id='site-header__save-fork'>
-            <SaveForkNav gist={this.state.gistData} forking={this.state.forking} saving={this.state.saving} {...this.props}></SaveForkNav>
+            <SaveForkNav gist={this.state.gistData} forking={this.state.forking} saving={this.state.saving} page="block" {...this.props}></SaveForkNav>
           </div>
           <ModeNav mode={this.state.mode}></ModeNav>
         </div>

@@ -21,11 +21,11 @@ var ModeNav = React.createClass({
   render: function render() {
     if(this.props.mode === "☮") {
       return (
-        <div id='block__mode' data-tip='Switch to standard mode' data-place='left' onClick={this.handleModeChange}>{this.props.mode}</div>
+        <div id='block__mode' data-tip='Switch to standard mode' data-place='left' data-effect="solid" onClick={this.handleModeChange}>{this.props.mode}</div>
       )
     } else {
       return (
-        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='left' onClick={this.handleModeChange}>{this.props.mode}</div>
+        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='left' data-effect="solid" onClick={this.handleModeChange}>{this.props.mode}</div>
       )
     }
   }

@@ -112,6 +112,11 @@ var Home = React.createClass({
       var gist = this.state.gistData;
       gist.description = data.description;
       this.setState({ gistData: gist })
+    } else if(data.type == 'public:update') {
+      var gist = this.state.gistData;
+      gist.public = data.public;
+      console.log("PUBLIC", gist.public)
+      this.setState({ gistData: gist })
     }
   },
   componentWillMount: function(){
@@ -147,7 +152,7 @@ var Home = React.createClass({
             <UserNav {...this.props}></UserNav>
           </div>
           <div id='site-header__save-fork'>
-            <SaveForkNav gist={this.state.gistData} {...this.props}></SaveForkNav>
+            <SaveForkNav gist={this.state.gistData} page="home" {...this.props}></SaveForkNav>
           </div>
           <ModeNav mode={this.state.mode}></ModeNav>
         </div>

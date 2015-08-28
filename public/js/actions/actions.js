@@ -33,6 +33,7 @@ var Actions = Reflux.createActions({
     'addFile': {},
     'setActiveFile': {},
     'setDescription': {},
+    'setPublic': {},
     'setMode': {},
     'setModal': {},
     'setSaveFork': {}

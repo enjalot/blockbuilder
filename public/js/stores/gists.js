@@ -180,6 +180,12 @@ var GistsStore = Reflux.createStore({
         description: data
       })
     },
+    onSetPublic: function onSetPublic( data ) {
+      this.trigger({
+        type: "public:update",
+        public: data
+      })
+    },
     onLocalGistUpdate: function onLocalGistUpdate( data ) {
       logger.log('stores/gists:onLocalGistUpdate',
         'updated gist : %O', data);
