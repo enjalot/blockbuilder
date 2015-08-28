@@ -75,7 +75,11 @@ var EditorHTML = React.createClass({
         viewportMargin: Infinity
       });
 
-      window.Inlet(this.codeMirror);
+      window.Inlet(this.codeMirror, {
+        horizontalMode: "local",
+        slider: {yOffset: 25, xOffset: 30}, 
+        picker:{ bottomOffset: 20, topOffset: 230 }
+      });
 
       this.codeMirror.on('change', ()=>{
         gist.files[this.props.active].content = this.codeMirror.getValue();
