@@ -85,6 +85,14 @@ var EditorHTML = React.createClass({
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
       });
+      this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
+        if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
+          if ( (document.body.scrollTop > 0) || (document.documentElement.scrollTop > 0) /* Firefox */ ) 
+            d3.select("div.renderer").classed("popped", function(d){
+              return !d3.select(this).classed('popped');
+            });
+        }
+      });
     });
   },
 

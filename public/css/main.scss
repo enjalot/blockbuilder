@@ -305,6 +305,9 @@ a.header-link:hover {
       overflow: hidden;
     }
   }
+  #block__code-wrapper .CodeMirror-scroll {
+    min-height: 600px;
+  }
 }
 
 /* sidebyside */
