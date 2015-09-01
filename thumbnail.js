@@ -39,7 +39,10 @@ function gitClone(data, cb) {
   var url = "https://gist.github.com/" + data.id + ".git"
   console.log("cloning", url)
   child.exec("cd /tmp; git clone " + url, function(error, stdout, stderr) {
-    if (!error && stderr) process.stderr.write(stderr), error = new Error("git clone failed: ", data.id);
+    if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
+      process.stderr.write(stderr);
+      error = new Error("git clone failed: ", data.id);
+    } else if(stderr) { process.stdout.write(stderr) }
     if (!error && stdout) process.stdout.write(stdout);
     cb(error)
   })
@@ -47,7 +50,10 @@ function gitClone(data, cb) {
 function gitCommit(data, cb) {
   console.log("adding and commiting thumbnail", data.id)
   child.exec("cd /tmp/" + data.id + "; git add thumbnail.png; git commit -m 'update thumbnail.png'", function(error, stdout, stderr) {
-    if (!error && stderr) process.stderr.write(stderr), error = new Error("git commit failed.", data.id);
+    if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
+      process.stderr.write(stderr);
+      error = new Error("git commit failed.", data.id)
+    } else if(stderr) { process.stdout.write(stderr) }
     if (!error && stdout) process.stdout.write(stdout);
     cb(error);
   });
@@ -62,7 +68,10 @@ function gitPush(data, cb) {
     {
       cwd: "/tmp/" + data.id,
     }, function(error, stdout, stderr) {
-      if (!error && stderr) process.stderr.write(stderr), error = new Error("git push failed.", data.id);
+      if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
+        process.stderr.write(stderr);
+        error = new Error("git push failed.", data.id);
+      } else if(stderr) { process.stdout.write(stderr) }
       if (!error && stdout) process.stdout.write(stdout);
       cb(error);
     })
@@ -83,7 +92,10 @@ function writeImage(data, cb) {
 
 function cleanGist(data, cb) {
   child.exec("cd /tmp; rm -rf " + data.id, function(error, stdout, stderr) {
-    if (!error && stderr) process.stderr.write(stderr), error = new Error("rm -rf failed.", data.id);
+    if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
+      process.stderr.write(stderr);
+      error = new Error("rm -rf failed.", data.id);
+    } else if(stderr) { process.stdout.write(stderr) }
     if (!error && stdout) process.stdout.write(stdout);
     cb(error);
   });
