@@ -49,7 +49,8 @@ function gitClone(data, cb) {
 }
 function gitCommit(data, cb) {
   console.log("adding and commiting thumbnail", data.id)
-  child.exec("cd /tmp/" + data.id + "; git add thumbnail.png; git commit -m 'update thumbnail.png'", function(error, stdout, stderr) {
+  var author = '"Building blocks <enjalot+buildingblocks@gmail.com>"' 
+  child.exec("cd /tmp/" + data.id + "; git add thumbnail.png; git commit --author " + author + " -m 'update thumbnail.png'", function(error, stdout, stderr) {
     if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
       process.stderr.write(stderr);
       error = new Error("git commit failed.", data.id)
