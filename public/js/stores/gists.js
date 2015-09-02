@@ -64,6 +64,9 @@ var GistsStore = Reflux.createStore({
         logger.log('stores/gists:onFetchGistCompleted',
         'fetched gist : %O', data);
 
+        // clear the warning
+        window.onbeforeunload = null;
+
         // store the response for this gist ID. Allows components to avoid
         // making another fetch request if they look at the same gistId
         this.gistsById[data.gistId] = data.response;
@@ -189,6 +192,16 @@ var GistsStore = Reflux.createStore({
     onLocalGistUpdate: function onLocalGistUpdate( data ) {
       logger.log('stores/gists:onLocalGistUpdate',
         'updated gist : %O', data);
+
+      // this means we updated the code
+      // http://stackoverflow.com/questions/1119289/how-to-show-the-are-you-sure-you-want-to-navigate-away-from-this-page-when-ch
+      window.onbeforeunload = function(e) {
+        e = e || window.event;
+        var message = "You have unsaved changes..."
+        if(e) { e.returnValue = message }
+        return message
+      }
+      return false;
 
       this.gistsById[data.id] = data;
         this.trigger({
