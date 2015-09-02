@@ -207,7 +207,6 @@ var Block = React.createClass({
     } else if(data.type == 'public:update') {
       var gist = this.state.gistData;
       gist.public = data.public;
-      console.log("PUBLIC", gist.public)
       this.setState({ gistData: gist })
     }
   },

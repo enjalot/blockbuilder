@@ -201,7 +201,6 @@ var GistsStore = Reflux.createStore({
         if(e) { e.returnValue = message }
         return message
       }
-      return false;
 
       this.gistsById[data.id] = data;
         this.trigger({
