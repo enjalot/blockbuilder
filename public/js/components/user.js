@@ -12,7 +12,8 @@ import logger from 'bragi-browser';
 
 // Internal Dependencies
 // ------------------------------------
-
+import SiteNav from './header__nav-site.js'
+import SaveForkNav from './header__nav-save-fork.js'
 // ========================================================================
 //
 // Functionality
@@ -34,12 +35,19 @@ var User = React.createClass({
             Small multiples
         </Link>
     );
+    var username = this.props.params.username;
+    var userLink = "http://bl.ocks.org/" + username
 
     return (
       <div>
-        <h1> User { this.props.params.username } </h1>
-
-        {userBlocks}
+        <div id='block__header'>
+          <div id='site-header__save-fork'>
+            <SiteNav></SiteNav>
+            <SaveForkNav page="home" {...this.props}></SaveForkNav>
+          </div>
+        </div>
+        <h1> { username } </h1>
+        <h2> <a href={userLink}>{username}' Blocks</a></h2>
       </div>
     );
   }

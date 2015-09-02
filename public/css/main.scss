@@ -39,9 +39,49 @@ svg.icon {
   margin: 0 5px;
 }
 
+a {
+  text-decoration: none;
+  color: $blue;
+  font-size: 18px;
+  border-bottom: 1px solid white;
+}
+a:hover {
+  border-bottom: 1px solid $blue;
+}
+
 /********************
   LAYOUT
 *********************/
+
+#gallery {
+  width: 1000px;
+  .frame-holder { 
+    margin: 5px;
+    margin-bottom: 20px;
+    width: 480px;
+    height: 250px;
+    float: left;
+    a {
+      margin-left: 10px;
+      margin-right: 30px;
+    }
+  }
+  p {
+    margin-top: -250px;
+    float: left;
+    clear:left;
+  }
+  iframe {
+    border: none;
+    outline: none;
+    margin: 0;
+    width: 960px;
+    height: 500px;
+    -webkit-transform: scale(0.5) translate(-480px, -250px);
+    transform: scale(0.5) translate(-480px, -250px);
+    float:left;
+  }
+}
 
 #site-wrapper {
   position: absolute;
@@ -398,6 +438,17 @@ $frameHeight: $filesHeight + $headerHeight;
   color: $blue;
   border: 1px solid white;
   text-decoration: underline;
+}
+
+#block__site-nav {
+  position: fixed;
+  float: left;
+  top: 10px;
+  left: 10px;
+
+  .link {
+    margin-top: 2px;
+  }
 }
 
 #block__loading {

@@ -239,6 +239,15 @@ app.get('/_elb', function(req, res) {
   return res.send("Ok")
 })
 
+
+app.get('/about', function (req, res) {
+  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+});
+
+app.get('/gallery', function (req, res) {
+  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+});
+
 // Get a user's profile page
 app.get('/:username', function (req, res) {
   // NOTE: no data needs to be passed into template; react router gets url
