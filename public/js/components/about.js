@@ -39,14 +39,17 @@ var About = React.createClass({
           </div>
         </div>
         <h1>About</h1>
-          <p>
-          Read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how building-blocks works</a>.
-          <br></br><br></br>
-          See how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
+          <p> All the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
           </p>
-
           <p>
-            Check out the <a href="/gallery">gallery</a> of bl.ocks chosen by the backers.
+          You can read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how building-blocks works</a> or 
+          see how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
+          <br></br>
+          Don't forget to check out the <a href="/gallery">gallery</a> of bl.ocks chosen by the backers.
+          </p>
+          <p>
+            Reach out to <a href="http://twitter.com/enjalot">enjalot</a> for feedback & ideas.
+            Please <a href="https://github.com/enjalot/building-blocks/issues">add an issue</a> on GitHub if you find a bug!
           </p>
 
           <h2>Kickstarter Backers</h2>
