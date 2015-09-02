@@ -105,13 +105,16 @@ MongoClient.connect(mongoUrl, function(err, db) {
   var users = db.collection('users');
 
   passport.serializeUser(function(user, done) {
+    console.log("serializing", user)
     done(null, {id: user.id, login: user.login, avatar_url: user.avatar_url, accessToken: user.accessToken });
   });
   passport.deserializeUser(function(id, done) {
     // This is called to return a user from a passport
     // stategy (e.g., after user logs in with GitHub)
     // This also is what req.user is set to
+    console.log("deserializing")
     users.findOne({ _id: id }, function (err, user) {
+      console.log("found the user", err, user)
       done(err, user);
     });
   });
@@ -122,16 +125,24 @@ MongoClient.connect(mongoUrl, function(err, db) {
       callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
+      console.log("finding user", profile)
       users.findOne({ '_id': profile.id }, function (err, user) {
+        console.log("USER", err, user)
         if(!user) {
           profile._id = profile.id;
           user = profile._json;
           user._id = profile.id;
+          if(profile._json) {
+            user.login = profile._json.login;
+            user.avatar_url = profile._json.avatar_url;
+          }
           users.update({_id: profile.id}, user, {upsert: true}, function(err){
+            console.log("updated")
             profile.accessToken = accessToken;
             return done(err, profile);
           });
         } else {
+          console.log("access tokened")
           user.accessToken = accessToken;
           return done(err, user);
         }
@@ -144,18 +155,22 @@ MongoClient.connect(mongoUrl, function(err, db) {
 
 app.get('/auth/github', function(req, res, next) {
   if(req.query.redirect){
+    console.log("redirecting")
     req.session.redirectTo = req.query.redirect;
   }
+  console.log("authenticate")
   passport.authenticate('github', {scope: 'gist'})(req, res, next);
 });
 
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
+    console.log("github callback, authed!")
     // Successful authentication, redirect home.
     var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
     delete req.session.redirectTo;
     //is authenticated ?
+    console.log("redirecting!!", req.session.passport)
     res.redirect(redirectTo);
 });
 app.get('/auth/logout', function(req, res) {
@@ -174,6 +189,7 @@ app.get('/auth/logout', function(req, res) {
 app.get('/api/me', function(req, res) {
   // this is safe as it is just the user id, login name and avatar url
   var user = req.session.passport.user;
+  console.log("API ME", user)
   if(!user) return res.send({});
   res.send({id: user.id, login: user.login, avatar_url: user.avatar_url});
 });
