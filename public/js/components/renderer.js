@@ -110,10 +110,10 @@ var Renderer = React.createClass({
   },
   render: function render() {
     var iframe;
-    if(this.props.mode === "☯") {
+    if(this.props.mode === "☯" && this.props.active.indexOf('.md') < 0) {
       iframe = ( <iframe id='block__iframe' scrolling='no'></iframe> )
     } else {
-      iframe = ( <iframe id='block__iframe'></iframe> )
+      iframe = ( <div><iframe id='block__iframe'></iframe></div> )
     }
     return (
       <div className={'renderer'}>
