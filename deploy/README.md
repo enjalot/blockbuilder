@@ -46,3 +46,17 @@ Configuration file for monit. Copy to `/etc/monit/monitrc`
 
 ### monit-building-blocks
 Configuration file for watching building-blocks with monit. Copy to `/etc/monit/conf.d/building-blocks`
+
+## Git
+
+If your server doesn't have it installed, you will need to get `expect`
+```bash
+sudo apt-get install expect
+````
+
+If you encounter an error where git is complaining about not knowing who you are when trying to save a thumbnail. Run:
+```bash
+sudo su root
+git config --global user.email "buildingblocks@example.com"
+git config --global user.name "Building Blocks"
+ ```
