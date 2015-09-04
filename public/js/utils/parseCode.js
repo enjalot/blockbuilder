@@ -19,7 +19,7 @@ function parseCode(template, files) {
       // We first try to find instances of loading js files through a <script> tag.
       // We can't fall back on the raw_url because you can't load scripts with MIME type text.
       // This does have the benefit of live reloading when changing a script file.
-      var find = "<script src=[\"\']" + file + "[\"\']>"
+      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>"
       var re = new RegExp(find, 'g')
       var matches = template.match(re)
       if(matches) {
