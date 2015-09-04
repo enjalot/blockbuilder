@@ -83,7 +83,7 @@ var Renderer = React.createClass({
     window.URL.revokeObjectURL(blobUrl);
     var blob = new Blob([template], {type: 'text/html'});
     blobUrl = URL.createObjectURL(blob);
-    iframe.src = blobUrl;
+    iframe.contentWindow.location.replace(blobUrl);
   },
 
   handleMouseOver: function handleMouseOver() {
