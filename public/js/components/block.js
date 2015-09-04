@@ -158,6 +158,7 @@ var Block = React.createClass({
       logger.log('components/Block:component:storeChange:fork:completed',
         url);
 
+      window.onbeforeunload = null;
       window.location = url;
 
     } else if(data.type === 'fork:failed'){
@@ -169,12 +170,7 @@ var Block = React.createClass({
     } else if(data.type === 'save:completed'){
       console.log("SAVED");
       this.setState({ saving: false })
-      // If we've added a file we want to refresh the page
-      if(this.state.fileAdded) {
-        var username = data.gist.owner.login;
-        var url = "/" + username + "/" + data.gist.id
-        window.location = url;
-      }
+      window.onbeforeunload = null;
     } else if(data.type === 'save:failed'){
       console.log("SAVE FAILED :(");
       this.setState({ failed: "save"});

@@ -97,6 +97,7 @@ var Home = React.createClass({
       logger.log('components/Home:storeChange:fork:completed',
         url);
 
+      window.onbeforeunload = null;
       window.location = url;
 
     } else if(data.type === 'fork:failed'){
