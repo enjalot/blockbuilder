@@ -48,15 +48,15 @@ var Editor = React.createClass({
     var active = this.props.active;
     var editor;
     if(active.indexOf('.html') >= 0){ 
-      editor = ( <EditorHTML gist={gist} active={active}></EditorHTML>)
+      editor = ( <EditorHTML {...this.props}></EditorHTML>)
     } else if(active.indexOf('.md') >= 0) {
       console.log("MD")
-      editor = ( <EditorMD gist={gist} active={active}></EditorMD>)
+      editor = ( <EditorMD {...this.props}></EditorMD>)
     } else if(active.indexOf('.png') >= 0) {
       console.log("PNG", this.props)
-      editor = ( <EditorPNG gist={gist} active={active} {...this.props}></EditorPNG>)
+      editor = ( <EditorPNG {...this.props}></EditorPNG>)
     } else {
-      editor = ( <EditorTXT gist={gist} active={active}></EditorTXT>)
+      editor = ( <EditorTXT {...this.props}></EditorTXT>)
     }
 
     return (

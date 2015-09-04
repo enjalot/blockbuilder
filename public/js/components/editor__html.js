@@ -43,11 +43,13 @@ var EditorHTML = React.createClass({
 
     var gist = this.props.gist;
 
+    var element = document.getElementById('block__code-index')
+
     // if the element doesn't exist, we're outta here
-    if(!document.getElementById('block__code-index')){ return false; }
+    if(!element){ return false; }
     // TODO: NOTE: Is just wiping this out efficient? Is there some
     // destructor we need to call instead?
-    document.getElementById('block__code-index').innerHTML = '';
+    element.innerHTML = '';
 
     // get text to place in codemirror
     var codeMirrorValue = '';
@@ -63,7 +65,7 @@ var EditorHTML = React.createClass({
     // put this behind a request animation frame so we're sure the element
     // is in the DOM
     requestAnimationFrame(()=>{
-      this.codeMirror = window.CodeMirror(document.getElementById('block__code-index'), {
+      this.codeMirror = window.CodeMirror(element, {
         tabSize: 2,
         value: codeMirrorValue,
         mode: 'htmlmixed',
@@ -75,10 +77,25 @@ var EditorHTML = React.createClass({
         viewportMargin: Infinity
       });
 
+      var horizontalMode, fixedContainer;
+      var xOffset, yOffset;
+      // if its side-by-side
+      if(this.props.mode === "☮"){ 
+        horizontalMode = "page";
+        //fixedContainer = element.getBoundingClientRect().right
+        fixedContainer = true;
+        xOffset = 0;
+        yOffset = 5;
+      } else {
+        horizontalMode = "local";
+        xOffset = 30;
+        yOffset = 25;
+      }
       window.Inlet(this.codeMirror, {
-        horizontalMode: "local",
-        slider: {yOffset: 25, xOffset: 30}, 
-        picker:{ bottomOffset: 20, topOffset: 230 }
+        horizontalMode: horizontalMode,
+        fixedContainer: fixedContainer,
+        slider: {yOffset: yOffset, xOffset: xOffset, width: "200px"}, 
+        picker:{ bottomOffset: 20, topOffset: 230}
       });
 
       this.codeMirror.on('change', ()=>{

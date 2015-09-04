@@ -384,8 +384,10 @@ $frameHeight: $filesHeight + $headerHeight;
     margin: 0;
     overflow: scroll;
     #block__code-index {
+      width: 100%;
       height: 100%;
       .CodeMirror {
+        width: 100%;
         height: 100%;
       }
     }
