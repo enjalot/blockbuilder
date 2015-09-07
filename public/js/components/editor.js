@@ -50,10 +50,10 @@ var Editor = React.createClass({
     if(active.indexOf('.html') >= 0){ 
       editor = ( <EditorHTML {...this.props}></EditorHTML>)
     } else if(active.indexOf('.md') >= 0) {
-      console.log("MD")
+      //console.log("MD")
       editor = ( <EditorMD {...this.props}></EditorMD>)
     } else if(active.indexOf('.png') >= 0) {
-      console.log("PNG", this.props)
+      //console.log("PNG", this.props)
       editor = ( <EditorPNG {...this.props}></EditorPNG>)
     } else {
       editor = ( <EditorTXT {...this.props}></EditorTXT>)

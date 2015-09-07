@@ -11,7 +11,8 @@ import Reflux from 'reflux';
 import logger from 'bragi-browser';
 import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
-//logger.options.groupsEnabled = [];
+// Disable detailed logging for now
+logger.options.groupsEnabled = [];
 
 // Internal Dependencies
 // ------------------------------------
@@ -295,7 +296,6 @@ var Block = React.createClass({
 
     } else {
       // SUCCESS - data exists
-      console.log("SAVING", this.state.saving)
       blockContent = (
         <div>
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>

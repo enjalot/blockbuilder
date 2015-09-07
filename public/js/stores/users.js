@@ -39,7 +39,6 @@ var UsersStore = Reflux.createStore({
         this.usersById = usersById;
         this.usersByName = usersByName;
         this.me = me;
-        logger.log('stores/users:init', 'called. data: %O', this.usersById, this.usersByName);
 
         return this;
     },

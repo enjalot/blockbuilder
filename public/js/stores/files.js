@@ -21,8 +21,6 @@ var FilesStore = Reflux.createStore({
         // Get data
         // NOTE: could use localstorage to load initial gist store data
         this.activeFile = 'index.html'
-        logger.log('stores/files:init', 'called. data: %O', this.activeFile);
-
         return this;
     },
     onAddFile: function(file) {

@@ -21,13 +21,11 @@ var AppStore = Reflux.createStore({
         // Get data
         // NOTE: could use localstorage to load initial gist store data
         this.activeFile = 'index.html'
-        logger.log('stores/files:init', 'called. data: %O', this.activeFile);
-
         return this;
     },
 
     onSetMode: function(mode) {
-      logger.log('stores/files:onSetMode', 'called. data: %O', mode);
+      logger.log('stores/app:onSetMode', 'called. data: %O', mode);
       this.mode = mode;
       this.trigger({
         type: 'setMode',
