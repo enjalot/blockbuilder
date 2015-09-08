@@ -41,6 +41,7 @@ var About = React.createClass({
         <h1>About</h1>
           <p> All the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
           </p>
+          <iframe width="640" height="360" src="https://www.youtube.com/embed/NrBwgJGvS2c" frameborder="0" allowfullscreen></iframe>
           <p>
           You can read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how building-blocks works</a> or 
           see how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
