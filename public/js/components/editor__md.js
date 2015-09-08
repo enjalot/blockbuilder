@@ -72,8 +72,6 @@ var EditorMD = React.createClass({
         viewportMargin: Infinity
       });
 
-      window.Inlet(this.codeMirror);
-
       this.codeMirror.on('change', ()=>{
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
