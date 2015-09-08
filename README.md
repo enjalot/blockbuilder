@@ -2,10 +2,14 @@
 Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.
 
 # Usage
-This [youtube video](https://www.youtube.com/watch?v=EtHVdHX5uGc) is currently the most comprehensive overview of using building-blocks.  
+Start with this [video and links](http://bl.ocks.org/enjalot/1b26ceafaf49848a111b) for an overview of using building-blocks.  
 Read about [how it works](https://github.com/enjalot/building-blocks/wiki/How-it-works) to get an idea of what you can do.  
 
-Eventually we will host this with a domain, but for now let's just get it running locally by following the instructions in Development.
+### Try it out: [blockbuilder.org](http://blockbuilder.org)
+
+### Get the [bookmarklet](http://bl.ocks.org/enjalot/c0e1634fb919c37575b8)
+
+By using a bookmarklet (a browser bookmark made of JavaScript) we can quickly navigate from any gist or bl.ock to blockbuilder.org
 
 # Development
 Instructions can be found on the [Development Wiki](https://github.com/enjalot/building-blocks/wiki/Development#development)
@@ -37,6 +41,7 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Elijah Meeks](http://elijahmeeks.com/)  
 ♥ [d3noob](http://www.d3noob.org/)  
 ♥ [Erik Hazzard](http://vasir.net)  
+♥ [Zan Armstrong](http://blog.zanarmstrong.com/about/)  
 ♥ [Miles McCrocklin](https://twitter.com/milr0c)  
 ♥ [Erik Cunningham](https://twitter.com/trinary)  
 ♥ [Sara Quigley](http://bl.ocks.org/saraquigley)  
