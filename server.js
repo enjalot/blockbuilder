@@ -338,6 +338,10 @@ function getGist(gistId, cb) {
   // TODO: add our app's token to avoid rate limiting
   var options = {
     url: "https://api.github.com/gists/" + gistId,
+    qs: {
+      'client_id': nconf.get('github:clientId'),
+      'client_secret': nconf.get('github:secret')
+    },
     headers: {
       'User-Agent': 'Building Bl.ocks'
     }
