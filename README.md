@@ -36,6 +36,10 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 <img src="https://s3-us-west-2.amazonaws.com/building-blocks/logos/slalom-logo-blue-RGB.png" height="100px"></img>
 </a>
 
+<a href="http://qrcode.kaywa.com">
+<img src="https://s3-us-west-2.amazonaws.com/building-blocks/logos/kaywa.png" ></img>
+</a>
+
 ♥ [Shirley Wu](https://twitter.com/shirleyxywu)  
 ♥ [James Waters](https://twitter.com/jamescwaters)  
 ♥ [Elijah Meeks](http://elijahmeeks.com/)  
