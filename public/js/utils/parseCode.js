@@ -41,6 +41,11 @@ function parseCode(template, files) {
       }
     }
 
+    // don't try to make html files loadable in this way
+    // it has the chance of screwing up the rest of the actual file, and unlikely
+    // someone wants to load an html file via ajax...
+    if(file.indexOf(".html") >= 0) return;
+
     /*
     var find = "[\"\']" + file + "[\"\']"
     var re = new RegExp(find, 'g')
@@ -54,7 +59,7 @@ function parseCode(template, files) {
 
   // We need to have the file names and their contents available inside the iframe
   // if we want to be able to return them in our short-circuited XHR requests.
-  template = '<script>' 
+  template = '<meta charset="utf-8"><script>' 
     + 'var __files = ' + JSON.stringify(referencedFiles) + ';'
     + 'var __fileNames = ' + JSON.stringify(Object.keys(referencedFiles)) + ';'
     + '</script>' + template
