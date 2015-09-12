@@ -2,7 +2,7 @@
 /* =========================================================================
  *
  *  editor__html.js
- *  Edit HTML in CodeMirror
+ *  Edit JS in CodeMirror
  *
  * ========================================================================= */
 // External Dependencies
@@ -19,16 +19,16 @@ import Actions from '../actions/actions.js';
 //
 // Functionality
 // ========================================================================
-var EditorHTML = React.createClass({
+var EditorJS = React.createClass({
 
   componentDidMount: function componentDidMount(){
-    logger.log('components/EditorHTML:component:componentDidMount', 'called');
+    logger.log('components/EditorJS:component:componentDidMount', 'called');
     if(this.props.gist){
       this.setupCodeMirror();
     }
   },
   componentDidUpdate: function componentDidUpdate(){
-    logger.log('components/EditorHTML:component:componentDidUpdate', 'called');
+    logger.log('components/EditorJS:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupCodeMirror();
     }
@@ -37,7 +37,7 @@ var EditorHTML = React.createClass({
   // Uility functions
   // ----------------------------------
   setupCodeMirror: function setupCodeMirror(){
-    logger.log('components/EditorHTML:component:setupCodeMirror', 'called');
+    logger.log('components/EditorJS:component:setupCodeMirror', 'called');
 
     var gist = this.props.gist;
 
@@ -66,7 +66,7 @@ var EditorHTML = React.createClass({
       this.codeMirror = window.CodeMirror(element, {
         tabSize: 2,
         value: codeMirrorValue,
-        mode: 'htmlmixed',
+        mode: 'javascript',
         htmlMode: true,
         lineNumbers: true,
         theme: 'twilight',
@@ -101,6 +101,7 @@ var EditorHTML = React.createClass({
         Actions.localGistUpdate(gist);
       });
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
+        // TODO this should probably be done on the window so we can hit escape anywhere
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
           if ( (document.body.scrollTop > 0) || (document.documentElement.scrollTop > 0) /* Firefox */ ) 
             d3.select("div.renderer").classed("popped", function(d){
@@ -119,4 +120,4 @@ var EditorHTML = React.createClass({
 
 })
 
-export default EditorHTML;
+export default EditorJS;

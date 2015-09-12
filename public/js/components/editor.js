@@ -18,6 +18,7 @@ import Actions from '../actions/actions.js';
 import parseCode from '../utils/parseCode.js';
 
 import EditorHTML from './editor__html.js'
+import EditorJS from './editor__js.js'
 import EditorMD from './editor__md.js'
 import EditorTXT from './editor__txt.js'
 import EditorPNG from './editor__png.js'
@@ -50,10 +51,10 @@ var Editor = React.createClass({
     if(active.indexOf('.html') >= 0){ 
       editor = ( <EditorHTML {...this.props}></EditorHTML>)
     } else if(active.indexOf('.md') >= 0) {
-      //console.log("MD")
       editor = ( <EditorMD {...this.props}></EditorMD>)
+    } else if(active.indexOf('.js')) {
+      editor = ( <EditorJS {...this.props}></EditorJS>)
     } else if(active.indexOf('.png') >= 0) {
-      //console.log("PNG", this.props)
       editor = ( <EditorPNG {...this.props}></EditorPNG>)
     } else {
       editor = ( <EditorTXT {...this.props}></EditorTXT>)
