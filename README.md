@@ -57,6 +57,7 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Max Goldstein](https://twitter.com/maxgoldst)  
 ♥ [René Clausen Nielsen](https://twitter.com/ReneCNielsen)  
 ♥ [Charles Boicey](https://twitter.com/N2InformaticsRN)  
+♥ [Maarten Vanhoof](http://www.mettihoof.be)  
 ♥ [Adam Pearce](roadtolarissa.com)  
 ♥ [Kent Russell](https://twitter.com/timelyportfolio)  
 ♥ [Jyri Tuulos](http://jyri.codes)  
@@ -89,8 +90,9 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [paul van slembrouck](http://www.sketchflow.com/)  
 ♥ [Shobhit Gupta](https://github.com/shobhitg)  
 ♥ [Tony Garcia](https://twitter.com/tonyrgarcia)  
+♥ [Paul Katsen](http://twitter.com/blockspring)  
 ♥ [Sarah Rudd](https://twitter.com/onfooty)  
-♥ [@adambreckler](http://twitter.com/adambreckler)  
+♥ [Adam Breckler](http://twitter.com/adambreckler)  
 ♥ [Munaf Assaf](http://www.munafassaf.com)  
 ♥ [Douglass Turner](http://bit.ly/15iIaY3)  
 ♥ [Tarek Rached](http://tarekrached.com/)  
@@ -124,7 +126,7 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Aline Lerner](https://twitter.com/alinelernerLLC)  
 ♥ [Claud Alexander](https://twitter.com/Claud_Alexander)  
 ♥ [Johanna Fulda](https://twitter.com/jofu_)  
-♥ [Kai Chang](http://bl.ocks.org/syntagmatic)  
+♥ [Kai Chang](http://bl.ocks.org/syntagmatic)   
 
 
 This list includes 87/111 survey responders for people who backed at a reward level of $25 or more.
