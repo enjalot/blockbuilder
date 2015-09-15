@@ -350,9 +350,38 @@ a.header-link:hover {
   }
 }
 
+#home__overlay {
+  position: absolute;
+  width: 960px;
+  height: 500px;
+  margin: 0;
+  padding: 0;
+  top: -15px;
+  z-index: 1000;
+
+  iframe {
+    position: absolute;
+    left: 130px;
+    top: 30px;
+  }
+  .description {
+    font-size: 20px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0px;
+  } 
+}
+
 /* sidebyside */
 $frameHeight: $filesHeight + $headerHeight;
 .☮ {
+
+  #home__overlay {
+    position: fixed;
+    left: 0px;
+    top: $frameHeight;
+  }
   .renderer {
     position: fixed;
     top: $frameHeight;

@@ -142,6 +142,18 @@ var Home = React.createClass({
 
   render: function render(){
     logger.log('components/Home:render', 'called');
+    var overlay = ""
+    if(!window.onbeforeunload) {
+      // the user hasn't messed with the code, so we show the overlay
+      overlay = (
+        <div id="home__overlay">
+          <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+          <p className="description">
+            Want to create your own awesome d3.js examples? Watch the video above or just start coding below!
+          </p>
+        </div>
+      )
+    }
     return ( 
       <div id='block__wrapper'>
         <div id='block__header'>
@@ -159,6 +171,7 @@ var Home = React.createClass({
         </div>
 
         <div id='block__content' className={this.state.mode}>
+          {overlay}
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile} hidethumb={true}></Files>
           <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
