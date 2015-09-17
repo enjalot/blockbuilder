@@ -29,14 +29,31 @@ import SaveForkNav from './header__nav-save-fork.js'
 import ModeNav from './header__nav-mode.js'
 import {IconLoader} from './icons.js';
 
-var defaultIndexContent = '<!DOCTYPE html>\n<head>\n' +
-  '  <meta charset="utf-8">\n' + 
-  '  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>\n' + 
-  '</head>\n\n' + 
-  '<body>\n\n' + 
-  '  <script>\n    console.log("you are now rocking with d3", d3);\n' +
-  '  </script>\n' +
-  '</body>\n\n\n'
+var defaultIndexContent = `<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <style>
+      body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+      svg { width: 100%; height: 100%}
+    </style>
+  </head>
+
+  <body>
+    <script>
+      var margin = {top: 20, right: 10, bottom: 20, left: 10};
+      var width = 960 - margin.left - margin.right;
+      var height = 500 - margin.top - margin.bottom;
+      var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      console.log("you are now rocking with d3", d3);
+    </script>
+  </body>
+  `
 
 // ========================================================================
 //
