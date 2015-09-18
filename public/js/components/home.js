@@ -35,7 +35,7 @@ var defaultIndexContent = `<!DOCTYPE html>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <style>
       body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-      svg { width: 100%; height: 100%}
+      svg { width: 100%; height: 100%; }
     </style>
   </head>
 

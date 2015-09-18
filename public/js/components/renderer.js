@@ -91,10 +91,12 @@ var Renderer = React.createClass({
   },
 
   handleMouseOver: function handleMouseOver() {
+    /*
     if(document.documentElement.scrollTop > 0) //FireFox
       d3.select("div.renderer").classed("popped", true)
     if(document.body.scrollTop > 0)
       d3.select("div.renderer").classed("popped", true)
+    */
   },
   handleMouseOut: function handleMouseOut(evt) {
     if(d3.event.relatedTarget && d3.event.relatedTarget === d3.select("#block__iframe").node()) return; //FireFox

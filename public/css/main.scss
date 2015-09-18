@@ -312,11 +312,18 @@ a.header-link:hover {
   background: #efefef;
 }
 
+#block__popper:hover {
+  background: #eae9e5;
+}
+
 .popped {
   #block__popper {
     background: $gray;
     transition-property: background;
     transition-duration: 0.5s;
+  }
+  #block__popper:hover {
+    background: $gray;
   }
   #block__iframe {
     z-index: 150;
