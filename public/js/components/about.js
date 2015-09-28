@@ -39,13 +39,25 @@ var About = React.createClass({
           </div>
         </div>
         <h1>About</h1>
-          <p> All the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
+          <p>
+            Getting started with Building Blocks? read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how this site works!</a>
+            </p>
+            <p>
+            The whole point of this project is to make it easier for you to make <a href="http://bl.ocks.org">blocks</a>.
+            Blocks are the de-facto way of sharing
+            visualizations and code samples in the d3.js community. 
+            </p>
+            <p>
+            Invented and hosted by <a href="http://bost.ocks.org/mike/">Mike Bostock</a>, blocks are key to realizing the <a href="http://bost.ocks.org/mike/example/">power of examples</a>.
           </p>
+          
           <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
 
+          <p> This project is open source, so all the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
+          </p>
+
           <p>
-          You can read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how building-blocks works</a> or 
-          see how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
+            See how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
             <p>
             Don't forget to check out the <a href="/gallery">gallery</a> of bl.ocks chosen by the backers.
             </p>
