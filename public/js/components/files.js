@@ -52,7 +52,7 @@ var Files = React.createClass({
       show = 'show';
     }
     if(!gist.files["index.html"]) gist.files["index.html"] = {content: "<html></html>", filename:"index.html"}
-    if(!gist.files["README.md"]) gist.files["README.md"] = {content: "# hello world", filename:"README.md"}
+    if(!gist.files["README.md"]) gist.files["README.md"] = {content: "", filename:"README.md"}
     if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
 
     var hideShowButton = ""

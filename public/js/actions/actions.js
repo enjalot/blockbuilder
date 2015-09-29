@@ -55,7 +55,8 @@ function cleanGist(gist) {
   var fileNames = Object.keys(gist.files);
   fileNames.forEach(function(fileName) {
     if(fileName === "thumbnail.png") return;
-    newGist.files[fileName] = gist.files[fileName];
+    if(gist.files[fileName].content)
+      newGist.files[fileName] = gist.files[fileName];
   })
   return newGist;
 }

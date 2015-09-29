@@ -72,7 +72,7 @@ var Home = React.createClass({
       description: "fresh block",
       files: {
         "index.html":{content: defaultIndexContent, filename:"index.html"},
-        "README.md":{content:"## hello markdown\n\n\n\n\n\n\n\n\n\n\n", filename:"README.md"},
+        "README.md":{content:"Built with [blockbuilder.org](http://blockbuilder.org)", filename:"README.md"},
       },
       public: true
     }

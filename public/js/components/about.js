@@ -31,7 +31,7 @@ var About = React.createClass({
     });
 
     return (
-      <div>
+      <div id='about'>
         <div id='block__header'>
           <div id='site-header__save-fork'>
             <SiteNav></SiteNav>
@@ -40,32 +40,29 @@ var About = React.createClass({
         </div>
         <h1>About</h1>
           <p>
-            Getting started with Building Blocks? read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how this site works!</a>
+            Getting started with Building Blocks? read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how this site works!</a> 
+            <br></br>
+            Watch the short video below for an overview of the functionality:
             </p>
+          
+          <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+
             <p>
             The whole point of this project is to make it easier for you to make <a href="http://bl.ocks.org">blocks</a>.
             Blocks are the de-facto way of sharing
             visualizations and code samples in the d3.js community. 
-            </p>
-            <p>
             Invented and hosted by <a href="http://bost.ocks.org/mike/">Mike Bostock</a>, blocks are key to realizing the <a href="http://bost.ocks.org/mike/example/">power of examples</a>.
           </p>
-          
-          <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
 
-          <p> This project is open source, so all the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
-          </p>
-
-          <p>
-            See how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
-            <p>
-            Don't forget to check out the <a href="/gallery">gallery</a> of bl.ocks chosen by the backers.
-            </p>
-          </p>
           <p>
             Reach out to <a href="http://twitter.com/enjalot">enjalot</a> for feedback & ideas.
             Please <a href="https://github.com/enjalot/building-blocks/issues">add an issue</a> on GitHub if you find a bug!
           </p>
+
+          <p> This project is open source, so all the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
+            See how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
+          </p>
+          
 
           <h2>Kickstarter Backers</h2>
           <p><a href="https://frontendmasters.com/courses/interactive-data-visualization-d3-js/">

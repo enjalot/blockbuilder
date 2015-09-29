@@ -53,10 +53,27 @@ a:hover {
   LAYOUT
 *********************/
 
+#about {
+  #block__header {
+    border: none;
+    height: 0;
+  }
+  h1 {
+    margin: 0
+  }
+}
+
 #gallery {
+  #block__header {
+    border: none;
+    height: 0;
+  }
+  h1 {
+    margin: 0
+  }
   width: 1000px;
   .frame-holder { 
-    margin: 5px;
+    margin: 25px 10px;
     margin-bottom: 20px;
     width: 480px;
     height: 250px;
@@ -482,11 +499,16 @@ $frameHeight: $filesHeight + $headerHeight;
   position: fixed;
   float: left;
   top: 10px;
-  left: 10px;
+  left: 3px;
 
-  .link {
-    margin-top: 2px;
+  .nav-link {
+    margin-top: 1px;
   }
+  .nav-link a {
+    font-size: 11px;
+    color: black;
+  }
+  z-index: 5;
 }
 
 #block__loading {

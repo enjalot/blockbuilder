@@ -48,7 +48,10 @@ var Gallery = React.createClass({
 
       iframes.push (<div className="frame-holder">
         <iframe scrolling="no" src={d + "/"}></iframe>
-        <p><a href={d}>♨_♨ block</a> <a href={bblink}>\(• ◡ •)/ fork</a></p>
+        <p>
+        {/*<a href={d}>♨_♨ block</a> */}
+        <a href={bblink}>\(• ◡ •)/ fork</a>
+        </p>
       </div>)
     })
 
