@@ -51,9 +51,11 @@ var EditorPNG = React.createClass({
     }
     if(file.type.indexOf("image/") === 0) {
       var reader = new FileReader();
+      var that = this;
       reader.onload = (function(data) {
         var editor = document.getElementById('editor__png')
         editor.src = data.target.result;
+        that.setState({canSave: true})
       });
       reader.readAsDataURL(file);
 
@@ -68,9 +70,13 @@ var EditorPNG = React.createClass({
   handleSave: function handleSave() {
     var gist = this.props.gist;
     var editor = document.getElementById('editor__png')
-    Actions.setSaveFork("saving")
-    Actions.saveThumbnail({image: editor.src, gistId: gist.id});
-    //this.setState({saving: true})
+    if(this.state.canSave) {
+      Actions.setSaveFork("saving")
+      Actions.saveThumbnail({image: editor.src, gistId: gist.id});
+      //this.setState({saving: true})
+    } else {
+      Actions.setModal('Please select a file')
+    }
   },
 
   render: function render() {
