@@ -90,7 +90,8 @@ var Home = React.createClass({
     } else if(data.type === 'addFile') {
       var gist = this.state.gistData;
       gist.files[data.file.name] = {content: data.file.content, filename: data.file.name };
-      this.setState({ gistData: gist, fileAdded: true})
+      this.setState({ gistData: gist, fileAdded: true })
+      this.setState({activeFile: data.file.name})
     }
   },
   appStoreChange: function appStoreChange(data){
