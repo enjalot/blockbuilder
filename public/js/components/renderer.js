@@ -34,6 +34,11 @@ var Renderer = React.createClass({
   componentDidUpdate: function componentDidUpdate(prevProps, prevState){
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
+      var dontRefresh = this.props.description !== prevProps.description
+      if(dontRefresh){
+        return;
+      }
+
       var doRefresh1 = this.props.active === "README.md" || prevProps.active === "README.md"
       var doRefresh2 = this.props.active === prevProps.active
       if(doRefresh1 || doRefresh2) {

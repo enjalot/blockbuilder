@@ -189,7 +189,7 @@ var Home = React.createClass({
 
         <div id='block__content' className={this.state.mode}>
           {overlay}
-          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Renderer>
+          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode} description={this.state.gistData.description}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile} hidethumb={true}></Files>
           <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
         </div>
