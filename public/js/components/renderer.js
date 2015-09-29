@@ -34,7 +34,11 @@ var Renderer = React.createClass({
   componentDidUpdate: function componentDidUpdate(prevProps, prevState){
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
-      this.setupIFrame();
+      var doRefresh1 = this.props.active === "README.md" || prevProps.active === "README.md"
+      var doRefresh2 = this.props.active === prevProps.active
+      if(doRefresh1 || doRefresh2) {
+        this.setupIFrame();
+      }      
 
       if(this.props.mode === "☮" && this.props.mode !== prevProps.mode) {
         var iframe = window.d3.select('#block__iframe').node();

@@ -235,6 +235,7 @@ var Block = React.createClass({
     }
   },
 
+  /*
   handleScroll: function handleScroll() {
     // we track the scroll behavior so we can adjust the UI
     // TODO this should probably be architected so that the file component takes care of itself...
@@ -252,12 +253,15 @@ var Block = React.createClass({
       files.classed("absolute-files", true)
     }
   },
+  */
 
   componentDidMount: function componentDidMount(){
     logger.log('components/Block:component:componentDidMount', 'called');
+    /*
     if(ExecutionEnvironment.canUseDOM) {
       document.body.onscroll = this.handleScroll;
     }
+    */
   },
 
   componentDidUpdate: function componentDidUpdate(){

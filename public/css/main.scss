@@ -97,7 +97,7 @@ $headerHeight: 60px;
   margin: 0px auto;
   background-color: white;
   border-bottom: 1px solid $gray;
-  z-index: 1001;
+  z-index: 101;
 }
 
 #block__title {
@@ -198,6 +198,7 @@ a.header-link:hover {
 }
 
 .file {
+  float:left;
   display:inline-block;
   padding: 0px 10px 0px 10px;
   font-size: 18px;
@@ -227,7 +228,6 @@ a.header-link:hover {
 
 #files__more {
   display: none;
-  float:right;
   max-width: 200px;
   z-index: 200;
   background-color: white;
@@ -237,11 +237,9 @@ a.header-link:hover {
 }
 #files__more.show {
   display: inline-block;
-  margin-top: 30px;
   margin-right: -20px;
 }
 #files__show {
-  float: right;
 }
 .hidden {
   display: none;
@@ -305,7 +303,7 @@ a.header-link:hover {
 
 #block__popper {
   position: fixed;
-  top: $headerHeight + 10px;
+  top: $headerHeight + 40px;
   left: 0;
   right: 0;
   height: $blockHeight - 20px;
@@ -343,11 +341,14 @@ a.header-link:hover {
   font-size: 24px;
 }
 
+$frameHeight: $filesHeight + $headerHeight;
 /* standard */
 .☯ {
    .renderer {
+    top: $frameHeight;
     height: $blockHeight;
     #block__iframe {
+      top: $frameHeight;
       height: $blockHeight;
       overflow: hidden;
     }
@@ -363,13 +364,13 @@ a.header-link:hover {
   height: 500px;
   margin: 0;
   padding: 0;
-  top: -15px;
-  z-index: 1000;
+  top: 15px;
+  z-index: 100;
 
   iframe {
     position: absolute;
     left: 130px;
-    top: 30px;
+    top: 60px;
   }
   .description {
     font-size: 20px;
@@ -381,7 +382,6 @@ a.header-link:hover {
 }
 
 /* sidebyside */
-$frameHeight: $filesHeight + $headerHeight;
 .☮ {
 
   #home__overlay {

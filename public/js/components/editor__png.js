@@ -30,7 +30,7 @@ var EditorPNG = React.createClass({
     } else {
       this.setState({ canEdit: false})
     }
-    console.log("UPDATING", this.props.saving)
+    //console.log("UPDATING", this.props.saving)
     this.setState({saving: this.props.saving})
 
   },

@@ -65,14 +65,14 @@ var Files = React.createClass({
     }
 
     return (
-      <div id='block__code-files' className='absolute-files'>
+      <div id='block__code-files' className='fixed-files'>
         <FilesTab file={gist.files['index.html']} {...this.props}></FilesTab>
         <FilesTab file={gist.files['README.md']} {...this.props}></FilesTab>
         {thumbTab}
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
         <ReactTooltip />
-        <a id="files__show" data-tip="Show more files" data-place='left' data-effect="solid" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
+        <a id="files__show" data-tip="Show more files" data-place='bottom' data-effect="solid" onClick={this.showMore} className={"file " + hideShowButton} >⋯</a>
         <div id='files__more' className={show}>
           {files}
         </div>
