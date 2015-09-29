@@ -181,12 +181,6 @@ var Block = React.createClass({
     } else if(data.type === 'save-thumbnail:completed'){
       console.log("SAVED THUMBNAIL");
       this.setState({ saving: false });
-      /*
-      // We want to refresh the page to 
-      var username = data.gist.owner.login;
-      var url = "/" + username + "/" + data.gist.id
-      window.location = url;
-      */
     } else if(data.type === 'save-thumbnail:failed'){
       Actions.setModal("Failed to save thumbnail")
       this.setState({failed: "save thumbnail"});

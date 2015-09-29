@@ -30,16 +30,12 @@ var EditorPNG = React.createClass({
     } else {
       this.setState({ canEdit: false})
     }
-    //console.log("UPDATING", this.props.saving)
-    this.setState({saving: this.props.saving})
-
   },
   componentDidMount: function componentDidMount(){
     logger.log('components/EditorTXT:component:componentDidMount', 'called');
   },
   componentDidUpdate: function componentDidUpdate(){
     logger.log('components/EditorTXT:component:componentDidUpdate', 'called');
-    console.log("SUP", this.state.saving, this.props.saving)
   },
 
   selectFile: function selectFile(evt) {
@@ -74,7 +70,7 @@ var EditorPNG = React.createClass({
     var editor = document.getElementById('editor__png')
     Actions.setSaveFork("saving")
     Actions.saveThumbnail({image: editor.src, gistId: gist.id});
-    this.setState({saving: true})
+    //this.setState({saving: true})
   },
 
   render: function render() {
