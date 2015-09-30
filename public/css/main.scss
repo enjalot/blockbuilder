@@ -376,18 +376,19 @@ $frameHeight: $filesHeight + $headerHeight;
 }
 
 #home__overlay {
-  position: absolute;
-  width: 960px;
-  height: 500px;
+  position: fixed;
+  width: 963px;
+  height: 480px;
   margin: 0;
   padding: 0;
-  top: 15px;
+  top: $frameHeight + 10px;
   z-index: 100;
+  background-color: #efefef;
 
   iframe {
     position: absolute;
     left: 130px;
-    top: 60px;
+    top: 20px;
   }
   .description {
     font-size: 20px;
