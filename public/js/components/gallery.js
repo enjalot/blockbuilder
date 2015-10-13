@@ -23,7 +23,9 @@ var blocks = [
   'http://bl.ocks.org/dowstreet/raw/bfab4be2185584fba431',
   'http://bl.ocks.org/mbostock/raw/1062544',
   'http://bl.ocks.org/mbostock/raw/1353700',
-  'http://bl.ocks.org/zanarmstrong/raw/23137b412caf6e80b34a'
+  'http://bl.ocks.org/zanarmstrong/raw/23137b412caf6e80b34a',
+  'http://bl.ocks.org/mbostock/raw/5446416',
+  'http://bl.ocks.org/mbostock/raw/615dfa9bf9b55878f7f6'
   ]
 
 // ========================================================================

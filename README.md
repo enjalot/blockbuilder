@@ -48,6 +48,7 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Zan Armstrong](http://blog.zanarmstrong.com/about/)  
 ♥ [Miles McCrocklin](https://twitter.com/milr0c)  
 ♥ [Erik Cunningham](https://twitter.com/trinary)  
+♥ [Owen Dall](http://owendall.com)  
 ♥ [Sara Quigley](http://bl.ocks.org/saraquigley)  
 ♥ [Dow Street](http://ramble.io)  
 ♥ [Sebastian Gutierrez](https://www.dashingd3js.com)  
