@@ -8,6 +8,28 @@ function parseCode(template, files) {
   // but it is presumed that the scenarios where these would fail
   // fall far outside the customary use of blocks.
 
+  // Lets replace relative URL that ignores protocol with http
+  // this should work, but its probably an iframe problem
+  // http://stackoverflow.com/questions/550038/is-it-valid-to-replace-http-with-in-a-script-src-http
+  var find = "<link.*?href=[\"\']//.*?[\"\'].*?>"
+  var re = new RegExp(find, 'g')
+  var matches = template.match(re)
+  if(matches) {
+    matches.forEach(function(match,i) {
+      var proto = match.replace("//", "http://");
+      template = template.replace(match,  proto)
+    })
+  }
+  var find = "<script.*?src=[\"\']//.*?[\"\'].*?>"
+  var re = new RegExp(find, 'g')
+  var matches = template.match(re)
+  if(matches) {
+    matches.forEach(function(match,i) {
+      var proto = match.replace("//", "http://");
+      template = template.replace(match,  proto)
+    })
+  }
+
   var referencedFiles = {}
 
   var fileNames = Object.keys(files);
