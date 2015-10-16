@@ -30,30 +30,37 @@ import ModeNav from './header__nav-mode.js'
 import {IconLoader} from './icons.js';
 
 var defaultIndexContent = `<!DOCTYPE html>
-  <head>
-    <meta charset="utf-8">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <style>
-      body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-      svg { width: 100%; height: 100%; }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    svg { width: 100%; height: 100%; }
+  </style>
+</head>
 
-  <body>
-    <script>
-      var margin = {top: 20, right: 10, bottom: 20, left: 10};
-      var width = 960 - margin.left - margin.right;
-      var height = 500 - margin.top - margin.bottom;
-      var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+<body>
+  <script>
+    var margin = {top: 20, right: 10, bottom: 20, left: 10};
+    var width = 960 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      console.log("you are now rocking with d3", d3);
-    </script>
-  </body>
-  `
+    // Feel free to change or delete any of the code you see!
+    svg.append("rect")
+      .attr({x: 100, y: 100, width: width-200, height: height-200})
+      .style({ fill: "#a72d1a"})
+      .transition().duration(3000).ease("bounce")
+      .style({ fill: "#5db9e3"})
+    
+    console.log("you are now rocking with d3", d3);
+  </script>
+</body>
+`
 
 // ========================================================================
 //
