@@ -19,6 +19,7 @@ import parseCode from '../utils/parseCode.js';
 
 import EditorHTML from './editor__html.js'
 import EditorJS from './editor__js.js'
+import EditorCoffee from './editor__coffee.js'
 import EditorMD from './editor__md.js'
 import EditorTXT from './editor__txt.js'
 import EditorPNG from './editor__png.js'
@@ -56,6 +57,8 @@ var Editor = React.createClass({
       editor = ( <EditorTXT {...this.props}></EditorTXT>)
     } else if(active.indexOf('.js') >= 0) {
       editor = ( <EditorJS {...this.props}></EditorJS>)
+    } else if(active.indexOf('.coffee') >= 0) {
+      editor = ( <EditorCoffee {...this.props}></EditorCoffee>)
     } else if(active.indexOf('.png') >= 0) {
       editor = ( <EditorPNG {...this.props}></EditorPNG>)
     } else {

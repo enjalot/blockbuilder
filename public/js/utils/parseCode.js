@@ -50,6 +50,19 @@ function parseCode(template, files) {
         return;
       }
     }
+    if(file.indexOf(".coffee") > 0) {
+      // We first try to find instances of loading js files through a <script> tag.
+      // We can't fall back on the raw_url because you can't load scripts with MIME type text.
+      // This does have the benefit of live reloading when changing a script file.
+      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>"
+      var re = new RegExp(find, 'g')
+      var matches = template.match(re)
+      if(matches) {
+        // if we found one, replace it with the code and return.
+        template = template.replace(re, "<script type='text/coffeescript'>" + files[file].content)
+        return;
+      }
+    }
     if(file.indexOf(".css") > 0) {
       // We support loading of css files with relative paths if they are included in the gist.
       // This has the added benefit of live reloading the iframe when editing the style
