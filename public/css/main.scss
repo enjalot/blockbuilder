@@ -303,9 +303,24 @@ a.header-link:hover {
   }
 }
 
-#editor__png {
 
+#editor__png {
+  margin-top: 10px;
+  float: left;
+  clear: left;
 }
+#editor__png-preview {
+  float:left;
+  canvas {
+    float:left;
+  }
+  p {
+    float:left;
+    width: calc(100% - 500px);
+    margin: 10px;
+  }
+}
+
 #editor__png-input {
   float: right;
   border: 1px solid $blue;
@@ -314,7 +329,7 @@ a.header-link:hover {
 }
 #thumbnail__save {
   clear: right;
-
+  width: 120px !important;
 }
 
 

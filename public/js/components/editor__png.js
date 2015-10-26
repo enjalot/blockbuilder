@@ -55,31 +55,39 @@ var EditorPNG = React.createClass({
       reader.onload = (function(data) {
         var editor = document.getElementById('editor__png')
         editor.src = data.target.result;
+        editor.onload = function() {
 
-        var imgCV = document.createElement('canvas');
-        imgCV.width = editor.width;
-        imgCV.height = editor.height;
-        var imgCtx = imgCV.getContext('2d');
-        imgCtx.drawImage(editor, 0, 0);
-        var scale = 230 / editor.width;
-        if(scale == 1) {
-          var resCV = document.createElement('canvas');
-          resCV.width = editor.width;
-          resCV.height = editor.height;
-          var resCtx = resCV.getContext('2d');
-          resCtx.imageSmoothingEnabled = false;
-          resCtx.webkitImageSmoothingEnabled = false;
-          resCtx.mozImageSmoothingEnabled = false;
-          resCtx.drawImage(editor, 0, 0);
-          that.thumb = resCV;
-        } else {
-          that.thumb = downScaleCanvas(imgCV, scale);
+
+          var imgCV = document.createElement('canvas');
+          imgCV.width = editor.width;
+          imgCV.height = editor.height;
+          var imgCtx = imgCV.getContext('2d');
+          imgCtx.drawImage(editor, 0, 0);
+          var scale = 230 / editor.width;
+          if(scale == 1) {
+            var resCV = document.createElement('canvas');
+            resCV.width = editor.width;
+            resCV.height = editor.height;
+            var resCtx = resCV.getContext('2d');
+            resCtx.drawImage(editor, 0, 0);
+            that.thumb = resCV;
+          } else {
+            that.thumb = downScaleCanvas(imgCV, scale);
+          }
+
+          var preview = d3.select("#editor__png-preview")
+          // This should probably be done the react way, but i'm not sure how since
+          // i'm directly manipulating canvas nodes here...
+          preview.selectAll("canvas").remove()
+          preview.node().appendChild(that.thumb)
+
+          // TODO: do this the React way, more straightforward than above
+          preview.selectAll("p").remove()
+          preview.append("p").html(
+            "Your image was <b>successfully</b> scaled down from " + editor.width + "px by " + editor.height + "px to create a thumbnail with size 230px by " + that.thumb.height + "px."
+          )
+          that.setState({canSave: true})
         }
-        d3.select("#preview").selectAll("canvas").remove()
-        d3.select("#preview").node().appendChild(that.thumb)
-        console.log("thumb", that.thumb)
-
-        that.setState({canSave: true})
       });
       reader.readAsDataURL(file);
 
@@ -125,8 +133,11 @@ var EditorPNG = React.createClass({
       save = loading
     } else {
       save = (
-        <div onClick={this.handleSave} id="thumbnail__save">Save</div>
+        <div onClick={this.handleSave} id="thumbnail__save">Save thumbnail</div>
       )
+    }
+    if(!this.state.canSave) {
+      save = ""
     }
 
 
@@ -140,7 +151,7 @@ var EditorPNG = React.createClass({
 
     return (
       <div id='block__code-index'>
-        <div id="preview"></div>
+        <div id="editor__png-preview"></div>
         {img}
         <br/>
         {edit}
@@ -266,9 +277,6 @@ function downScaleCanvas(cv, scale) {
     resCV.width = tw;
     resCV.height = th;
     var resCtx = resCV.getContext('2d');
-    resCtx.imageSmoothingEnabled = false;
-    resCtx.webkitImageSmoothingEnabled = false;
-    resCtx.mozImageSmoothingEnabled = false;
     var imgRes = resCtx.getImageData(0, 0, tw, th);
     var tByteBuffer = imgRes.data;
     // convert float32 array into a UInt8Clamped Array
