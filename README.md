@@ -1,4 +1,6 @@
 # Building Bl.ocks
+
+[![Join the chat at https://gitter.im/enjalot/building-blocks](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enjalot/building-blocks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
 Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.
 
 # Usage
@@ -128,8 +130,9 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Claud Alexander](https://twitter.com/Claud_Alexander)  
 ♥ [Johanna Fulda](https://twitter.com/jofu_)  
 ♥ [Kai Chang](http://bl.ocks.org/syntagmatic)   
+♥ [Geoff McGhee](http://visualoop.com/geoffmcghee)
 
 
-This list includes 87/111 survey responders for people who backed at a reward level of $25 or more.
+This list includes 89/111 survey responders for people who backed at a reward level of $25 or more.
 
 Much love to everyone who backed!
