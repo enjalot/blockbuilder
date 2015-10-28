@@ -390,6 +390,71 @@ $frameHeight: $filesHeight + $headerHeight;
   }
 }
 
+#tutorial__overlay {
+  position: fixed;
+  top: 0; 
+  bottom: 0;
+  width: 965px;
+
+  margin: 0;
+  z-index: 200;
+  background-color: #fefefe;
+  overflow-y: scroll;
+
+  #tutorial__content {
+    width: 715px;
+    margin: 0px auto;
+
+    .domain {
+      color: #ac3f1a
+    }
+
+    h2, h3 {
+      margin: 0
+    }
+    .tut {
+      margin: 10px 0;
+    }
+  }
+
+  h1 {
+    margin: 0;
+  }
+  .subhead {
+    color: gray;
+    text-transform: uppercase;
+
+  }
+  p {
+  }
+  #fixedstarted {
+    position: fixed;
+    width: 960px;
+  }
+  #getstarted {
+    //specifically the one at the top
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+  .getstarted {
+    padding: 5px 5px;
+    text-transform: uppercase;
+    font-size: 20px;
+    color: white;
+    background-color: $blue;
+    border: 1px solid $blue;
+    border-radius: 2px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+}
+
+
+
+/*
 #home__overlay {
   position: fixed;
   width: 963px;
@@ -413,6 +478,7 @@ $frameHeight: $filesHeight + $headerHeight;
     bottom: 0px;
   } 
 }
+*/
 
 /* sidebyside */
 .☮ {
@@ -524,7 +590,7 @@ $frameHeight: $filesHeight + $headerHeight;
     font-size: 11px;
     color: black;
   }
-  z-index: 5;
+  z-index: 300;
 }
 
 #block__loading {

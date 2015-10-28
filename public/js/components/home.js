@@ -52,7 +52,7 @@ var defaultIndexContent = `<!DOCTYPE html>
 
     // Feel free to change or delete any of the code you see!
     svg.append("rect")
-      .attr({x: 100, y: 100, width: width-200, height: height-200})
+      .attr({x: 100, y: 10, width: width - 200, height: height - 20})
       .style({ fill: "#a72d1a"})
       .transition().duration(3000).ease("bounce")
       .style({ fill: "#5db9e3"})
@@ -75,6 +75,7 @@ var Home = React.createClass({
   ],
   getInitialState: function getInitialState(){
     logger.log('components/Home:getInitialState', 'called');
+    console.log("props", this.props)
     var gistData = {
       description: "fresh block",
       files: {
@@ -83,7 +84,12 @@ var Home = React.createClass({
       },
       public: true
     }
-    return { gistData: gistData, activeFile: 'index.html', mode: "☯" };
+    return { 
+      gistData: gistData, 
+      activeFile: 'index.html', 
+      mode: "☯",
+      showOverlay: true
+    };
   },
   /**
   * called when the file store changes.
@@ -158,6 +164,7 @@ var Home = React.createClass({
         var keyvalue = option.split("=");
         object[keyvalue[0]] = keyvalue[1];
       })
+      console.log("hash", hash, object)
       this.setState(object)
     }
   },
@@ -165,17 +172,81 @@ var Home = React.createClass({
     logger.log('components/Home:componentDidMount', 'called');
   },
 
+  getStarted: function() {
+    var that = this;
+    d3.select("#tutorial__overlay")
+      .transition().duration(500)
+      .style("opacity", 0)
+      .each("end", function() {
+        that.setState({showOverlay: false})
+      })
+  },
+
   render: function render(){
     logger.log('components/Home:render', 'called');
     var overlay = ""
-    if(!window.onbeforeunload) {
+    if(this.state.showOverlay && this.state.showOverlay !== "false") {
       // the user hasn't messed with the code, so we show the overlay
       overlay = (
-        <div id="home__overlay">
-          <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
-          <p className="description">
-            Want to create your own awesome d3.js examples? Watch the video above or just start coding below!
-          </p>
+        <div id="tutorial__overlay">
+          <div id="fixedstarted">
+            <div onClick={this.getStarted} id="getstarted" className="getstarted">start coding</div>
+          </div>
+          <div id="tutorial__content">
+            <h1>Building Blocks</h1>
+            <p className="subhead">
+              Quickly create, edit and fork d3.js examples
+            </p>
+            <p className="tut">
+            Are you learning d3 or trying out new ideas? Block builder is an in-browser code editor built for creating and sharing d3.js examples.
+            Check out this short video for an overview of how it works!
+            </p>
+            <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
+            <p classname="tut">
+            </p>
+            <h2>Create and Edit</h2>
+            <p className="tut">
+            If you login with GitHub, all of your examples will save to GitHub gists associated with your account. 
+            Everything is powered by URL, so when you create a new block in Block Builder your URL will change to something like
+            <pre className="url">
+            <a target="_blank" href="http://blockbuilder.org/enjalot/64dbd9b7b740ba44462f">http://<span className="domain">blockbuilder.org</span>/enjalot/64dbd9b7b740ba44462f</a>
+            </pre>
+            Which means your code is saved here:
+            <pre className="url">
+            <a target="_blank" href="http://gist.github.com/enjalot/64dbd9b7b740ba44462f">http://<span className="domain">gist.github.com</span>/enjalot/64dbd9b7b740ba44462f</a>
+            </pre>
+            And you can view the example on bl.ocks.org like
+            <pre className="url">
+            <a target="_blank" href="http://bl.ocks.org/enjalot/64dbd9b7b740ba44462f">http://<span className="domain">bl.ocks.org</span>/enjalot/64dbd9b7b740ba44462f</a>
+            </pre>
+            This means you can quickly come back and edit code you wrote earlier. 
+            All you need is the URL of one of your blocks!
+            </p>
+            <h2>Fork</h2>
+            <p className="tut">
+              There is no need to start from a blank slate, find a block you like <a target="_blank" href="http://bl.ocks.org/enjalot/raw/211bd42857358a60a936/">here</a>:
+              <a target="_blank" href="http://bl.ocks.org/enjalot/raw/211bd42857358a60a936/">
+              <img src="/img/thumbs.png" width="715px"></img>
+              </a>
+              Just change the URL of your favorite block from <span className="domain">bl.ocks.org</span> to <span className="domain">blockbuilder.org</span> and start hacking!
+            </p>
+            <h3>Bookmarklet</h3>
+            <p class="tut">
+              It can get annoying to edit the URL all the time, if you drag this link: <a href='javascript:(function()%7Bvar current %3D window.location %2B ""%3Bvar newUrl %3D current.replace("http%3A%2F%2Fbl.ocks.org"%2C "http%3A%2F%2Fblockbuilder.org")%3BnewUrl %3D newUrl.replace("https%3A%2F%2Fgist.github.com"%2C "http%3A%2F%2Fblockbuilder.org")%3Bwindow.location %3D newUrl%7D)()'>Block Builder</a> into 
+              your bookmark bar and it will take you to blockbuilder.org if you click it while on a gist or block!
+            </p>
+
+            <h3>How it works</h3>
+            <p class="tut">
+              Read <a target="_blank" href="https://github.com/enjalot/building-blocks/wiki/How-it-works">more here</a> about how Block Builder works. 
+              It is <a target="_blank" href="https://github.com/enjalot/building-blocks">open source software</a>, so checkout the <a href="https://github.com/enjalot/building-blocks/issues">issues</a> or catch us in <a target="_blank" href="https://gitter.im/enjalot/building-blocks">our chat room</a>.
+            </p>
+            <h3>Try it out</h3>
+            <p className="tut">
+              Some things are best experienced, so go ahead:
+              <div onClick={this.getStarted} className="getstarted">get started!</div>
+            </p>
+          </div>
         </div>
       )
     }
