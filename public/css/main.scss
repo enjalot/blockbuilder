@@ -394,10 +394,11 @@ $frameHeight: $filesHeight + $headerHeight;
   position: fixed;
   top: 0; 
   bottom: 0;
-  width: 965px;
+  left: 0;
+  right: 0;
 
   margin: 0;
-  z-index: 200;
+  z-index: 1000;
   background-color: #fefefe;
   overflow-y: scroll;
 
@@ -429,7 +430,8 @@ $frameHeight: $filesHeight + $headerHeight;
   }
   #fixedstarted {
     position: fixed;
-    width: 960px;
+    //width: 960px;
+    width: 100%;
   }
   #getstarted {
     //specifically the one at the top
