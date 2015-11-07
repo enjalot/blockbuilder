@@ -47,6 +47,7 @@ function parseCode(template, files) {
       if(matches) {
         // if we found one, replace it with the code and return.
         template = template.replace(re, "<script>" + files[file].content)
+        //template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
         return;
       }
     }
@@ -94,9 +95,11 @@ function parseCode(template, files) {
 
   // We need to have the file names and their contents available inside the iframe
   // if we want to be able to return them in our short-circuited XHR requests.
+  var filesString = JSON.stringify(referencedFiles);
+  var fileNamesString = JSON.stringify(Object.keys(referencedFiles))
   template = '<meta charset="utf-8"><script>' 
-    + 'var __files = ' + JSON.stringify(referencedFiles) + ';'
-    + 'var __fileNames = ' + JSON.stringify(Object.keys(referencedFiles)) + ';'
+    + 'var __files = ' + filesString + ';'
+    + 'var __fileNames = ' + fileNamesString + ';'
     + '</script>' + template
 
   // We override the XMLHttpRequest API in order to serve our local copies of files
