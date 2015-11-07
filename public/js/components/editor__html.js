@@ -69,8 +69,10 @@ var EditorHTML = React.createClass({
         mode: 'htmlmixed',
         htmlMode: true,
         lineNumbers: true,
-        theme: 'twilight',
+        //theme: 'twilight',
         //theme: 'elegant',
+        //theme: 'neat',
+        theme: 'mdn-like',
         lineWrapping: true,
         viewportMargin: Infinity
       });
@@ -110,7 +112,7 @@ var EditorHTML = React.createClass({
       });
     });
   },
-
+//<EditorControls {...this.props}></EditorControls>
   render: function render() {
     return (
       <div id='block__code-index'></div>

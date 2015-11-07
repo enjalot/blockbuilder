@@ -69,7 +69,8 @@ var EditorJS = React.createClass({
         mode: 'javascript',
         htmlMode: true,
         lineNumbers: true,
-        theme: 'twilight',
+        //theme: 'twilight',
+        theme: 'mdn-like',
         //theme: 'elegant',
         lineWrapping: true,
         viewportMargin: Infinity
