@@ -5,6 +5,7 @@ $gray: #F7E2AD; /* #efefef; */
 $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
+$sideOffset: 45px; // distance from the left side
 
 html {
   min-width: 1040px;
@@ -113,7 +114,7 @@ $headerHeight: 60px;
   width: 962px;
   margin: 0px auto;
   background-color: white;
-  border-bottom: 1px solid $gray;
+  //border-bottom: 1px solid $gray;
   z-index: 101;
 }
 
@@ -187,7 +188,9 @@ a.header-link:hover {
   top: $headerHeight;
   width: $blockWidth;
   height: 100%;
-  border: 1px solid $gray;
+  //border: 1px solid $gray;
+  border: none;
+  box-shadow: 0px 0px 5px #afafaf;
   overflow: hidden;
   border-radius: 3px;
   background: white;
@@ -198,8 +201,9 @@ a.header-link:hover {
 }
 
 #block__code-files {
-  background: white;
-  border: 1px solid $gray;
+  background: #fafafa;
+  //border: 1px solid $gray;
+  //border-bottom: 1px solid $blue;
   padding-right: 1px;
   width: $blockWidth;
   height: $filesHeight;
@@ -226,7 +230,8 @@ a.header-link:hover {
   height: $filesHeight;
   border-bottom: none;
   cursor: pointer;
-  background-color: white;
+  //background-color: white;
+  background-color: #fafafa;
   &:hover {
     background-color: $gray;
   }
@@ -247,7 +252,8 @@ a.header-link:hover {
   display: none;
   max-width: 200px;
   z-index: 200;
-  background-color: white;
+  //background-color: white;
+  background-color: #fafafa;
   .file {
     width: 100%;
   }
@@ -483,8 +489,8 @@ $frameHeight: $filesHeight + $headerHeight;
 */
 
 /* sidebyside */
-.☮ {
 
+.☮ {
   #home__overlay {
     position: fixed;
     left: 0px;
@@ -493,7 +499,7 @@ $frameHeight: $filesHeight + $headerHeight;
   .renderer {
     position: fixed;
     top: $frameHeight;
-    left: 0px;
+    left: $sideOffset;
     bottom: 0px;
     #block__iframe {
       top: $frameHeight;
@@ -501,14 +507,14 @@ $frameHeight: $filesHeight + $headerHeight;
       overflow: scroll;
     }
     #block__popper {
-      display: none;
+      //display: none;
     }
   }
 
   #block__code-files {
     position: fixed;
     top: $headerHeight;
-    left: 0;
+    left: $sideOffset;
     right: 0;
     width: auto;
   }
