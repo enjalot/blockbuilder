@@ -46,7 +46,8 @@ function parseCode(template, files) {
       var matches = template.match(re)
       if(matches) {
         // if we found one, replace it with the code and return.
-        template = template.replace(re, "<script>" + files[file].content)
+        template = template.replace(re, "<script defer>" + files[file].content)
+        // this won't work for code that has non-ascii characters in it... which is quite a lot of d3 code
         //template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
         return;
       }
