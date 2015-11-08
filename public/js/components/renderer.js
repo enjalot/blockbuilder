@@ -45,7 +45,7 @@ var Renderer = React.createClass({
         this.setupIFrame();
       }      
 
-      if(this.props.mode === "☮" && this.props.mode !== prevProps.mode) {
+      if(this.props.mode === "sidebyside" && this.props.mode !== prevProps.mode) {
         var iframe = window.d3.select('#block__iframe').node();
         d3.select(iframe).attr({scrolling: null})
         var parent = iframe.parentNode;
@@ -125,7 +125,7 @@ var Renderer = React.createClass({
   },
   render: function render() {
     var iframe;
-    if(this.props.mode === "☯" && this.props.active.indexOf('.md') < 0) {
+    if(this.props.mode === "blocks" && this.props.active.indexOf('.md') < 0) {
       iframe = ( <iframe id='block__iframe' scrolling='no'></iframe> )
     } else {
       iframe = ( <div><iframe id='block__iframe'></iframe></div> )

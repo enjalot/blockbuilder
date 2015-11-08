@@ -5,7 +5,7 @@
  *
  * ========================================================================= */
 import React from 'react';
-import {IconQuestion, IconImage} from './icons.js';
+import {IconHome, IconGrid, IconTerminal } from './icons.js';
 var SiteNav = React.createClass({
   render: function render() {
     /*
@@ -18,9 +18,12 @@ var SiteNav = React.createClass({
     */
     return (
     <div id="block__site-nav">
-      <div className="nav-link" ><a href="/">Home</a></div>
-      <div className="nav-link" ><a href="/about">About</a></div>
-      <div className="nav-link" ><a href="/gallery">Gallery</a></div>
+      <div className="nav-link" data-tip="Home" data-place="right" data-effect="solid">
+        <a href="/"><IconHome></IconHome></a></div>
+      <div className="nav-link" data-tip="About" data-place="right" data-effect="solid"><a href="/about">
+        <IconTerminal></IconTerminal></a></div>
+      <div className="nav-link" data-tip="Gallery" data-place="right" data-effect="solid"><a href="/gallery">
+        <IconGrid></IconGrid></a></div>
     </div>
     )
   }

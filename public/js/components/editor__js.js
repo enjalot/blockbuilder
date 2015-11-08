@@ -79,7 +79,7 @@ var EditorJS = React.createClass({
       var horizontalMode, fixedContainer;
       var xOffset, yOffset;
       // if its side-by-side
-      if(this.props.mode === "☮"){ 
+      if(this.props.mode === "sidebyside"){ 
         horizontalMode = "page";
         //fixedContainer = element.getBoundingClientRect().right
         fixedContainer = true;

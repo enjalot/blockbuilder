@@ -62,6 +62,7 @@ var IconPrivate = React.createClass({
 })
 export var IconPrivate
 
+
 var IconQuestion = React.createClass({
   render: function render() {
     return (
@@ -85,3 +86,67 @@ var IconImage = React.createClass({
   }
 })
 export var IconImage
+
+// For Homepage link
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/home.svg
+var IconHome = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M4 0l-4 3h1v4h2v-2h2v2h2v-4.03l1 .03-4-3z" />
+      </svg>
+    )
+  }
+})
+export var IconHome
+
+// For Gallery link
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/grid-three-up.svg
+var IconGrid = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M0 0v2h2v-2h-2zm3 0v2h2v-2h-2zm3 0v2h2v-2h-2zm-6 3v2h2v-2h-2zm3 0v2h2v-2h-2zm3 0v2h2v-2h-2zm-6 3v2h2v-2h-2zm3 0v2h2v-2h-2zm3 0v2h2v-2h-2z" />
+      </svg>
+    )
+  }
+})
+export var IconGrid
+
+// For the About page link
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/terminal.svg
+var IconTerminal = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M.09 0c-.06 0-.09.04-.09.09v7.81c0 .05.04.09.09.09h7.81c.05 0 .09-.04.09-.09v-7.81c0-.06-.04-.09-.09-.09h-7.81zm1.41.78l1.72 1.72-1.72 1.72-.72-.72 1-1-1-1 .72-.72zm2.5 2.22h3v1h-3v-1z" />
+      </svg>
+    )
+  }
+})
+export var IconTerminal
+
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/fullscreen-enter.svg
+var IconFullscreenEnter = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M0 0v4l1.5-1.5 1.5 1.5 1-1-1.5-1.5 1.5-1.5h-4zm5 4l-1 1 1.5 1.5-1.5 1.5h4v-4l-1.5 1.5-1.5-1.5z" />
+      </svg>
+    )
+  }
+})
+export var IconFullscreenEnter
+
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/fullscreen-exit.svg
+var IconFullscreenExit = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M1 0l-1 1 1.5 1.5-1.5 1.5h4v-4l-1.5 1.5-1.5-1.5zm3 4v4l1.5-1.5 1.5 1.5 1-1-1.5-1.5 1.5-1.5h-4z" />
+      </svg>
+    )
+  }
+})
+export var IconFullscreenExit
+

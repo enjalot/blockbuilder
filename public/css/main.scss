@@ -5,7 +5,7 @@ $gray: #F7E2AD; /* #efefef; */
 $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
-$sideOffset: 45px; // distance from the left side
+$sideOffset: 40px; // distance from the left side
 
 html {
   min-width: 1040px;
@@ -369,9 +369,12 @@ a.header-link:hover {
 
 #block__mode {
   position: fixed;
-  top: $headerHeight/3;
-  right: 20px;
+  //top: $headerHeight/3;
+  //right: 20px;
+  top: $headerHeight + 60px;
+  left: 10px;
   cursor: pointer;
+  font-size: 23px;
 }
 .description {
   font-family: Roboto;
@@ -380,8 +383,9 @@ a.header-link:hover {
 }
 
 $frameHeight: $filesHeight + $headerHeight;
-/* standard */
-.☯ {
+/* standard blocks layout */
+//.☯ {
+.blocks {
    .renderer {
     top: $frameHeight;
     height: $blockHeight;
@@ -443,7 +447,7 @@ $frameHeight: $filesHeight + $headerHeight;
     //specifically the one at the top
     position: absolute;
     top: 20px;
-    right: 40px;
+    //left: 40px;
   }
   .getstarted {
     padding: 5px 5px;
@@ -460,7 +464,16 @@ $frameHeight: $filesHeight + $headerHeight;
 
 }
 
-
+@media (max-width: 1200px) {
+  #getstarted {
+    right: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  #getstarted {
+    left: 40px;
+  }
+}
 
 /*
 #home__overlay {
@@ -489,13 +502,17 @@ $frameHeight: $filesHeight + $headerHeight;
 */
 
 /* sidebyside */
-
-.☮ {
+//.☮ {
+#block__header.sidebyside {
+  left: $sideOffset;
+}
+.sidebyside {
   #home__overlay {
     position: fixed;
     left: 0px;
     top: $frameHeight;
   }
+  
   .renderer {
     position: fixed;
     top: $frameHeight;
@@ -592,7 +609,8 @@ $frameHeight: $filesHeight + $headerHeight;
   left: 3px;
 
   .nav-link {
-    margin-top: 1px;
+    margin-top: 6px;
+    margin-left: 8px;
   }
   .nav-link a {
     font-size: 11px;

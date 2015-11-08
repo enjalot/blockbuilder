@@ -11,21 +11,21 @@ import Actions from '../actions/actions.js';
 var ModeNav = React.createClass({
   handleModeChange: function handleModeChange() {
     var mode = this.props.mode;
-    if(mode === "☮") {
-      mode = "☯";
+    if(mode === "sidebyside") {
+      mode = "blocks";
     } else {
-      mode = "☮";
+      mode = "sidebyside";
     }
     Actions.setMode(mode);
   },
   render: function render() {
-    if(this.props.mode === "☮") {
+    if(this.props.mode === "sidebyside") {
       return (
-        <div id='block__mode' data-tip='Switch to standard mode' data-place='left' data-effect="solid" onClick={this.handleModeChange}>{this.props.mode}</div>
+        <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☯</div>
       )
     } else {
       return (
-        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='left' data-effect="solid" onClick={this.handleModeChange}>{this.props.mode}</div>
+        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☮</div>
       )
     }
   }

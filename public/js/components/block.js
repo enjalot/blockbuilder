@@ -55,7 +55,7 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "☯" };
+    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "blocks" };
   },
 
   /**
@@ -216,7 +216,7 @@ var Block = React.createClass({
       Actions.fetchGist(this.props.params.gistId);
     }
     /* we can set view state through the # url in the format:
-      activeFile=thumbnail.png;mode=☮
+      activeFile=thumbnail.png;mode=sidebyside
     */
     var hash = window.location.hash;
     if(hash) {
@@ -306,7 +306,7 @@ var Block = React.createClass({
 
     return ( 
       <div id='block__wrapper'>
-        <div id='block__header'>
+        <div id='block__header' className={this.state.mode}>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData} page="block"></GistNav>

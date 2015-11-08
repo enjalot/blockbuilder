@@ -87,7 +87,7 @@ var Home = React.createClass({
     return { 
       gistData: gistData, 
       activeFile: 'index.html', 
-      mode: "☯",
+      mode: "blocks",
       showOverlay: true
     };
   },
@@ -154,7 +154,7 @@ var Home = React.createClass({
   componentWillMount: function(){
     //logger.log('components/Home:componentWillMount', 'called');
     /* we can set view state through the # url in the format:
-      activeFile=thumbnail.png;mode=☮
+      activeFile=thumbnail.png;mode=sidebyside
     */
     var hash = window.location.hash;
     if(hash) {
@@ -252,7 +252,7 @@ var Home = React.createClass({
     }
     return ( 
       <div id='block__wrapper'>
-        <div id='block__header'>
+        <div id='block__header' className={this.state.mode}>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData} page="home"></GistNav>
