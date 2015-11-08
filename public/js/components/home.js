@@ -185,7 +185,7 @@ var Home = React.createClass({
   render: function render(){
     logger.log('components/Home:render', 'called');
     var overlay = ""
-    if(this.state.showOverlay && this.state.showOverlay !== "false") {
+    if(this.state.showOverlay && this.state.showOverlay !== "false" && !this.props.user.login) {
       // the user hasn't messed with the code, so we show the overlay
       overlay = (
         <div id="tutorial__overlay">
