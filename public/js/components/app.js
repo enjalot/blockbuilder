@@ -81,7 +81,7 @@ var App = React.createClass({
       <div id='site-wrapper'>
           {/* The actual page from the route gets rendered here */}
           <RouteHandler {...this.props} user={ this.state.user } />
-          <ReactTooltip />
+          <ReactTooltip effect="solid" placeholder="foo" />
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}

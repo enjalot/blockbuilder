@@ -9,7 +9,6 @@
 // ------------------------------------
 import React from 'react';
 import logger from 'bragi-browser';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
 // Internal Dependencies
 // ------------------------------------

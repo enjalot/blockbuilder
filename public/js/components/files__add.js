@@ -61,28 +61,78 @@ var FilesAdd = React.createClass({
       this.handleText(file);
     } else if(file.type.indexOf("application/json") === 0) {
       this.handleText(file);
+    } else if(file.type.indexOf("image/") === 0) {
+      // TODO make this redirect to the thumbnail tab
+      this.handleBlob(file);
     } else {
       this.handleBlob(file);
     }
   },
-  addFile: function addFile() {
-    console.log("add file")
-    //var name = this.props.file.filename
-    //Actions.addFile(name)
+  
+  handleFilenameInput: function handleFilenameInput(evt) {
+    var value = this.refs.filenameInput.value;
+    console.log("keydown", evt.keyCode, evt.keyCode == 13)
+    if(evt.keyCode == 13) {
+      //'Enter' triggers save
+      console.log("saving")
+      this.saveNew();
+    } else if (evt.keyCode == 27) {
+      //'Escape' triggers delete
+      console.log("cancelling")
+      this.setState({showNew: false})
+    }
+  },
+  showNew: function showNew() {
+    //show the filename input and allow user to create the new file
+    this.setState({ showNewFile: true })
+    var that = this;
+    setTimeout(function() {
+      that.refs.filenameInput.focus();
+    }, 10)
+  },
+  saveNew: function saveNew() {
+    var value = this.refs.filenameInput.value;
+    console.log("value", value)
+    // Create file
+    var file = {
+      name: value,
+      content: ""
+    }
+    Actions.addFile(file);
+    this.setState({ showNewFile: false })
   },
   render: function render() {
     let show = '';
     if(this.state.show){
       show = 'show';
     }
+
+    let newFile = ""
+    if(this.state.showNewFile) {
+      // 
+      newFile = (
+          <div id="files__add-new" className="file">
+            <a data-tip="Save {this.state.newFileName}" data-place='bottom' onClick={this.saveNew} className="file">Save</a>
+            <input id="files__add-new-name" ref="filenameInput" placeholder="filename" onKeyDown={ this.handleFilenameInput }></input>
+          </div>
+      )
+    } else {
+      newFile = (
+        <div id="files__add-new" className="file">
+          <a data-tip="Create a blank file" data-place='bottom' onClick={this.showNew} className="file">Create file</a>
+        </div>
+      )
+    }
+
     return (
       <div id='files__add-wrapper'>
         <div id='files__add-ui' className={show}>
+          {newFile}
           {/*<input id="files__name" />*/}
           <input onChange={this.selectFile} type="file" id="files__input" name="files[]"/>
         </div>
 
-        <a id="files__add"  data-tip="Add a new file" data-place='bottom' data-effect="solid" onClick={this.showAdd} className="file">➕</a>
+        <a id="files__add"  data-tip="Add a new file" data-place='bottom' onClick={this.showAdd}>➕</a>
       </div>
     )
   }

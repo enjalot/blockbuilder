@@ -20,18 +20,35 @@ import Actions from '../actions/actions.js';
 // ========================================================================
 var FilesTab = React.createClass({
   setActive: function setActive() {
-    var name = this.props.file.filename
-    Actions.setActiveFile(name)
+    var name = this.props.file.filename;
+    Actions.setActiveFile(name);
+  },
+  removeFile: function setActive() {
+    console.log("remove file", this.props.file)
+    Actions.removeFile(this.props.file);
   },
   render: function render() {
     var file = this.props.file;
     if(!file) return (<div></div>);
     var activeClass = ""
-    if(this.props.active === file.filename) activeClass = "active "
+
+    let deleteButton = "";
+    let hasDelete = ""
+    if(["index.html", "README.md", "thumbnail.png"].indexOf(file.filename) < 0) {
+      deleteButton = (
+        <a className="file-delete" onClick={ this.removeFile }>x</a>
+      )
+      hasDelete = "has-delete"
+    }
+    if(this.props.active === file.filename) activeClass = "active " + hasDelete;
     return (
-      <a className={activeClass + "file"} onClick={ this.setActive } key={ file.filename } target="_blank">
+      <div className="file" onClick={ this.setActive } >
+      <a className={activeClass} key={ file.filename } target="_blank">
         { file.filename }
       </a>
+      {deleteButton}
+      </div>
+
     )
   }
 

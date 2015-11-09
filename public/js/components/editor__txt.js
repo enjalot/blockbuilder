@@ -9,7 +9,6 @@
 // ------------------------------------
 import React from 'react';
 import logger from 'bragi-browser';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
 // Internal Dependencies
 // ------------------------------------
@@ -68,11 +67,13 @@ var EditorTXT = React.createClass({
       }
       editor.onchange = changeHandler;
       editor.onkeyup = changeHandler;
+      editor.focus();
     });
   },
 
   render: function render() {
     var gist = this.props.gist;
+    if(!gist.files[this.props.active]) return (<div></div>);
     var text = gist.files[this.props.active].content;
     var textarea = ( <textarea id='editor__txt' defaultValue={text}></textarea> );
     return (

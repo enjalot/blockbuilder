@@ -9,7 +9,6 @@
 import React from 'react';
 import Reflux from 'reflux';
 import logger from 'bragi-browser';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
 // Disable detailed logging for now
 logger.options.groupsEnabled = [];
@@ -72,6 +71,15 @@ var Block = React.createClass({
       gist.files[data.file.name] = {content: data.file.content, filename: data.file.name };
       this.setState({ gistData: gist, fileAdded: true })
       this.setState({activeFile: data.file.name})
+    } else if(data.type === 'removeFile') { 
+      var gist = this.state.gistData;
+      console.log("removeFile", data.file.filename)
+      gist.files[data.file.filename] = null;
+      this.setState({ gistData: gist , fileAdded: true})
+      var that = this;
+      setTimeout(function() {
+        that.setState({ activeFile: "index.html" })
+      }, 10)
     }
   },
 

@@ -31,6 +31,7 @@ var Actions = Reflux.createActions({
     'fetchMe': {asyncResult: true},
     // FILES
     'addFile': {},
+    'removeFile': {},
     'setActiveFile': {},
     'setDescription': {},
     'setPublic': {},
@@ -55,7 +56,9 @@ function cleanGist(gist) {
   var fileNames = Object.keys(gist.files);
   fileNames.forEach(function(fileName) {
     if(fileName === "thumbnail.png") return;
-    if(gist.files[fileName].content)
+    if(!gist.files[fileName]) {
+      newGist.files[fileName] = null
+    } else if(gist.files[fileName].content)
       newGist.files[fileName] = gist.files[fileName];
   })
   return newGist;

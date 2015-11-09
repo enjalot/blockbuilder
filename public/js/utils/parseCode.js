@@ -34,6 +34,7 @@ function parseCode(template, files) {
 
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
+    if(!files[file] || !files[file].content) return;
     if(file === "index.html") return;  
     if(file === "thumbnail.png") return; // lets ignore the thumbnail if its there
 

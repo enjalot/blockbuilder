@@ -10,6 +10,7 @@ import '../css/main.scss'; // Builds the main CSS file!
 // ------------------------------------
 // react
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Configure logger
 import logger from 'bragi-browser';
@@ -30,5 +31,5 @@ import router from './router.js';
 logger.log('app', 'initializing');
 
 router.run((Handler, state) => {
-  React.render(<Handler {...state} />, document.getElementById('app'));
+  ReactDOM.render(<Handler {...state} />, document.getElementById('app'));
 });

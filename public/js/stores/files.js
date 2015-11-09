@@ -30,6 +30,13 @@ var FilesStore = Reflux.createStore({
         file: file
       });
     },
+    onRemoveFile: function(file) {
+      logger.log('stores/files:onRemoveFile', 'called. data: %O', file);
+      this.trigger({
+        type: 'removeFile',
+        file: file
+      });
+    },
     onSetActiveFile: function(file) {
       logger.log('stores/files:onSetActiveFile', 'called. data: %O', file);
       this.activeFile = file;
