@@ -47,9 +47,12 @@ function parseCode(template, files) {
       var matches = template.match(re)
       if(matches) {
         // if we found one, replace it with the code and return.
-        template = template.replace(re, "<script defer>" + files[file].content)
+        template = template.replace(re, "<script>" + files[file].content)
         // this won't work for code that has non-ascii characters in it... which is quite a lot of d3 code
         //template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
+        // this works with non-ascii characters but would take more acrobatics to support the defer keyword
+        // and also seems like it would make debugging the inserted scripts more complicated
+        //template = template.replace(re, '<script src="data:text/javascript;base64,' + b64EncodeUnicode(files[file].content) + '">')
         return;
       }
     }
@@ -97,10 +100,12 @@ function parseCode(template, files) {
 
   // We need to have the file names and their contents available inside the iframe
   // if we want to be able to return them in our short-circuited XHR requests.
-  var filesString = JSON.stringify(referencedFiles);
+  var filesString = encodeURIComponent(JSON.stringify(referencedFiles));
   var fileNamesString = JSON.stringify(Object.keys(referencedFiles))
   template = '<meta charset="utf-8"><script>' 
-    + 'var __files = ' + filesString + ';'
+    //+ 'var __files = ' + filesString + ';'
+    + 'var __filesURI = \"' + filesString + '\";\n'
+    + 'var __files = JSON.parse(decodeURIComponent(__filesURI));\n'
     + 'var __fileNames = ' + fileNamesString + ';'
     + '</script>' + template
 
@@ -187,5 +192,14 @@ function parseCode(template, files) {
 
   return template;
 }
+
+/*
+// keeping this around in case we decide we do want to b64 encode some files
+function b64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+    return String.fromCharCode('0x' + p1);
+  }));
+}
+*/
 
 export default parseCode;
