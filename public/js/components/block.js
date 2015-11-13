@@ -54,7 +54,7 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "blocks" };
+    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "blocks", fullscreen: false };
   },
 
   /**
@@ -89,6 +89,8 @@ var Block = React.createClass({
 
     if(data.type === 'setMode') { 
       this.setState({mode: data.mode})
+    } else if(data.type === 'setFullScreen'){
+      this.setState({fullscreen: data.fullscreen})
     }
   },
 
@@ -312,9 +314,10 @@ var Block = React.createClass({
       );
     }
 
+    var fullscreenClass = this.state.fullscreen ? "fullscreen" : "";
     return ( 
       <div id='block__wrapper'>
-        <div id='block__header' className={this.state.mode}>
+        <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData} page="block"></GistNav>
@@ -325,10 +328,10 @@ var Block = React.createClass({
           <div id='site-header__save-fork'>
             <SaveForkNav gist={this.state.gistData} forking={this.state.forking} saving={this.state.saving} page="block" {...this.props}></SaveForkNav>
           </div>
-          <ModeNav mode={this.state.mode}></ModeNav>
+          <ModeNav mode={this.state.mode} fullscreen={this.state.fullscreen}></ModeNav>
         </div>
 
-        <div id='block__content' className={this.state.mode}>
+        <div id='block__content' className={this.state.mode + " " + fullscreenClass}>
           {blockContent}
         </div>
       </div>
