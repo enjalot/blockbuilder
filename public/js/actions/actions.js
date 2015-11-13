@@ -36,6 +36,7 @@ var Actions = Reflux.createActions({
     'setDescription': {},
     'setPublic': {},
     'setMode': {},
+    'setFullScreen': {},
     'setModal': {},
     'setSaveFork': {}
 });

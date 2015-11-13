@@ -88,6 +88,7 @@ var Home = React.createClass({
       gistData: gistData, 
       activeFile: 'index.html', 
       mode: "blocks",
+      fullscreen: false,
       showOverlay: true
     };
   },
@@ -122,7 +123,10 @@ var Home = React.createClass({
 
     if(data.type === 'setMode') { 
       this.setState({mode: data.mode})
+    } else if(data.type === 'setFullScreen'){
+      this.setState({fullscreen: data.fullscreen})
     }
+
   },
 
   gistStoreChange: function gistStoreChange(data){
@@ -258,9 +262,10 @@ var Home = React.createClass({
         </div>
       )
     }
+    var fullscreenClass = this.state.fullscreen ? "fullscreen" : "";
     return ( 
       <div id='block__wrapper'>
-        <div id='block__header' className={this.state.mode}>
+        <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData} page="home"></GistNav>
@@ -271,10 +276,10 @@ var Home = React.createClass({
           <div id='site-header__save-fork'>
             <SaveForkNav gist={this.state.gistData} page="home" {...this.props}></SaveForkNav>
           </div>
-          <ModeNav mode={this.state.mode}></ModeNav>
+          <ModeNav mode={this.state.mode} fullscreen={this.state.fullscreen}></ModeNav>
         </div>
 
-        <div id='block__content' className={this.state.mode}>
+        <div id='block__content' className={this.state.mode + " " + fullscreenClass}>
           {overlay}
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode} description={this.state.gistData.description}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile} hidethumb={true}></Files>

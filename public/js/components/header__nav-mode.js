@@ -7,6 +7,7 @@
  * ========================================================================= */
 import React from 'react';
 import Actions from '../actions/actions.js';
+import {IconFullScreenEnter, IconFullScreenExit} from './icons.js';
 
 var ModeNav = React.createClass({
   handleModeChange: function handleModeChange() {
@@ -18,16 +19,32 @@ var ModeNav = React.createClass({
     }
     Actions.setMode(mode);
   },
+  handleFullScreen: function handleFullScreen() {
+    var fullscreen = this.props.fullscreen;
+    fullscreen = !fullscreen;
+    Actions.setFullScreen(fullscreen);
+  },
   render: function render() {
+    var mode, fullscreen;
     if(this.props.mode === "sidebyside") {
-      return (
+      mode = (
         <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☯</div>
       )
     } else {
-      return (
+      mode = (
         <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☮</div>
       )
     }
+    if(this.props.fullscreen) {
+      fullscreen = (
+        <div id='block__fullscreen' data-tip='Exit fullscreen' data-place='right' data-effect="solid" onClick={this.handleFullScreen}><IconFullScreenExit></IconFullScreenExit></div>
+      )
+    } else {
+      fullscreen = (
+        <div id='block__fullscreen' data-tip='Go into fullscreen' data-place='right' data-effect="solid" onClick={this.handleFullScreen}><IconFullScreenEnter></IconFullScreenEnter></div>
+      )
+    }
+    return ( <div>{mode} {fullscreen} </div>);
   }
 });
 

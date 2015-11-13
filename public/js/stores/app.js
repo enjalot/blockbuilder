@@ -26,13 +26,22 @@ var AppStore = Reflux.createStore({
 
     onSetMode: function(mode) {
       logger.log('stores/app:onSetMode', 'called. data: %O', mode);
-      this.mode = mode;
       this.trigger({
         type: 'setMode',
         mode: mode 
       }); 
     },
 
+    onSetFullScreen: function(fullscreen) {
+      logger.log('stores/app:onSetFullScreen', 'called. data: %O', fullscreen);
+      this.fullscreen = fullscreen;
+      this.trigger({
+        type: 'setFullScreen',
+        fullscreen: fullscreen
+      }); 
+    },
+
+   
     onSetModal: function(message) {
       this.trigger({
         type:'setModal',

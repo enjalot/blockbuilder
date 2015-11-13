@@ -127,7 +127,7 @@ var IconTerminal = React.createClass({
 export var IconTerminal
 
 //https://raw.githubusercontent.com/iconic/open-iconic/master/svg/fullscreen-enter.svg
-var IconFullscreenEnter = React.createClass({
+var IconFullScreenEnter = React.createClass({
   render: function render() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
@@ -136,10 +136,10 @@ var IconFullscreenEnter = React.createClass({
     )
   }
 })
-export var IconFullscreenEnter
+export var IconFullScreenEnter
 
 //https://raw.githubusercontent.com/iconic/open-iconic/master/svg/fullscreen-exit.svg
-var IconFullscreenExit = React.createClass({
+var IconFullScreenExit = React.createClass({
   render: function render() {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
@@ -148,5 +148,5 @@ var IconFullscreenExit = React.createClass({
     )
   }
 })
-export var IconFullscreenExit
+export var IconFullScreenExit
 

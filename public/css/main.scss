@@ -2,6 +2,7 @@
 
 $blue: #66B5AF; /* #3182bd; */
 $gray: #F7E2AD; /* #efefef; */
+$offWhite: #efefef;
 $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
@@ -383,7 +384,7 @@ a.header-link:hover {
   left: 0;
   right: 0;
   height: $blockHeight - 20px;
-  background: #efefef;
+  background: $offWhite;
 }
 
 #block__popper:hover {
@@ -414,6 +415,15 @@ a.header-link:hover {
   cursor: pointer;
   font-size: 23px;
 }
+#block__fullscreen {
+  position: fixed;
+  //top: $headerHeight/3;
+  //right: 20px;
+  top: $headerHeight + 85px;
+  left: 10px;
+  cursor: pointer;
+  font-size: 23px;
+}
 .description {
   font-family: Roboto;
   width: 300px;
@@ -438,113 +448,13 @@ $frameHeight: $filesHeight + $headerHeight;
   }
 }
 
-#tutorial__overlay {
-  position: fixed;
-  top: 0; 
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  margin: 0;
-  z-index: 1000;
-  background-color: #fefefe;
-  overflow-y: scroll;
-
-  #tutorial__content {
-    width: 715px;
-    margin: 0px auto;
-
-    .domain {
-      color: #ac3f1a
-    }
-
-    h2, h3 {
-      margin: 0
-    }
-    .tut {
-      margin: 10px 0;
-    }
-  }
-
-  h1 {
-    margin: 0;
-  }
-  .subhead {
-    color: gray;
-    text-transform: uppercase;
-
-  }
-  p {
-  }
-  #fixedstarted {
-    position: fixed;
-    //width: 960px;
-    width: 100%;
-  }
-  #getstarted {
-    //specifically the one at the top
-    position: absolute;
-    top: 20px;
-    //left: 40px;
-  }
-  .getstarted {
-    padding: 5px 5px;
-    text-transform: uppercase;
-    font-size: 20px;
-    color: white;
-    background-color: $blue;
-    border: 1px solid $blue;
-    border-radius: 2px;
-    width: 150px;
-    text-align: center;
-    cursor: pointer;
-  }
-
-}
-
-@media (max-width: 1200px) {
-  #getstarted {
-    right: 40px;
-  }
-}
-@media (min-width: 1200px) {
-  #getstarted {
-    left: 40px;
-  }
-}
-
-/*
-#home__overlay {
-  position: fixed;
-  width: 963px;
-  height: 480px;
-  margin: 0;
-  padding: 0;
-  top: $frameHeight + 10px;
-  z-index: 100;
-  background-color: #efefef;
-
-  iframe {
-    position: absolute;
-    left: 130px;
-    top: 20px;
-  }
-  .description {
-    font-size: 20px;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    bottom: 0px;
-  } 
-}
-*/
 
 /* sidebyside */
 //.☮ {
-#block__header.sidebyside {
+#block__header.sidebyside, #block__header.fullscreen {
   left: $sideOffset;
 }
-.sidebyside {
+.sidebyside, .fullscreen {
   #home__overlay {
     position: fixed;
     left: 0px;
@@ -589,6 +499,18 @@ $frameHeight: $filesHeight + $headerHeight;
         height: 100%;
       }
     }
+  }
+}
+
+.fullscreen {
+  .renderer{
+    #block__iframe {
+      width: calc(100% - 50px);
+      height: calc(100% - 95px);
+    }
+  }
+  #block__code-wrapper {
+    display: none;
   }
 }
 
@@ -691,10 +613,91 @@ $frameHeight: $filesHeight + $headerHeight;
   background-color: #FE6675 !important;
 
   .error {
-    color: #efefef;
+    color: $offWhite;
 
   }
 }
+
+
+/* -------------------
+Tutorial overlay styles
+----------------------*/
+
+#tutorial__overlay {
+  position: fixed;
+  top: 0; 
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: 0;
+  z-index: 1000;
+  background-color: #fefefe;
+  overflow-y: scroll;
+
+  #tutorial__content {
+    width: 715px;
+    margin: 0px auto;
+
+    .domain {
+      color: #ac3f1a
+    }
+
+    h2, h3 {
+      margin: 0
+    }
+    .tut {
+      margin: 10px 0;
+    }
+  }
+
+  h1 {
+    margin: 0;
+  }
+  .subhead {
+    color: gray;
+    text-transform: uppercase;
+
+  }
+  p {
+  }
+  #fixedstarted {
+    position: fixed;
+    //width: 960px;
+    width: 100%;
+  }
+  #getstarted {
+    //specifically the one at the top
+    position: absolute;
+    top: 20px;
+    //left: 40px;
+  }
+  .getstarted {
+    padding: 5px 5px;
+    text-transform: uppercase;
+    font-size: 20px;
+    color: white;
+    background-color: $blue;
+    border: 1px solid $blue;
+    border-radius: 2px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+}
+
+@media (max-width: 1200px) {
+  #getstarted {
+    right: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  #getstarted {
+    left: 40px;
+  }
+}
+
 
 
 /* -------------------
