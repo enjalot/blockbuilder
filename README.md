@@ -131,8 +131,9 @@ This project began as a [Kickstarter project](https://www.kickstarter.com/projec
 ♥ [Johanna Fulda](https://twitter.com/jofu_)  
 ♥ [Kai Chang](http://bl.ocks.org/syntagmatic)   
 ♥ [Geoff McGhee](http://visualoop.com/geoffmcghee)
+♥ [Ariel Azoulay](https://www.linkedin.com/pub/ariel-azoulay/38/615/560)
 
 
-This list includes 89/111 survey responders for people who backed at a reward level of $25 or more.
+This list includes 90/111 survey responders for people who backed at a reward level of $25 or more.
 
 Much love to everyone who backed!
