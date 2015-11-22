@@ -13,6 +13,7 @@ import logger from 'bragi-browser';
 // Internal Dependencies
 // ------------------------------------
 import Actions from '../actions/actions.js';
+import throttle from '../utils/throttle';
 
 // ========================================================================
 //
@@ -95,10 +96,25 @@ var EditorCoffee = React.createClass({
         picker:{ bottomOffset: 20, topOffset: 230}
       });
 
-      this.codeMirror.on('change', ()=>{
+      // We can delay execution so that rapid typing doesn't flash the screen
+      // or slow down typing with code that is slightly heavier to run
+      var throttler = throttle(() => {
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
+        this.codeMirror.clearGutter("errors")
+      })
+      var wait = 350;
+      this.codeMirror.on('change', () => {
+        // we don't want to throttle the number sliders or color picker
+        // because the whole idea is immediate feedback (minor throttling to 60fps)
+        if(this.codeMirror.dragging || this.codeMirror.picking) {
+          throttler.wait(16)
+        } else {
+          throttler.wait(wait)
+        }
+        throttler();
       });
+      
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
         // TODO this should probably be done on the window so we can hit escape anywhere
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key

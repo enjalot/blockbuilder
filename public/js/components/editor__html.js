@@ -13,6 +13,7 @@ import logger from 'bragi-browser';
 import ReactDOM from 'react-dom';
 var ReactTooltip = require("react-tooltip")
 import ErrorMarker from './editor__error-marker';
+import throttle from '../utils/throttle';
 
 // Internal Dependencies
 // ------------------------------------
@@ -117,10 +118,23 @@ var EditorHTML = React.createClass({
         picker:{ bottomOffset: 20, topOffset: 230}
       });
 
-      this.codeMirror.on('change', ()=>{
+      // We can delay execution so that rapid typing doesn't flash the screen
+      // or slow down typing with code that is slightly heavier to run
+      var throttler = throttle(() => {
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
         this.codeMirror.clearGutter("errors")
+      })
+      var wait = 350;
+      this.codeMirror.on('change', () => {
+        // we don't want to throttle the number sliders or color picker
+        // because the whole idea is immediate feedback (minor throttling to 60fps)
+        if(this.codeMirror.dragging || this.codeMirror.picking) {
+          throttler.wait(16)
+        } else {
+          throttler.wait(wait)
+        }
+        throttler();
       });
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
