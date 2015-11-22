@@ -32,6 +32,8 @@ function parseCode(template, files) {
 
   var referencedFiles = {}
 
+  // we need to keep track of injected lines for error line number offset
+  var lines = 0;
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
     if(!files[file] || !files[file].content) return;
@@ -48,6 +50,7 @@ function parseCode(template, files) {
       if(matches) {
         // if we found one, replace it with the code and return.
         template = template.replace(re, "<script>" + files[file].content)
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
         // this won't work for code that has non-ascii characters in it... which is quite a lot of d3 code
         //template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
         // this works with non-ascii characters but would take more acrobatics to support the defer keyword
@@ -66,6 +69,7 @@ function parseCode(template, files) {
       if(matches) {
         // if we found one, replace it with the code and return.
         template = template.replace(re, "<script type='text/coffeescript'>" + files[file].content)
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
         return;
       }
     }
@@ -78,6 +82,7 @@ function parseCode(template, files) {
       if(matches) {
         // if we found one, replace it with the code and return.
         template = template.replace(re, "<style>" + files[file].content + "</style>")
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
         return;
       }
     }
@@ -194,7 +199,7 @@ function parseCode(template, files) {
   // We intercept onerror to give better line numbers in your console
   // 6 is a manual count of the added template code for this section of the template
   // we could use this offset to set a marker in the codemirror gutter
-  var lines =  xmloverride.split(/\r\n|\r|\n/).length + 6
+  lines = lines + xmloverride.split(/\r\n|\r|\n/).length + 6
   template = `<script>(function(){
     window.onerror = function(msg, url, lineNumber) {
       window.parent.postMessage({lineNumber:(lineNumber-`+lines+`), message:msg}, "`+window.location.origin+`")
