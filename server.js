@@ -206,6 +206,10 @@ app.post('/api/save', function(req, res){
 
 // Create a new gist
 app.post('/api/fork', function (req, res) {
+  // Potentially allow some other domains to post anon gists to quickly enable saving
+  // will want to add their domains here if we want to do this
+  //res.header("Access-Control-Allow-Origin", "*");
+  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
