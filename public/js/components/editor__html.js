@@ -89,8 +89,8 @@ var EditorHTML = React.createClass({
           var message = event.data.message.toString();
           var marker = document.createElement("div");
           marker.style.color = "#dd737a";
-          //marker.innerHTML = `<div data-tip='`+message+`'data-place='right' data-effect="solid">●</div>`
           this.codeMirror.setGutterMarker(event.data.lineNumber-1, "errors", marker);
+          d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(221, 115, 122, 1)")
           var component = ReactDOM.render(tooltip,marker);
           component.setMessage(message)
         }
@@ -120,6 +120,7 @@ var EditorHTML = React.createClass({
       this.codeMirror.on('change', ()=>{
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
+        d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(0,83,159,0.65)")
         this.codeMirror.clearGutter("errors")
       });
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
