@@ -1,7 +1,7 @@
 
 /* =========================================================================
  *
- *  editor__html.js
+ *  editor__js.js
  *  Edit JS in CodeMirror
  *
  * ========================================================================= */
@@ -115,7 +115,7 @@ var EditorJS = React.createClass({
         }
         throttler();
       });
-      
+
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
         // TODO this should probably be done on the window so we can hit escape anywhere
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key

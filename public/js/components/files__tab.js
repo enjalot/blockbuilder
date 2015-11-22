@@ -42,8 +42,8 @@ var FilesTab = React.createClass({
     }
     if(this.props.active === file.filename) activeClass = "active " + hasDelete;
     return (
-      <div className="file" onClick={ this.setActive } >
-      <a className={activeClass} key={ file.filename } target="_blank">
+      <div className={"file " + activeClass} onClick={ this.setActive } >
+      <a className="filename" key={ file.filename } target="_blank">
         { file.filename }
       </a>
       {deleteButton}

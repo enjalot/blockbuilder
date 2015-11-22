@@ -1,8 +1,8 @@
 
 /* =========================================================================
  *
- *  editor__coffees.js
- *  Edit CoffeeScript in CodeMirror
+ *  editor__css.js
+ *  Edit CSS in CodeMirror
  *
  * ========================================================================= */
 // External Dependencies
@@ -19,16 +19,16 @@ import throttle from '../utils/throttle';
 //
 // Functionality
 // ========================================================================
-var EditorCoffee = React.createClass({
+var EditorCSS = React.createClass({
 
   componentDidMount: function componentDidMount(){
-    logger.log('components/EditorCoffee:component:componentDidMount', 'called');
+    logger.log('components/EditorCSS:component:componentDidMount', 'called');
     if(this.props.gist){
       this.setupCodeMirror();
     }
   },
   componentDidUpdate: function componentDidUpdate(){
-    logger.log('components/EditorCoffee:component:componentDidUpdate', 'called');
+    logger.log('components/EditorCSS:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupCodeMirror();
     }
@@ -37,7 +37,7 @@ var EditorCoffee = React.createClass({
   // Uility functions
   // ----------------------------------
   setupCodeMirror: function setupCodeMirror(){
-    logger.log('components/EditorCoffee:component:setupCodeMirror', 'called');
+    logger.log('components/EditorCSS:component:setupCodeMirror', 'called');
 
     var gist = this.props.gist;
 
@@ -66,7 +66,8 @@ var EditorCoffee = React.createClass({
       this.codeMirror = window.CodeMirror(element, {
         tabSize: 2,
         value: codeMirrorValue,
-        mode: 'coffeescript',
+        mode: 'css',
+        htmlMode: true,
         lineNumbers: true,
         //theme: 'twilight',
         theme: 'mdn-like',
@@ -114,7 +115,7 @@ var EditorCoffee = React.createClass({
         }
         throttler();
       });
-
+      
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
         // TODO this should probably be done on the window so we can hit escape anywhere
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
@@ -135,4 +136,4 @@ var EditorCoffee = React.createClass({
 
 })
 
-export default EditorCoffee;
+export default EditorCSS;

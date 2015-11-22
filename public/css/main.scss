@@ -249,12 +249,12 @@ a.header-link:hover {
 }
 .file.active {
   background-color: $blue;
-  color: white;
-}
-.file { 
-  .has-delete {
-    padding-right: 15px;
+  a.filename {
+    color: white;
   }
+}
+.file.has-delete {
+  padding-right: 30px;
 }
 .file-delete {
   position: absolute;
