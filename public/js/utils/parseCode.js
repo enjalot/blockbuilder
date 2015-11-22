@@ -35,7 +35,7 @@ function parseCode(template, files) {
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
     if(!files[file] || !files[file].content) return;
-    if(file === "index.html") return;  
+    if(file === "index.html") return;
     if(file === "thumbnail.png") return; // lets ignore the thumbnail if its there
 
     if(file.indexOf(".js") > 0) {
@@ -94,7 +94,7 @@ function parseCode(template, files) {
     */
     // we keep a list of all the files we might allow people to XHR request.
     // it would be possible to optimize by using the above commented out regex
-    // but if a user programatically generates 
+    // but if a user programatically generates
     referencedFiles[file] = files[file].content
   })
 
@@ -102,7 +102,7 @@ function parseCode(template, files) {
   // if we want to be able to return them in our short-circuited XHR requests.
   var filesString = encodeURIComponent(JSON.stringify(referencedFiles));
   var fileNamesString = JSON.stringify(Object.keys(referencedFiles))
-  template = '<meta charset="utf-8"><script>' 
+  template = '<meta charset="utf-8"><script>'
     //+ 'var __files = ' + filesString + ';'
     + 'var __filesURI = \"' + filesString + '\";\n'
     + 'var __files = JSON.parse(decodeURIComponent(__filesURI));\n'
@@ -113,8 +113,8 @@ function parseCode(template, files) {
   // without going to the server. This allows us to live-update the iframe as soon
   // as the file changes.
   // I was able to figure this out thanks to this page:
-  // http://ajaxref.com/ch7/xhrhijackfullprototype.html   
-  template = `<script>(function() { 
+  // http://ajaxref.com/ch7/xhrhijackfullprototype.html
+  var xmloverride = `<script>(function() {
     var XHR = window.XMLHttpRequest;
     window.XMLHttpRequest = function() {
       this.xhr = new XHR();
@@ -126,9 +126,9 @@ function parseCode(template, files) {
         // we store the fact that this request has a file here
         this.file = arguments[1];
         // we store the contents of the file in the response
-        this.responseText = __files[arguments[1]]; 
+        this.responseText = __files[arguments[1]];
         // we indicate that the request is done
-        this.readyState = 4; 
+        this.readyState = 4;
         this.status = 200;
       } else {
         var that = this;
@@ -155,7 +155,7 @@ function parseCode(template, files) {
         // to copy over the real response data to our fake xhr instance
         if(this.onreadystatechange) {
           var ready = this.onreadystatechange;
-          this.xhr.onreadystatechange = function() { 
+          this.xhr.onreadystatechange = function() {
             try{
               that.readyState = this.readyState;
               that.responseText = this.responseText;
@@ -187,8 +187,20 @@ function parseCode(template, files) {
       // if this is a real request, we pass through the send call
       this.xhr.send(data)
     }
-    })()</script>`
-  + template;
+  })()</script>`;
+
+  template = xmloverride + template;
+
+  // We intercept onerror to give better line numbers in your console
+  // 6 is a manual count of the added template code for this section of the template
+  // we could use this offset to set a marker in the codemirror gutter
+  var lines =  xmloverride.split(/\r\n|\r|\n/).length + 6
+  template = `<script>(function(){
+    window.onerror = function(msg, url, lineNumber) {
+      window.parent.postMessage({lineNumber:(lineNumber-`+lines+`), message:msg}, "`+window.location.origin+`")
+      //console.debug('blockbuilder editor error on line: ' + (lineNumber-`+lines+`))
+    }
+  })()</script>` + template
 
   return template;
 }

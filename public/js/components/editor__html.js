@@ -10,6 +10,10 @@
 import React from 'react';
 import logger from 'bragi-browser';
 
+import ReactDOM from 'react-dom';
+var ReactTooltip = require("react-tooltip")
+import ErrorMarker from './editor__error-marker';
+
 // Internal Dependencies
 // ------------------------------------
 import Actions from '../actions/actions.js';
@@ -73,13 +77,29 @@ var EditorHTML = React.createClass({
         //theme: 'neat',
         theme: 'mdn-like',
         lineWrapping: true,
-        viewportMargin: Infinity
+        viewportMargin: Infinity,
+        gutters: ['errors']
       });
+
+      var tooltip = React.createElement(ErrorMarker);
+
+      // handle error messages from iframe sandbox
+      window.addEventListener("message", function(event) {
+        if (event.origin==="null") {
+          var message = event.data.message.toString();
+          var marker = document.createElement("div");
+          marker.style.color = "#dd737a";
+          //marker.innerHTML = `<div data-tip='`+message+`'data-place='right' data-effect="solid">●</div>`
+          this.codeMirror.setGutterMarker(event.data.lineNumber-1, "errors", marker);
+          var component = ReactDOM.render(tooltip,marker);
+          component.setMessage(message)
+        }
+      }.bind(this))
 
       var horizontalMode, fixedContainer;
       var xOffset, yOffset;
       // if its side-by-side
-      if(this.props.mode === "sidebyside"){ 
+      if(this.props.mode === "sidebyside"){
         horizontalMode = "page";
         //fixedContainer = element.getBoundingClientRect().right
         fixedContainer = true;
@@ -93,17 +113,18 @@ var EditorHTML = React.createClass({
       window.Inlet(this.codeMirror, {
         horizontalMode: horizontalMode,
         fixedContainer: fixedContainer,
-        slider: {yOffset: yOffset, xOffset: xOffset, width: "200px"}, 
+        slider: {yOffset: yOffset, xOffset: xOffset, width: "200px"},
         picker:{ bottomOffset: 20, topOffset: 230}
       });
 
       this.codeMirror.on('change', ()=>{
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
+        this.codeMirror.clearGutter("errors")
       });
       this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
         if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
-          if ( (document.body.scrollTop > 0) || (document.documentElement.scrollTop > 0) /* Firefox */ ) 
+          if ( (document.body.scrollTop > 0) || (document.documentElement.scrollTop > 0) /* Firefox */ )
             d3.select("div.renderer").classed("popped", function(d){
               return !d3.select(this).classed('popped');
             });
