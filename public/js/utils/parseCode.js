@@ -198,7 +198,7 @@ function parseCode(template, files) {
   template = `<script>(function(){
     window.onerror = function(msg, url, lineNumber) {
       window.parent.postMessage({lineNumber:(lineNumber-`+lines+`), message:msg}, "`+window.location.origin+`")
-      console.debug('blockbuilder editor error on line: ' + (lineNumber-`+lines+`))
+      //console.debug('blockbuilder editor error on line: ' + (lineNumber-`+lines+`))
     }
   })()</script>` + template
 
