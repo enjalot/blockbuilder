@@ -45,6 +45,72 @@ var Editor = React.createClass({
     return true;
   },
 
+  componentDidMount: function componentDidMount(){
+    logger.log('components/EditorHTML:component:componentDidMount', 'called');
+    if(this.props.gist){
+      this.setupResize();
+    }
+  },
+  componentDidUpdate: function componentDidUpdate(){
+    logger.log('components/EditorHTML:component:componentDidUpdate', 'called');
+    if(this.props.gist){
+      this.setupResize();
+    }
+  },
+
+  setupResize: function setupResize() {
+    var editorWidth = 960;
+    var that = this;
+
+    // This is a bit hacky, depends on element outside this component and uses global
+    // styling. Not sure how to do this the React way
+    var handle = d3.select("#block__code-handle")
+
+    var resizing = false;
+    var x;
+    var body = d3.select("body")
+    handle.on("mousedown.resizing", function() {
+      resizing = true;
+      var bodyWidth = window.innerWidth;
+      x = d3.event.clientX;
+      handle.style({
+        left: 0 + "px",
+        width: bodyWidth + "px"
+      })
+    })
+
+    body.on("mousemove.resizing", function() {
+      if(!resizing) return;
+      var bodyWidth = window.innerWidth;
+      var nx = d3.event.clientX;
+      // restrict draggin beyond left controls and size of iframe
+      if(nx < 35){ nx = 35; }
+      if(nx > 1005){ nx = 1005; }
+      x = nx;
+      var style = "calc(100% - " + x + "px)"
+      d3.select("#block__code-wrapper").style("width", style)
+    })
+
+    body.on("mouseup.resizing", function() {
+      if(resizing) resizing = false;
+      var right = "calc(100% - " + (x+6) + "px)"
+      handle.style({ left: null, right: right, width: "12px"})
+    })
+
+  /*
+    var resizeDrag = d3.behavior.drag()
+    .on("drag", function() {
+      if(that.props.mode !== "sidebyside") return; // only enable resizing in side-by-side mode
+      editorWidth += d3.mouse(this)[0];
+      if(editorWidth < 40) return;
+      var style = "calc(100% - " + editorWidth + "px)"
+      d3.select("#block__code-wrapper").style("width", style)
+    }) 
+
+    handle.call(resizeDrag)
+    */
+  },
+
   render: function render() {
     var gist = this.props.gist;
     var active = this.props.active;

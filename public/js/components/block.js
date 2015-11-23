@@ -310,6 +310,7 @@ var Block = React.createClass({
           <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode} description={this.state.gistData.description}></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
           <Editor gist={this.state.gistData} user={this.props.user} active={this.state.activeFile} mode={this.state.mode} saving={this.state.saving}></Editor>
+          <div id="block__code-handle"></div>
         </div>
       );
     }

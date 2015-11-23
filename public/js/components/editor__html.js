@@ -145,6 +145,7 @@ var EditorHTML = React.createClass({
             });
         }
       });
+
     });
   },
 //<EditorControls {...this.props}></EditorControls>

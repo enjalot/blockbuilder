@@ -6,6 +6,7 @@ var markdownTemplate = `
 body {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   margin: 1em auto 4em auto;
+  padding: 0 20px;
   position: relative;
   tab-size: 2;
   width: 960px;

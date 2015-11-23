@@ -7,6 +7,7 @@ $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
 $sideOffset: 40px; // distance from the left side
+$sideEditorWidth: 700px;
 
 html {
   min-width: 1040px;
@@ -331,6 +332,16 @@ a.header-link:hover {
   margin-top: $filesHeight;
 }
 
+#block__code-handle {
+  cursor: ew-resize;
+  width: 12px;
+  position: fixed;
+  top: $headerHeight;
+  //right: calc(100% - 960px);
+  right: $sideEditorWidth - 6px;
+  bottom: 0;
+}
+
 #editor__txt {
   width: 100%;
   min-height: 500px;
@@ -446,6 +457,9 @@ $frameHeight: $filesHeight + $headerHeight;
   #block__code-wrapper .CodeMirror-scroll {
     min-height: 600px;
   }
+  #block__code-handle {
+    display: none;
+  }
 }
 
 
@@ -473,7 +487,11 @@ $frameHeight: $filesHeight + $headerHeight;
     }
     #block__popper {
       //display: none;
+      width: 1000px;
     }
+  }
+  .renderer.popped {
+    z-index: 1;
   }
 
   #block__code-files {
@@ -487,7 +505,8 @@ $frameHeight: $filesHeight + $headerHeight;
     position: fixed;
     top: $frameHeight;
     right: 0;
-    width: calc(100% - 960px);
+    //width: calc(100% - 960px);
+    width: $sideEditorWidth;
     bottom: 0;
     margin: 0;
     overflow: scroll;
@@ -510,6 +529,9 @@ $frameHeight: $filesHeight + $headerHeight;
     }
   }
   #block__code-wrapper {
+    display: none;
+  }
+  #block__code-handle {
     display: none;
   }
 }
