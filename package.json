@@ -6,7 +6,8 @@
   "scripts": {
     "local": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
-    "build": "webpack --color --progress"
+    "build": "webpack --color --progress",
+    "buildProd": "webpack --color --progress -p"
   },
   "repository": {
     "type": "git",

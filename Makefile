@@ -4,7 +4,7 @@ updateBuildArtifcats:
 	# this after fetching changes from a separate branch to ensure everything
 	# is up to date
 	npm install
-	npm run build
+	npm run buildProd
 
 update:
 	# Pulls changes from the default branch and updates dependencies and build
