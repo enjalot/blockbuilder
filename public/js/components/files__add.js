@@ -71,6 +71,7 @@ var FilesAdd = React.createClass({
   
   handleFilenameInput: function handleFilenameInput(evt) {
     var value = this.refs.filenameInput.value;
+    this.setState({newFileName: value})
     console.log("keydown", evt.keyCode, evt.keyCode == 13)
     if(evt.keyCode == 13) {
       //'Enter' triggers save
@@ -79,7 +80,7 @@ var FilesAdd = React.createClass({
     } else if (evt.keyCode == 27) {
       //'Escape' triggers delete
       console.log("cancelling")
-      this.setState({showNew: false})
+      this.setState({showNewFile: false})
     }
   },
   showNew: function showNew() {
@@ -112,8 +113,8 @@ var FilesAdd = React.createClass({
       // 
       newFile = (
           <div id="files__add-new" className="file">
-            <a data-tip="Save {this.state.newFileName}" data-place='bottom' onClick={this.saveNew} className="file">Save</a>
-            <input id="files__add-new-name" ref="filenameInput" placeholder="filename" onKeyDown={ this.handleFilenameInput }></input>
+            <a data-tip={"Save " + this.state.newFileName } data-place='bottom' onClick={this.saveNew} className="file">Save</a>
+            <input id="files__add-new-name" ref="filenameInput" placeholder="filename" onKeyUp={ this.handleFilenameInput }></input>
           </div>
       )
     } else {
