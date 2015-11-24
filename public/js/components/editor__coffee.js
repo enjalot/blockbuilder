@@ -68,9 +68,7 @@ var EditorCoffee = React.createClass({
         value: codeMirrorValue,
         mode: 'coffeescript',
         lineNumbers: true,
-        //theme: 'twilight',
         theme: 'mdn-like',
-        //theme: 'elegant',
         lineWrapping: true,
         viewportMargin: Infinity
       });

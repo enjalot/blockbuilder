@@ -66,9 +66,7 @@ var EditorMD = React.createClass({
         mode: 'markdown',
         htmlMode: true,
         lineNumbers: true,
-        //theme: 'twilight',
         theme: 'mdn-like',
-        //theme: 'elegant',
         lineWrapping: true,
         viewportMargin: Infinity
       });

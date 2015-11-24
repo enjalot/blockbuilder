@@ -69,9 +69,7 @@ var EditorCSS = React.createClass({
         mode: 'css',
         htmlMode: true,
         lineNumbers: true,
-        //theme: 'twilight',
         theme: 'mdn-like',
-        //theme: 'elegant',
         lineWrapping: true,
         viewportMargin: Infinity
       });
