@@ -60,5 +60,8 @@
     "sass": "^0.5.0",
     "sass-loader": "^1.0.2",
     "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^1.12.9"
   }
 }
