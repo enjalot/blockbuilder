@@ -45,7 +45,6 @@
     "mongodb": "^2.0.39",
     "nconf": "^0.7.1",
     "node-sass": "^3.2.0",
-    "npm": "^2.13.1",
     "passport": "^0.2.2",
     "passport-github": "^0.1.5",
     "react": "^0.14.2",
