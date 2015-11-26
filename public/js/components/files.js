@@ -33,17 +33,6 @@ var Files = React.createClass({
     logger.log('components/files:render', 'render called');
     var gist = this.props.gist;
 
-    // we want to check for cases where people already had a readme but didn't case it properly
-    // we do it here because we add the README.md file below if it isn't present to make the default tabs
-    Object.keys(gist.files).forEach(function(name) {
-      var file = gist.files[name]
-      if(name.toLowerCase() === "readme.md" && name !== "README.md") {
-        file.filename = "README.md"
-        gist.files["README.md"] = file
-        delete gist.files[name]
-      }
-    })
-
     // build the list of files that will render in the "more" menu
     let files = [];
     Object.keys(gist.files).forEach(function(name) {

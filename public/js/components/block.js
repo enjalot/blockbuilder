@@ -147,6 +147,15 @@ var Block = React.createClass({
         var gist = data.response;
         if(!this.checkForTruncated(gist)) {
           // if nothing is truncated we go on about our business
+          // we want to check for cases where people already had a readme but didn't case it properly
+          Object.keys(gist.files).forEach(function(name) {
+            var file = gist.files[name]
+            if(name.toLowerCase() === "readme.md" && name !== "README.md") {
+              file.filename = "README.md"
+              gist.files["README.md"] = file
+              gist.files[name] = null;
+            }
+          })
           this.setState({ gistData: gist, failed: false });
         }
       }
