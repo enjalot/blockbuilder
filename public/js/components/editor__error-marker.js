@@ -31,7 +31,7 @@ var ErrorMarker = React.createClass({
     return (
       <div>
         <div data-for='ErrorMarker' data-tip={this.state.message} data-place='right' data-effect="solid">●</div>
-        <ReactTooltip id='ErrorMarker'/>
+        <ReactTooltip id='ErrorMarker' placeholder="error" />
       </div>
     )
   }

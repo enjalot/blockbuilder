@@ -29,7 +29,7 @@ var UserNav = React.createClass({
         )
     } else {
       auth = (
-        <div id="user">
+        <div id="user" data-tip="">
           <img src={ user.avatar_url }></img>
           <a className="header-link" id="logout" href={ "/auth/logout/?redirect=" + this.props.path }>logout</a>
         </div>
