@@ -70,6 +70,12 @@ var EditorCoffee = React.createClass({
         lineNumbers: true,
         theme: 'mdn-like',
         lineWrapping: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        extraKeys: { 
+          'Cmd-/' : 'toggleComment',
+          'Ctrl-/' : 'toggleComment'
+        },
         viewportMargin: Infinity
       });
 

@@ -76,6 +76,12 @@ var EditorHTML = React.createClass({
         theme: 'mdn-like',
         lineWrapping: true,
         viewportMargin: Infinity,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        extraKeys: { 
+          'Cmd-/' : 'toggleComment',
+          'Ctrl-/' : 'toggleComment'
+        },
         gutters: ['errors']
       });
 
