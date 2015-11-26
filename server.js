@@ -293,14 +293,20 @@ function saveGist(gist, method, token, cb) {
   };
   if(token) {
     headers['Authorization'] = 'token ' + token
-  }
-
-  request({
+  } 
+  var options = {
     url: url,
     body: gist.toString(),
     method: method,
     headers: headers
-  }, onResponse);
+  }
+  if(!token) {
+    options.qs = {
+      'client_id': nconf.get('github:clientId'),
+      'client_secret': nconf.get('github:secret')
+    }
+  }
+  request(options, onResponse);
 
   function onResponse(error, response, body) {
     //console.log("error", error)
