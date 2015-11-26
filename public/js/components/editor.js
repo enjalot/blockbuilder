@@ -89,6 +89,9 @@ var Editor = React.createClass({
       x = nx;
       var style = "calc(100% - " + x + "px)"
       d3.select("#block__code-wrapper").style("width", style)
+      if(that.refs.cm) {
+        that.refs.cm.codeMirror.refresh();
+      }
     })
 
     body.on("mouseup.resizing", function() {
@@ -116,7 +119,7 @@ var Editor = React.createClass({
     var active = this.props.active;
     var editor;
     if(active.indexOf('.html') >= 0){ 
-      editor = ( <EditorHTML {...this.props}></EditorHTML>)
+      editor = ( <EditorHTML {...this.props} ref="cm"></EditorHTML>)
     } else if(active.indexOf('.md') >= 0) {
       editor = ( <EditorMD {...this.props}></EditorMD>)
     } else if(active.indexOf('.json') >= 0) {
