@@ -126,6 +126,10 @@ function parseCode(template, files) {
       return this;
     }
     window.XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+      // This is a hack that seems to fix a problem with the way Mapbox is requesting its TileJSON
+      // Not sure what blob:// protocol is anyway...
+      url = url.replace('blob://', 'http://')
+
       if(__fileNames.indexOf(arguments[1]) >= 0) {
         // the request is for one of our files!
         // we store the fact that this request has a file here

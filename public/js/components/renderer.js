@@ -71,7 +71,7 @@ var Renderer = React.createClass({
     var iframe = window.d3.select('#block__iframe').node();
 
     this.codeMirrorIFrame = iframe;
-    iframe.sandbox = 'allow-scripts';
+    iframe.sandbox = 'allow-scripts allow-top-navigation allow-popups';
 
     var template;
     if(active.indexOf('.md') >= 0) {
