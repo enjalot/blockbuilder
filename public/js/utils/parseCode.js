@@ -129,7 +129,6 @@ function parseCode(template, files) {
       // This is a hack that seems to fix a problem with the way Mapbox is requesting its TileJSON
       // Not sure what blob:// protocol is anyway...
       url = url.replace('blob://', 'http://')
-
       if(__fileNames.indexOf(arguments[1]) >= 0) {
         // the request is for one of our files!
         // we store the fact that this request has a file here
@@ -140,51 +139,65 @@ function parseCode(template, files) {
         this.readyState = 4;
         this.status = 200;
       } else {
-        var that = this;
-        // we wire up all the listeners to the real XHR
-        this.xhr.onerror = this.onerror;
-        this.xhr.onprogress = this.onprogress;
-        // if the onload callback is used we need to copy over
-        // the real response data to the fake object
-        if(this.onload) {
-          var onload = this.onload;
-          this.xhr.onload = this.onload = function() {
-            try{
-              that.readyState = this.readyState;
-              that.responseText = this.responseText;
-              that.responseXML = this.responseXML;
-              that.responseType = this.responseType;
-              that.status = this.status;
-              that.statusText = this.statusText;
-            } catch(e) {}
-            onload();
-          }
-        }
-        // if the readystate change callback is used we need
-        // to copy over the real response data to our fake xhr instance
-        if(this.onreadystatechange) {
-          var ready = this.onreadystatechange;
-          this.xhr.onreadystatechange = function() {
-            try{
-              that.readyState = this.readyState;
-              that.responseText = this.responseText;
-              that.responseXML = this.responseXML;
-              that.responseType = this.responseType;
-              that.status = this.status;
-              that.statusText = this.statusText;
-            } catch(e){}
-            ready();
-          }
-        }
         // pass thru to the normal xhr
         this.xhr.open(method, url, async, user, password);
       }
+
     };
     window.XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
       if(this.file) return;
       this.xhr.setRequestHeader(header, value);
     }
     window.XMLHttpRequest.prototype.send = function(data) {
+      //we need to remap the fake XHR to the real one inside the onload/onreadystatechange functions 
+      var that = this;
+
+      // we wire up all the listeners to the real XHR
+      this.xhr.onerror = this.onerror;
+      this.xhr.onprogress = this.onprogress;
+      if(this.responseType || this.responseType === '')
+          this.xhr.responseType = this.responseType
+      // if the onload callback is used we need to copy over
+      // the real response data to the fake object
+      if(this.onload) {
+        var onload = this.onload;
+        this.xhr.onload = this.onload = function() {
+          try{
+            that.response = this.response;
+            that.readyState = this.readyState;
+            that.status = this.status;
+            that.statusText = this.statusText; 
+          } catch(e) { console.log("onload", e) }
+          try {
+            if(that.responseType == '') {
+                that.responseXML = this.responseXML;
+                that.responseText = this.responseText;
+            }
+            if(that.responseType == 'text') {
+                that.responseText = this.responseText;
+            }
+          } catch(e) { console.log("onload responseText/XML", e) }
+          onload();
+        }
+      }
+      // if the readystate change callback is used we need
+      // to copy over the real response data to our fake xhr instance
+      if(this.onreadystatechange) {
+        var ready = this.onreadystatechange;
+        this.xhr.onreadystatechange = function() {
+          try{
+            that.readyState = this.readyState;
+            that.responseText = this.responseText;
+            that.responseXML = this.responseXML;
+            that.responseType = this.responseType;
+            that.status = this.status;
+            that.statusText = this.statusText;
+          } catch(e){
+             console.log("e", e) 
+          }
+          ready();
+        }
+      }
       // if this request is for a local file, we short-circuit and just
       // end the request, since all the data should be on our fake request object
       if(this.file) {
