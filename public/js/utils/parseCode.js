@@ -148,6 +148,9 @@ function parseCode(template, files) {
       if(this.file) return;
       this.xhr.setRequestHeader(header, value);
     }
+    window.XMLHttpRequest.prototype.abort = function() {
+      this.xhr.abort()
+    }
     window.XMLHttpRequest.prototype.send = function(data) {
       //we need to remap the fake XHR to the real one inside the onload/onreadystatechange functions 
       var that = this;
