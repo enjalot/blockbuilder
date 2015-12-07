@@ -1,11 +1,11 @@
-# Building Bl.ocks
+# Bl.ock Builder
 
-[![Join the chat at https://gitter.im/enjalot/building-blocks](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enjalot/building-blocks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
+[![Join the chat at https://gitter.im/enjalot/blockbuilder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enjalot/building-blocks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
 Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.
 
 # Usage
 Start with this [video and links](http://bl.ocks.org/enjalot/1b26ceafaf49848a111b) for an overview of using building-blocks.  
-Read about [how it works](https://github.com/enjalot/building-blocks/wiki/How-it-works) to get an idea of what you can do.  
+Read about [how it works](https://github.com/enjalot/blockbuilder/wiki/How-it-works) to get an idea of what you can do.  
 
 ### Try it out: [blockbuilder.org](http://blockbuilder.org)
 
@@ -14,11 +14,11 @@ Read about [how it works](https://github.com/enjalot/building-blocks/wiki/How-it
 By using a bookmarklet (a browser bookmark made of JavaScript) we can quickly navigate from any gist or bl.ock to blockbuilder.org
 
 # Development
-Instructions can be found on the [Development Wiki](https://github.com/enjalot/building-blocks/wiki/Development#development)
+Instructions can be found on the [Development Wiki](https://github.com/enjalot/blockbuilder/wiki/Development#development)
 You can [read about the architecture](https://medium.com/@enjalot/architecting-a-sandbox-97b211937911) of the front-end in terms of safely rendering user code.
 
 # Deploy your own
-Instructions and related files can be found in the [deploy folder](https://github.com/enjalot/building-blocks/tree/master/deploy)
+Instructions and related files can be found in the [deploy folder](https://github.com/enjalot/blockbuilder/tree/master/deploy)
 
 # About this project
 This project began as a [Kickstarter project](https://www.kickstarter.com/projects/1058500513/building-blocks-0) to support it's development.
