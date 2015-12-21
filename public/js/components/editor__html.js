@@ -90,6 +90,8 @@ var EditorHTML = React.createClass({
       // handle error messages from iframe sandbox
       window.addEventListener("message", function(event) {
         if (event.origin==="null") {
+          if(!event.data || !event.data.message) return;
+          
           var message = event.data.message.toString();
           var marker = document.createElement("div");
           marker.style.color = "#dd737a";
