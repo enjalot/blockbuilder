@@ -30,8 +30,20 @@ function parseCode(template, files) {
     })
   }
 
-  var referencedFiles = {}
+  // horrible hack to support jquery ajax requests, something common enough
+  // that it shouldn't break by default. we need to tell jQuery to support CORS by default
+  // because of the sandboxed blob-based iframe.
+  var re = new RegExp("<script (?!src).*?>", 'g')
+  var matches = template.match(re);
+  if(!matches) {
+    re = new RegExp("<script>")
+    matches = template.match(re);
+  }
+  // we add this line to the first matching script tag that isn't loading from an external src.
+  // this should cover most reasonable cases and not ever interfere with anyone's code
+  if(matches) { template = template.replace(matches[0], matches[0] + "if(window.jQuery){try{window.jQuery.support.cors=true}catch(e){}}\n") }
 
+  var referencedFiles = {}
   // we need to keep track of injected lines for error line number offset
   var lines = 0;
   var fileNames = Object.keys(files);
@@ -122,6 +134,7 @@ function parseCode(template, files) {
   var xmloverride = `<script>(function() {
     var XHR = window.XMLHttpRequest;
     window.XMLHttpRequest = function() {
+      // create our "real" xhr instance
       this.xhr = new XHR();
       return this;
     }
@@ -142,75 +155,87 @@ function parseCode(template, files) {
         // pass thru to the normal xhr
         this.xhr.open(method, url, async, user, password);
       }
-
     };
     window.XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
       if(this.file) return;
-      this.xhr.setRequestHeader(header, value);
+      return this.xhr.setRequestHeader(header, value);
     }
     window.XMLHttpRequest.prototype.abort = function() {
-      this.xhr.abort()
+      return this.xhr.abort()
+    }
+    window.XMLHttpRequest.prototype.getAllResponseHeaders = function() {
+      return this.xhr.getAllResponseHeaders();
+    }
+    window.XMLHttpRequest.prototype.getResponseHeader = function(header) {
+      return this.xhr.getResponseHeader(header);
+    }
+    window.XMLHttpRequest.prototype.overrideMimeType = function(mime) {
+      return this.xhr.overrideMimeType(mime);
     }
     window.XMLHttpRequest.prototype.send = function(data) {
       //we need to remap the fake XHR to the real one inside the onload/onreadystatechange functions 
       var that = this;
-
-      // we wire up all the listeners to the real XHR
-      this.xhr.onerror = this.onerror;
-      this.xhr.onprogress = this.onprogress;
-      if(this.responseType || this.responseType === '')
-          this.xhr.responseType = this.responseType
-      // if the onload callback is used we need to copy over
-      // the real response data to the fake object
-      if(this.onload) {
-        var onload = this.onload;
-        this.xhr.onload = this.onload = function() {
-          try{
-            that.response = this.response;
-            that.readyState = this.readyState;
-            that.status = this.status;
-            that.statusText = this.statusText; 
-          } catch(e) { console.log("onload", e) }
-          try {
-            if(that.responseType == '') {
-                that.responseXML = this.responseXML;
-                that.responseText = this.responseText;
-            }
-            if(that.responseType == 'text') {
-                that.responseText = this.responseText;
-            }
-          } catch(e) { console.log("onload responseText/XML", e) }
-          onload();
-        }
-      }
-      // if the readystate change callback is used we need
-      // to copy over the real response data to our fake xhr instance
-      if(this.onreadystatechange) {
-        var ready = this.onreadystatechange;
-        this.xhr.onreadystatechange = function() {
-          try{
-            that.readyState = this.readyState;
-            that.responseText = this.responseText;
-            that.responseXML = this.responseXML;
-            that.responseType = this.responseType;
-            that.status = this.status;
-            that.statusText = this.statusText;
-          } catch(e){
-             console.log("e", e) 
+      // unfortunately we need to do our copying of handlers in the next tick as
+      // it seems with normal XHR you can add them after firing off send... which seems
+      // unwise to do in the first place, but this is needed to support jQuery...
+      setTimeout(function() {
+        // we wire up all the listeners to the real XHR
+        that.xhr.onerror = this.onerror;
+        that.xhr.onprogress = this.onprogress;
+        if(that.responseType || that.responseType === '')
+            that.xhr.responseType = that.responseType
+        // if the onload callback is used we need to copy over
+        // the real response data to the fake object
+        if(that.onload) {
+          var onload = that.onload;
+          that.xhr.onload = that.onload = function() {
+            try{
+              that.response = this.response;
+              that.readyState = this.readyState;
+              that.status = this.status;
+              that.statusText = this.statusText; 
+            } catch(e) { console.log("onload", e) }
+            try {
+              if(that.responseType == '') {
+                  that.responseXML = this.responseXML;
+                  that.responseText = this.responseText;
+              }
+              if(that.responseType == 'text') {
+                  that.responseText = this.responseText;
+              }
+            } catch(e) { console.log("onload responseText/XML", e) }
+            onload();
           }
-          ready();
         }
-      }
-      // if this request is for a local file, we short-circuit and just
-      // end the request, since all the data should be on our fake request object
-      if(this.file) {
-        if(this.onreadystatechange)
-          return this.onreadystatechange();
-        if(this.onload)
-          return this.onload(); //untested
-      }
-      // if this is a real request, we pass through the send call
-      this.xhr.send(data)
+        // if the readystate change callback is used we need
+        // to copy over the real response data to our fake xhr instance
+        if(that.onreadystatechange) {
+          var ready = that.onreadystatechange;
+          that.xhr.onreadystatechange = function() {
+            try{
+              that.readyState = this.readyState;
+              that.responseText = this.responseText;
+              that.responseXML = this.responseXML;
+              that.responseType = this.responseType;
+              that.status = this.status;
+              that.statusText = this.statusText;
+            } catch(e){
+               console.log("e", e) 
+            }
+            ready();
+          }
+        }
+        // if this request is for a local file, we short-circuit and just
+        // end the request, since all the data should be on our fake request object
+        if(that.file) {
+          if(that.onreadystatechange)
+            return that.onreadystatechange();
+          if(that.onload)
+            return that.onload(); //untested
+        }
+        // if this is a real request, we pass through the send call
+        that.xhr.send(data)
+      }, 0)
     }
   })()</script>`;
 
