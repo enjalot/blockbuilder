@@ -142,12 +142,20 @@ function parseCode(template, files) {
       // This is a hack that seems to fix a problem with the way Mapbox is requesting its TileJSON
       // Not sure what blob:// protocol is anyway...
       url = url.replace('blob://', 'http://')
-      if(__fileNames.indexOf(arguments[1]) >= 0) {
+      if(__fileNames.indexOf(url) >= 0) {
         // the request is for one of our files!
         // we store the fact that this request has a file here
-        this.file = arguments[1];
+        this.file = url;
         // we store the contents of the file in the response
-        this.responseText = __files[arguments[1]];
+        this.responseText = __files[url];
+
+        if(url.indexOf(".xml") === url.length - 4) {
+          try {
+            var oParser = new DOMParser();
+            var oDOM = oParser.parseFromString(this.responseText, "text/xml");
+            this.responseXML = oDOM;
+          } catch(e) {}
+        }
         // we indicate that the request is done
         this.readyState = 4;
         this.status = 200;
@@ -212,6 +220,7 @@ function parseCode(template, files) {
         if(that.onreadystatechange) {
           var ready = that.onreadystatechange;
           that.xhr.onreadystatechange = function() {
+            console.log("READYSTATE", that.xhr)
             try{
               that.readyState = this.readyState;
               that.responseText = this.responseText;
