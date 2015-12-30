@@ -14,7 +14,6 @@ var SaveForkNav = React.createClass({
     Actions.setSaveFork("saving");
     Actions.saveGist(this.props.gist);
   },
-
   fork: function fork() {
     window.onbeforeunload = null;
     Actions.setSaveFork("forking");
@@ -38,22 +37,26 @@ var SaveForkNav = React.createClass({
         <IconLoader></IconLoader>
       </div>
       )
+
+    var saveKeyCommand = "<br/>(Ctrl+S or Cmd+S) to save at any time."
     if(user && gist && gist.owner && user.id === gist.owner.id) {
       if(this.props.saving) {
         save = loading;
       } else {
-        save = ( <div id='block__save' onClick={ this.save }>Save</div> )
+        save = ( <div id='block__save' data-tip={"Save your work." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="solid" onClick={ this.save }>Save</div> )
       }
     }
     var forkText = "Fork";
     if(gist && !gist.id) {
       forkText = "Save";
+    } else {
+      saveKeyCommand = "";
     }
     var fork = "";
     if(this.props.forking) {
       fork = loading;
     } else if(gist) {
-      fork = <div id='block__fork' data-tip="Create your own copy of this code" data-place="bottom" data-effect="solid" onClick={ this.fork }>{forkText}</div>
+      fork = <div id='block__fork' data-tip={"Create your own copy of this code." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="solid" onClick={ this.fork }>{forkText}</div>
     }
 
     var lock = "";

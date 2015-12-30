@@ -3,9 +3,11 @@
 $blue: #66B5AF; /* #3182bd; */
 $gray: #F7E2AD; /* #efefef; */
 $offWhite: #efefef;
+$errorRed: #DD737A;
 $blockWidth: 960px;
 $blockHeight: 500px;
 $filesHeight: 30px;
+$editorControlsHeight: 30px;
 $sideOffset: 40px; // distance from the left side
 $sideEditorWidth: 700px;
 
@@ -199,6 +201,7 @@ a.header-link:hover {
 }
 
 #block__code-index {
+  margin-top: $editorControlsHeight;
   width: 962px;
 }
 
@@ -342,11 +345,38 @@ a.header-link:hover {
   bottom: 0;
 }
 
+#editor__controls {
+  position: absolute;
+  top: 0;
+  width: calc(100% - 4px);
+  height: $editorControlsHeight;
+  background-color: rgba(252, 252, 252, 0.95);
+  border-left: 6px solid #161616;
+
+  #editor__controls-autorun {
+    width: 20px;
+    height: 20px;
+    margin: 5px 7px;
+    background-color: #588FC0;
+    &.paused {
+      background-color: #777;
+    }
+    &.error {
+      background-color: $errorRed;
+    }
+    svg {
+      padding: 2px
+    }
+    path {
+      fill: white;
+    }
+  }
+}
+
 #editor__txt {
   width: 100%;
   min-height: 500px;
   padding: 5px;
-  background-color: white;
   resize: vertical;
 }
 
@@ -512,7 +542,7 @@ $frameHeight: $filesHeight + $headerHeight;
     overflow: scroll;
     #block__code-index {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 30px); //$editorControlsHeight) // for some reason can't use vars in calcs
       .CodeMirror {
         width: 100%;
         height: 100%;

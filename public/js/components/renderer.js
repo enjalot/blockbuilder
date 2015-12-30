@@ -34,6 +34,7 @@ var Renderer = React.createClass({
   componentDidUpdate: function componentDidUpdate(prevProps, prevState){
     logger.log('components/Renderer:component:componentDidUpdate', 'called');
     if(this.props.gist){
+      if(this.props.paused) return;
       var dontRefresh = this.props.description !== prevProps.description
       if(dontRefresh){
         return;

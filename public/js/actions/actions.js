@@ -38,7 +38,10 @@ var Actions = Reflux.createActions({
     'setMode': {},
     'setFullScreen': {},
     'setModal': {},
-    'setSaveFork': {}
+    'setSaveFork': {},
+    'setCodeError': {},
+    "clearCodeError": {},
+    "pauseAutoRun": {}
 });
 
 Actions.saveGist.preEmit = cleanSaveGist;

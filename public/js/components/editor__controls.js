@@ -7,28 +7,74 @@
 // External Dependencies
 // ------------------------------------
 import React from 'react';
+import Reflux from 'reflux';
 import logger from 'bragi-browser';
 
 // Internal Dependencies
 // ------------------------------------
 import Actions from '../actions/actions.js';
+import AppStore from '../stores/app.js';
+import {IconPlay, IconPause} from './icons.js';
+
 
 // ========================================================================
 //
 // Functionality
 // ========================================================================
 var EditorControls = React.createClass({
-  setAutoRun: function setAutoRun() {
-    //Actions.setAutoRun()
+  mixins: [
+    Reflux.listenTo(AppStore, 'appStoreChange')
+  ],
+
+  getInitialState: function getInitialState(){
+    return {
+      error: false,
+      paused: false
+    }
   },
+
+  appStoreChange: function appStoreChange(data){
+    if(data.type === 'setCodeError') { 
+      //this.setState({mode: data.mode})
+      this.setState({error: true })
+    } else if(data.type === 'clearCodeError') { 
+      //this.setState({fullscreen: data.fullscreen})
+      this.setState({error: false})
+    } else if(data.type === "pauseAutoRun") {
+      this.setState({paused: data.paused})
+    }
+  },
+
+  toggleAutoRun: function setAutoRun() {
+    var paused = this.state.paused;
+    this.setState({paused: !paused})
+    Actions.pauseAutoRun(!paused)
+  },
+
   render: function render() {
-    var file = this.props.file;
-    if(!file) return (<div></div>);
-    var activeClass = ""
-    if(this.props.active === file.filename) activeClass = "active "
+    let autoRunClass;
+    if(this.state.paused) {
+      // paused trumps the error state
+      autoRunClass = "paused"
+    } else if(this.state.error) {
+      autoRunClass = "error"
+    }
+    let icon;
+    if(this.state.paused) {
+      icon = (<IconPlay/>)
+    } else {
+      icon = (<IconPause/>)
+    }
     return (
-      <div id="editor__controls-font-size">
+      <div id="editor__controls">
+        <div id="editor__controls-autorun" className={autoRunClass} onClick={this.toggleAutoRun}
+         data-tip={(this.state.paused ? "Resume" : "Pause") + " automatic execution of code while typing. (Ctrl+P)"} data-place="right" data-effect="solid">
+          {icon}
+        </div>
+        <div id="editor__controls-font-size"></div>
       </div>
+    )
+      /*
       <div id="editor__controls-theme">
         <select>
           <option value="twilight">twilight</option>
@@ -37,9 +83,9 @@ var EditorControls = React.createClass({
           <option value="mdn-like">mdn-like</option>
         </select>
       </div>
-    )
+      */
   }
 
 })
 
-export default FilesTab;
+export default EditorControls;

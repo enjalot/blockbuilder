@@ -42,6 +42,7 @@ var EditorHTML = React.createClass({
   // ----------------------------------
   setupCodeMirror: function setupCodeMirror(){
     logger.log('components/EditorHTML:component:setupCodeMirror', 'called');
+    var that = this;
 
     var gist = this.props.gist;
 
@@ -91,14 +92,16 @@ var EditorHTML = React.createClass({
       window.addEventListener("message", function(event) {
         if (event.origin==="null") {
           if(!event.data || !event.data.message) return;
-          
-          var message = event.data.message.toString();
-          var marker = document.createElement("div");
-          marker.style.color = "#dd737a";
-          this.codeMirror.setGutterMarker(event.data.lineNumber-1, "errors", marker);
-          d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(221, 115, 122, 1)")
-          var component = ReactDOM.render(tooltip,marker);
-          component.setMessage(message)
+          if(event.data.type === "runtime-error") {
+            var message = event.data.message.toString();
+            var marker = document.createElement("div");
+            marker.style.color = "#dd737a";
+            this.codeMirror.setGutterMarker(event.data.lineNumber-1, "errors", marker);
+            d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(221, 115, 122, 1)")
+            var component = ReactDOM.render(tooltip,marker);
+            component.setMessage(message)
+            Actions.setCodeError(event.data.lineNumber, message)
+          }
         }
       }.bind(this))
 
@@ -128,8 +131,10 @@ var EditorHTML = React.createClass({
       var throttler = throttle(() => {
         gist.files[this.props.active].content = this.codeMirror.getValue();
         Actions.localGistUpdate(gist);
+        //if(that.props.paused) return;
         d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(0,83,159,0.65)")
         this.codeMirror.clearGutter("errors")
+        Actions.clearCodeError();
       })
       var wait = 350;
       this.codeMirror.on('change', () => {
@@ -142,15 +147,6 @@ var EditorHTML = React.createClass({
         }
         throttler();
       });
-      this.codeMirror.on('keydown', function(codeMirror, keyboardEvent) {
-        if (keyboardEvent.keyCode === 27) {  // 27 is keyCode for Escape key
-          if ( (document.body.scrollTop > 0) || (document.documentElement.scrollTop > 0) /* Firefox */ )
-            d3.select("div.renderer").classed("popped", function(d){
-              return !d3.select(this).classed('popped');
-            });
-        }
-      });
-
     });
   },
 //<EditorControls {...this.props}></EditorControls>

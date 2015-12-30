@@ -25,6 +25,7 @@ import Renderer from './renderer.js'
 import Editor from './editor.js'
 import Files from './files.js'
 
+import KeyboardShortcuts from './keyboard-shortcuts.js'
 import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
 import GistNav from './header__nav-gist.js'
@@ -54,7 +55,14 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { gistData: gistData, failed: false, activeFile: 'index.html', mode: "blocks", fullscreen: false };
+    return { 
+      gistData: gistData, 
+      failed: false, 
+      activeFile: 'index.html', 
+      mode: "blocks", 
+      fullscreen: false, 
+      pauseAutoRun: false 
+    };
   },
 
   /**
@@ -91,6 +99,8 @@ var Block = React.createClass({
       this.setState({mode: data.mode})
     } else if(data.type === 'setFullScreen'){
       this.setState({fullscreen: data.fullscreen})
+    } else if(data.type === 'pauseAutoRun'){
+      this.setState({pauseAutoRun: data.paused})
     }
   },
 
@@ -316,9 +326,19 @@ var Block = React.createClass({
       // SUCCESS - data exists
       blockContent = (
         <div>
-          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode} description={this.state.gistData.description}></Renderer>
+          <Renderer gist={this.state.gistData} 
+            active={this.state.activeFile} 
+            mode={this.state.mode} 
+            description={this.state.gistData.description}
+            paused={this.state.pauseAutoRun}
+          ></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} user={this.props.user} active={this.state.activeFile} mode={this.state.mode} saving={this.state.saving}></Editor>
+          <Editor gist={this.state.gistData} 
+            user={this.props.user} 
+            active={this.state.activeFile} 
+            mode={this.state.mode} 
+            saving={this.state.saving}
+          ></Editor>
           <div id="block__code-handle"></div>
         </div>
       );
@@ -328,6 +348,7 @@ var Block = React.createClass({
     return ( 
       <div id='block__wrapper'>
         <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
+          <KeyboardShortcuts {...this.props} gist={this.state.gistData} paused={this.state.pauseAutoRun} />
           <SiteNav></SiteNav>
           <div id='site-header__gist'>
             <GistNav {...this.props} gist={this.state.gistData} page="block"></GistNav>

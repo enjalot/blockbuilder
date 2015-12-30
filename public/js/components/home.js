@@ -22,6 +22,7 @@ import Renderer from './renderer.js'
 import Editor from './editor.js'
 import Files from './files.js'
 
+import KeyboardShortcuts from './keyboard-shortcuts.js'
 import SiteNav from './header__nav-site.js'
 import UserNav from './header__nav-user.js'
 import GistNav from './header__nav-gist.js'
@@ -67,7 +68,6 @@ var Home = React.createClass({
   ],
   getInitialState: function getInitialState(){
     logger.log('components/Home:getInitialState', 'called');
-    console.log("props", this.props)
     var gistData = {
       description: "fresh block",
       files: {
@@ -81,7 +81,8 @@ var Home = React.createClass({
       activeFile: 'index.html', 
       mode: "blocks",
       fullscreen: false,
-      showOverlay: true
+      showOverlay: true,
+      pauseAutoRun: false
     };
   },
   /**
@@ -117,8 +118,9 @@ var Home = React.createClass({
       this.setState({mode: data.mode})
     } else if(data.type === 'setFullScreen'){
       this.setState({fullscreen: data.fullscreen})
+    } else if(data.type === 'pauseAutoRun'){
+      this.setState({pauseAutoRun: data.paused})
     }
-
   },
 
   gistStoreChange: function gistStoreChange(data){
@@ -258,24 +260,33 @@ var Home = React.createClass({
     return ( 
       <div id='block__wrapper'>
         <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
-          <SiteNav></SiteNav>
+          <KeyboardShortcuts {...this.props} gist={this.state.gistData} paused={this.state.pauseAutoRun} />
+          <SiteNav />
           <div id='site-header__gist'>
-            <GistNav {...this.props} gist={this.state.gistData} page="home"></GistNav>
+            <GistNav {...this.props} gist={this.state.gistData} page="home" />
           </div>
           <div id='site-header__user'>
-            <UserNav {...this.props}></UserNav>
+            <UserNav {...this.props} />
           </div>
           <div id='site-header__save-fork'>
-            <SaveForkNav gist={this.state.gistData} page="home" {...this.props}></SaveForkNav>
+            <SaveForkNav gist={this.state.gistData} page="home" {...this.props} />
           </div>
-          <ModeNav mode={this.state.mode} fullscreen={this.state.fullscreen}></ModeNav>
+          <ModeNav mode={this.state.mode} fullscreen={this.state.fullscreen} />
         </div>
 
         <div id='block__content' className={this.state.mode + " " + fullscreenClass}>
           {overlay}
-          <Renderer gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode} description={this.state.gistData.description}></Renderer>
+          <Renderer gist={this.state.gistData} 
+            active={this.state.activeFile} 
+            mode={this.state.mode} 
+            description={this.state.gistData.description}
+            paused={this.state.pauseAutoRun}
+          ></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile} hidethumb={true}></Files>
-          <Editor gist={this.state.gistData} active={this.state.activeFile} mode={this.state.mode}></Editor>
+          <Editor gist={this.state.gistData}
+            active={this.state.activeFile}
+            mode={this.state.mode}
+          ></Editor>
           <div id="block__code-handle"></div>
         </div>
       </div>

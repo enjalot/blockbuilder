@@ -150,3 +150,27 @@ var IconFullScreenExit = React.createClass({
 })
 export var IconFullScreenExit
 
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/media-play.svg
+var IconPlay = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M0 0v6l6-3-6-3z" transform="translate(1 1)" />
+      </svg>
+    )
+  }
+})
+export var IconPlay
+
+//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/media-pause.svg
+var IconPause = React.createClass({
+  render: function render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+        <path d="M0 0v6h2v-6h-2zm4 0v6h2v-6h-2z" transform="translate(1 1)" />
+      </svg>
+    )
+  }
+})
+export var IconPause
+

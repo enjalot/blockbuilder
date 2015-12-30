@@ -16,6 +16,7 @@ import Actions from '../actions/actions.js';
 
 import parseCode from '../utils/parseCode.js';
 
+import EditorControls from './editor__controls.js'
 import EditorHTML from './editor__html.js'
 import EditorJS from './editor__js.js'
 import EditorCoffee from './editor__coffee.js'
@@ -34,6 +35,7 @@ var Editor = React.createClass({
     logger.log('components/Editor:component:shouldComponentUpdate', 'nextProps: %0', nextProps);
     if(!nextProps) return true;
     if(nextProps.active !== this.props.active) return true;
+    //if(nextProps.paused !== this.props.paused) return true;
     if(nextProps.mode !== this.props.mode) return true;
     var gist = nextProps.gist
     if(!gist || !gist.files || !gist.files[this.props.active]) return true;
@@ -41,7 +43,6 @@ var Editor = React.createClass({
       if(!this.props.gist.files[this.props.active].content) return true;
       return false;
     }
-    
     return true;
   },
 
@@ -138,6 +139,7 @@ var Editor = React.createClass({
 
     return (
       <div id='block__code-wrapper'>
+        <EditorControls {...this.props}></EditorControls>
         {editor}
       </div>
     )

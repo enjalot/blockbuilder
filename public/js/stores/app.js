@@ -40,7 +40,6 @@ var AppStore = Reflux.createStore({
         fullscreen: fullscreen
       }); 
     },
-
    
     onSetModal: function(message) {
       this.trigger({
@@ -48,8 +47,28 @@ var AppStore = Reflux.createStore({
         message: message
       })
 
-    }
+    },
 
+    onSetCodeError: function(lineNumber, message) {
+      this.trigger({
+        type:'setCodeError',
+        lineNumber: lineNumber,
+        message: message
+      })
+    },
+    
+    onClearCodeError: function() {
+      this.trigger({
+        type:'clearCodeError',
+      })
+    },
+
+    onPauseAutoRun: function(paused) {
+      this.trigger({
+        type: 'pauseAutoRun',
+        paused: paused
+      })
+    }
 });
 
 export default AppStore;
