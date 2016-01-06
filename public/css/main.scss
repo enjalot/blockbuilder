@@ -424,7 +424,10 @@ a.header-link:hover {
   top: $headerHeight + 40px;
   left: 0;
   right: 0;
+  width: 100%;
   height: $blockHeight - 20px;
+  outline: 0;
+  border: 0;
   background: $offWhite;
 }
 
