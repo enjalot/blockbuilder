@@ -43,7 +43,7 @@ var SaveForkNav = React.createClass({
       if(this.props.saving) {
         save = loading;
       } else {
-        save = ( <div id='block__save' data-tip={"Save your work." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="solid" onClick={ this.save }>Save</div> )
+        save = ( <div id='block__save' data-tip={"Save your work." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="float" onClick={ this.save }>Save</div> )
       }
     }
     var forkText = "Fork";
@@ -56,7 +56,7 @@ var SaveForkNav = React.createClass({
     if(this.props.forking) {
       fork = loading;
     } else if(gist) {
-      fork = <div id='block__fork' data-tip={"Create your own copy of this code." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="solid" onClick={ this.fork }>{forkText}</div>
+      fork = <div id='block__fork' data-tip={"Create your own copy of this code." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="float" onClick={ this.fork }>{forkText}</div>
     }
 
     var lock = "";
@@ -65,13 +65,13 @@ var SaveForkNav = React.createClass({
     if(this.props.page === "home") {
       if(gist && !gist.public) {
         lock = ( 
-          <div id="block__lock" className="clickable" onClick={ this.makePublic } data-tip="This block is private. Click to make it public on your next save." data-place="bottom" data-effect="solid">
+          <div id="block__lock" className="clickable" onClick={ this.makePublic } data-tip="This block is private. Click to make it public on your next save." data-place="bottom" data-effect="float">
             <IconPrivate></IconPrivate>
           </div> 
         )
       } else if(gist) {
         lock = (
-          <div id="block__lock" className="clickable" onClick={ this.makePrivate } data-tip="This block is public. Click to make it private on your next save." data-place="bottom" data-effect="solid">
+          <div id="block__lock" className="clickable" onClick={ this.makePrivate } data-tip="This block is public. Click to make it private on your next save." data-place="bottom" data-effect="float">
             <IconPublic></IconPublic>
           </div>
         )
@@ -79,13 +79,13 @@ var SaveForkNav = React.createClass({
     } else {
       if(gist && !gist.public) {
         lock = ( 
-          <div id="block__lock" data-tip="This block is private." data-place="bottom" data-effect="solid">
+          <div id="block__lock" data-tip="This block is private." data-place="bottom" data-effect="float">
             <IconPrivate></IconPrivate>
           </div> 
         )
       } else if(gist) {
         lock = (
-          <div id="block__lock" data-tip="This block is public." data-place="bottom" data-effect="solid">
+          <div id="block__lock" data-tip="This block is public." data-place="bottom" data-effect="float">
             <IconPublic></IconPublic>
           </div>
         )
@@ -94,7 +94,7 @@ var SaveForkNav = React.createClass({
 
     return (
       <div>
-        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" data-effect="solid" onClick={ this.newBlock }>New</div>
+        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" data-effect="float" onClick={ this.newBlock }>New</div>
         {fork}
         {save}
         {lock}

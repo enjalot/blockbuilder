@@ -72,7 +72,7 @@ var Files = React.createClass({
         {thumbTab}
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
-        <a id="files__show" data-tip="Show more files" data-place='bottom' data-effect="solid" onClick={this.showMore} className={"file " + hideShowButton} >
+        <a id="files__show" data-tip="Show more files" data-place='bottom' data-effect="float" onClick={this.showMore} className={"file " + hideShowButton} >
         ⋯ ({files.length})
         </a>
         <div id='files__more' className={show}>
