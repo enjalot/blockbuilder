@@ -6,7 +6,7 @@ $offWhite: #efefef;
 $errorRed: #DD737A;
 $blockWidth: 960px;
 $blockHeight: 500px;
-$filesHeight: 30px;
+$filesHeight: 25px;
 $editorControlsHeight: 30px;
 $sideOffset: 40px; // distance from the left side
 $sideEditorWidth: 700px;
@@ -17,23 +17,26 @@ html {
 
 body {
   font-family: "Open Sans", Helvetica, sans-serif;
-  margin: 1em auto 4em auto;
+  margin: 0 auto;
   position: relative;
   tab-size: 2;
   width: 960px;
+  font-size: 16px;
 }
 
 h1 {
   font-size: 64px;
+  margin: .1em 0;
 }
 
 h2 {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: Roboto;
   text-rendering: optimizeLegibility;
+  margin-bottom: 0;
 }
 
 .hidden {
@@ -44,12 +47,16 @@ svg.icon {
   margin: 0 5px;
 }
 
+p {
+  line-height: 26px;
+}
+
 a {
   text-decoration: none;
   color: $blue;
-  font-size: 18px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid transparent;
 }
+
 a:hover {
   border-bottom: 1px solid $blue;
 }
@@ -59,12 +66,10 @@ a:hover {
 *********************/
 
 #about {
+  width: 715px;
   #block__header {
     border: none;
     height: 0;
-  }
-  h1 {
-    margin: 0
   }
 }
 
@@ -72,9 +77,6 @@ a:hover {
   #block__header {
     border: none;
     height: 0;
-  }
-  h1 {
-    margin: 0
   }
   width: 1000px;
   .frame-holder { 
@@ -109,7 +111,7 @@ a:hover {
   position: absolute;
 }
 
-$headerHeight: 60px;
+$headerHeight: 50px;
 
 #block__header {
   position: fixed;
@@ -136,7 +138,7 @@ a.header-link {
   padding: 5px;
   text-decoration: none;
   color: black;
-  font-size: 18px;
+  font-size: 16px;
 }
 a.header-link:hover {
   color: $blue;
@@ -148,7 +150,6 @@ a.header-link:hover {
 #block__nav {
   float: left;  
   height: $headerHeight;
-  line-height: $headerHeight;
 }
 
 #block__nav-gist-title {
@@ -227,7 +228,7 @@ a.header-link:hover {
   float:left;
   display:inline-block;
   padding: 0px 10px 0px 10px;
-  font-size: 18px;
+  font-size: 16px;
   max-width: 250px;
   overflow:hidden;
   position: relative;
@@ -255,6 +256,7 @@ a.header-link:hover {
   background-color: $blue;
   a.filename {
     color: white;
+    border-bottom-color: transparent;
   }
 }
 .file.has-delete {
@@ -314,7 +316,7 @@ a.header-link:hover {
   float:right;
   display:inline-block;
   padding: 0px 10px 0px 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #files__add-new {
@@ -365,7 +367,7 @@ a.header-link:hover {
       background-color: $errorRed;
     }
     svg {
-      padding: 2px
+      padding: 2px;
     }
     path {
       fill: white;
@@ -466,9 +468,10 @@ a.header-link:hover {
   font-size: 23px;
 }
 .description {
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   width: 300px;
-  font-size: 24px;
+  font-size: 20px;
+  padding: 3px 10px;
 }
 
 $frameHeight: $filesHeight + $headerHeight;
@@ -573,7 +576,7 @@ $frameHeight: $filesHeight + $headerHeight;
   height: 22px;
   padding: 5px 0px;
   padding-left: 5px;
-  margin: 16px 5px;
+  margin: 10px 5px;
   border: 1px solid white;
   path {
     fill: black;
@@ -593,7 +596,7 @@ $frameHeight: $filesHeight + $headerHeight;
 #block__fork, #block__save, #block__new, #thumbnail__save {
   float:right;
   padding: 5px 10px;
-  margin: 16px 5px;
+  margin: 10px 5px;
   cursor: pointer;
   background-color: $blue;
   color: white;
@@ -616,18 +619,24 @@ $frameHeight: $filesHeight + $headerHeight;
 
 #block__site-nav {
   position: fixed;
-  float: left;
   top: 10px;
   left: 3px;
 
   .nav-link {
     margin-top: 6px;
     margin-left: 8px;
+    &:first-child {
+      margin-top: 0;
+    }
   }
   .nav-link a {
     font-size: 11px;
     color: black;
+    &:hover {
+      border-bottom: 0;
+    }
   }
+
   z-index: 300;
 }
 
@@ -642,7 +651,7 @@ $frameHeight: $filesHeight + $headerHeight;
 #nav__loading {
   float:right;
   padding: 5px 10px;
-  margin: 16px 5px;
+  margin: 10px 5px;
   border-radius: 3px;
   width: 35px;
   height: 22px;
@@ -689,30 +698,27 @@ Tutorial overlay styles
 
   #tutorial__content {
     width: 715px;
-    margin: 0px auto;
+    margin: 0 auto 20px auto;
 
     .domain {
       color: #ac3f1a
     }
 
-    h2, h3 {
-      margin: 0
-    }
     .tut {
       margin: 10px 0;
     }
   }
 
-  h1 {
-    margin: 0;
-  }
   .subhead {
     color: gray;
     text-transform: uppercase;
+  }
 
+  .url {
+    padding-left: 1em;
+    border-left: 3px solid #efefef;
   }
-  p {
-  }
+
   #fixedstarted {
     position: fixed;
     //width: 960px;
