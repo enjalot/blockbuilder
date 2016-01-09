@@ -68,7 +68,7 @@ var EditorControls = React.createClass({
     return (
       <div id="editor__controls">
         <div id="editor__controls-autorun" className={autoRunClass} onClick={this.toggleAutoRun}
-         data-tip={(this.state.paused ? "Resume" : "Pause") + " automatic execution of code while typing. (Ctrl+P)"} data-place="right" data-effect="solid">
+         data-tip={(this.state.paused ? "Resume" : "Pause") + " automatic execution of code while typing. (Ctrl+P)"} data-place="right" data-effect="float">
           {icon}
         </div>
         <div id="editor__controls-font-size"></div>

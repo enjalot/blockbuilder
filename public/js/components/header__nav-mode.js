@@ -28,20 +28,20 @@ var ModeNav = React.createClass({
     var mode, fullscreen;
     if(this.props.mode === "sidebyside") {
       mode = (
-        <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☯</div>
+        <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="float" onClick={this.handleModeChange}>☯</div>
       )
     } else {
       mode = (
-        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="solid" onClick={this.handleModeChange}>☮</div>
+        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="float" onClick={this.handleModeChange}>☮</div>
       )
     }
     if(this.props.fullscreen) {
       fullscreen = (
-        <div id='block__fullscreen' data-tip='Exit fullscreen' data-place='right' data-effect="solid" onClick={this.handleFullScreen}><IconFullScreenExit></IconFullScreenExit></div>
+        <div id='block__fullscreen' data-tip='Exit fullscreen' data-place='right' data-effect="float" onClick={this.handleFullScreen}><IconFullScreenExit></IconFullScreenExit></div>
       )
     } else {
       fullscreen = (
-        <div id='block__fullscreen' data-tip='Go into fullscreen' data-place='right' data-effect="solid" onClick={this.handleFullScreen}><IconFullScreenEnter></IconFullScreenEnter></div>
+        <div id='block__fullscreen' data-tip='Go into fullscreen' data-place='right' data-effect="float" onClick={this.handleFullScreen}><IconFullScreenEnter></IconFullScreenEnter></div>
       )
     }
     return ( <div>{mode} {fullscreen} </div>);
