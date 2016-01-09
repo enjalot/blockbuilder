@@ -132,8 +132,8 @@ var Renderer = React.createClass({
       iframe = ( <div><iframe id='block__iframe'></iframe></div> )
     }
     return (
-      <div className={'renderer'}>
-        <div id='block__popper'></div>
+      <div className='renderer'>
+        <button id='block__popper' title='Toggle preview'></button>
         {iframe}
       </div>
     )
