@@ -113,14 +113,14 @@ var FilesAdd = React.createClass({
       // 
       newFile = (
           <div id="files__add-new" className="file">
-            <a data-tip={"Save " + this.state.newFileName } data-place='bottom' onClick={this.saveNew} className="file">Save</a>
+            <a data-tip={"Save " + this.state.newFileName } data-place='bottom' onClick={this.saveNew} className="file" data-effect="float">Save</a>
             <input id="files__add-new-name" ref="filenameInput" placeholder="filename" onKeyUp={ this.handleFilenameInput }></input>
           </div>
       )
     } else {
       newFile = (
         <div id="files__add-new" className="file">
-          <a data-tip="Create a blank file" data-place='bottom' onClick={this.showNew} className="file">Create file</a>
+          <a data-tip="Create a blank file" data-place='bottom' onClick={this.showNew} className="file" data-effect="float">Create file</a>
         </div>
       )
     }
@@ -133,7 +133,7 @@ var FilesAdd = React.createClass({
           <input onChange={this.selectFile} type="file" id="files__input" name="files[]"/>
         </div>
 
-        <a id="files__add"  data-tip="Add a new file" data-place='bottom' onClick={this.showAdd}>➕</a>
+        <a id="files__add"  data-tip="Add a new file" data-place='bottom' onClick={this.showAdd} data-effect="solid">➕</a>
       </div>
     )
   }

@@ -18,7 +18,7 @@ var UserNav = React.createClass({
     if(!user || !user.login) {
       auth = ( 
         <div data-tip="Login with GitHub to save gists to your account" 
-            data-place="bottom" data-effect="float" style={{height:"50px"}}>
+            data-place="bottom" data-effect="solid" style={{height:"50px"}}>
           <a 
             className="header-link"
             id="login"

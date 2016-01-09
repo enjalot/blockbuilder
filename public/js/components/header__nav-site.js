@@ -19,13 +19,13 @@ var SiteNav = React.createClass({
     return (
     <div id="block__site-nav">
       <div className="nav-link">
-        <a href="/" data-tip="Home" data-place="right" data-effect="float"><IconHome></IconHome></a>
+        <a href="/" data-tip="Home" data-place="right" data-effect="solid"><IconHome></IconHome></a>
       </div>
       <div className="nav-link">
-        <a href="/about" data-tip="About" data-place="right" data-effect="float"><IconTerminal></IconTerminal></a>
+        <a href="/about" data-tip="About" data-place="right" data-effect="solid"><IconTerminal></IconTerminal></a>
       </div>
       <div className="nav-link">
-        <a href="/gallery" data-tip="Gallery" data-place="right" data-effect="float"><IconGrid></IconGrid></a>
+        <a href="/gallery" data-tip="Gallery" data-place="right" data-effect="solid"><IconGrid></IconGrid></a>
       </div>
     </div>
     )

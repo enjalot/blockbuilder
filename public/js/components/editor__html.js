@@ -11,7 +11,6 @@ import React from 'react';
 import logger from 'bragi-browser';
 
 import ReactDOM from 'react-dom';
-var ReactTooltip = require("react-tooltip")
 import ErrorMarker from './editor__error-marker';
 import throttle from '../utils/throttle';
 
