@@ -133,7 +133,7 @@ var FilesAdd = React.createClass({
           <input onChange={this.selectFile} type="file" id="files__input" name="files[]"/>
         </div>
 
-        <a id="files__add"  data-tip="Add a new file" data-place='bottom' onClick={this.showAdd} data-effect="solid">➕</a>
+        <a id="files__add"  data-tip="Add a new file" data-place='bottom' onClick={this.showAdd} data-effect="float">➕</a>
       </div>
     )
   }

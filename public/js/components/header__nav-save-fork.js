@@ -94,7 +94,7 @@ var SaveForkNav = React.createClass({
 
     return (
       <div>
-        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" data-effect="solid" onClick={ this.newBlock }>New</div>
+        <div id='block__new' data-tip="Create a brand new block" data-place="bottom" data-effect="float" onClick={ this.newBlock }>New</div>
         {fork}
         {save}
         {lock}
