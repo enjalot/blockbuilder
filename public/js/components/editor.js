@@ -52,10 +52,26 @@ var Editor = React.createClass({
       this.setupResize();
     }
   },
-  componentDidUpdate: function componentDidUpdate(){
+  componentDidUpdate: function componentDidUpdate(oldProps){
     logger.log('components/EditorHTML:component:componentDidUpdate', 'called');
     if(this.props.gist){
       this.setupResize();
+
+      if(this.props.mode == "sidebyside" && oldProps.mode == "blocks") {
+        // resize!
+        var bodyWidth = window.innerWidth;
+        // this code is torn from below... getting more and more spaghetti like
+        if(bodyWidth < 1700) return;
+        var nx = 1005;
+        var style = "calc(100% - " + nx + "px)"
+        d3.select("#block__code-wrapper").style("width", style)
+        if(this.refs.cm) {
+          this.refs.cm.codeMirror.refresh();
+        }
+        // we need to position the handle so we can continue to resize
+        var right = "calc(100% - " + (nx+6) + "px)"
+        d3.select("#block__code-handle").style({ left: null, right: right, width: "12px"})
+      }
     }
   },
 
