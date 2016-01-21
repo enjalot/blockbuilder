@@ -1,0 +1,14 @@
+{
+   "app": {
+      "redis": {
+         "host": "localhost",
+         "port": 6379
+       },
+      "mongo": {
+         "host": "localhost",
+         "port": 27017,
+         "db": "building-blocks"
+      }
+   }
+}
+
