@@ -55,7 +55,7 @@ nconf.add('app', {
     'port': 8889,
     'allowedDomains': '*',
     'cookie': {
-        'maxAge': 86400000, //one year
+        'maxAge': 86400000 * 365, //one year, in milliseconds
         httpOnly: true,
         'key': '_c',
         'secret': 'd0f03jiioj>?re4l12kj"f23jiioj>?re4l12kj"l;l'
@@ -79,7 +79,7 @@ app.use(session({
   store: new RedisStore({
     host: nconf.get('app:redis:host'),
     port: nconf.get('app:redis:port'),
-    ttl: 60 * 60 * 24 * 14, //2 weeks, in seconds
+    ttl: 60 * 60 * 24 * 7 * 2, //2 weeks, in seconds
     client: redisClient
   })
 }));
