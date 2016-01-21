@@ -9,7 +9,8 @@ $blockHeight: 500px;
 $filesHeight: 25px;
 $editorControlsHeight: 30px;
 $sideOffset: 40px; // distance from the left side
-$sideEditorWidth: 700px;
+$sideEditorOffset: 1005px; // From editor.js, ought to be calculated
+$sideEditorWidth: 100% - #{$sideEditorOffset};
 
 html {
   min-width: 1040px;
@@ -342,8 +343,7 @@ a.header-link:hover {
   width: 12px;
   position: fixed;
   top: $headerHeight;
-  //right: calc(100% - 960px);
-  right: $sideEditorWidth - 6px;
+  right: calc(#{$sideEditorWidth} - 6px);
   bottom: 0;
 }
 
@@ -541,14 +541,13 @@ $frameHeight: $filesHeight + $headerHeight;
     position: fixed;
     top: $frameHeight;
     right: 0;
-    //width: calc(100% - 960px);
-    width: $sideEditorWidth;
+    width: calc(#{$sideEditorWidth});
     bottom: 0;
     margin: 0;
     overflow: scroll;
     #block__code-index {
       width: 100%;
-      height: calc(100% - 30px); //$editorControlsHeight) // for some reason can't use vars in calcs
+      height: calc(100% - #{$editorControlsHeight});
       .CodeMirror {
         width: 100%;
         height: 100%;
