@@ -43,6 +43,7 @@ app.set('view engine', 'handlebars');
 //app.enable('view cache')
 
 // Load the configuration
+nconf.file('resources', __dirname + '/resources.json');
 nconf.file('secrets', __dirname + '/secrets.json');
 if(!nconf.get('github')){
     throw new Error('secrets.json file NOT found. be sure to `cp secrets.json-example secrets.json`');
@@ -58,15 +59,6 @@ nconf.add('app', {
         httpOnly: true,
         'key': '_c',
         'secret': 'd0f03jiioj>?re4l12kj"f23jiioj>?re4l12kj"l;l'
-    },
-    'redis': {
-      'host': 'localhost',
-      'port': 6379
-    },
-    'mongo': {
-      'host': 'localhost',
-      'port': 27017,
-      'db': 'building-blocks'
     }
   }
 });
