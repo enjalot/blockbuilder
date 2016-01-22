@@ -167,7 +167,8 @@ app.get('/auth/logout', function(req, res) {
 // Get the authenticated user
 app.get('/api/me', function(req, res) {
   // this is safe as it is just the user id, login name and avatar url
-  var user = req.session.passport.user;
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
   if(!user) return res.send({});
   res.send({id: user.id, login: user.login, avatar_url: user.avatar_url});
 });
@@ -230,7 +231,9 @@ app.post('/api/thumbnail', function (req, res){
 // App routes
 // ------------------------------------
 app.get('/', function (req, res) {
-  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
+  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
 });
 
 app.get('/_elb', function(req, res) {
@@ -239,11 +242,15 @@ app.get('/_elb', function(req, res) {
 
 
 app.get('/about', function (req, res) {
-  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
+  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
 });
 
 app.get('/gallery', function (req, res) {
-  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
+  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
 });
 
 // Get a user's profile page
@@ -251,8 +258,9 @@ app.get('/:username', function (req, res) {
   // NOTE: no data needs to be passed into template; react router gets url
   // params
   var username = req.params.username;
-
-  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
+  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
 });
 
 // Get the block editing page for a particular gist
@@ -262,7 +270,9 @@ app.get('/:username/:gistId', function (req, res) {
   var username = req.params.username;
   var gistId = req.params.gistId;
 
-  return res.render('base', {user: req.session.passport.user, ga: nconf.get("analytics:ga")});
+  var user;
+  if(req.session.passport) user = req.session.passport.user;
+  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
 });
 
 function saveGist(gist, method, token, cb) {
