@@ -147,10 +147,9 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
-    delete req.session.redirectTo;
-    //is authenticated ?
-    res.redirect(redirectTo);
+    //var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
+    //delete req.session.redirectTo;
+    res.send("<html><h1>w00t!</h1><script>window.opener.postMessage({type: 'loggedin'}, window.location.origin);window.close();</script></html>")
 });
 app.get('/auth/logout', function(req, res) {
   req.logout();
@@ -196,7 +195,7 @@ app.post('/api/save', function(req, res){
   // this is potentially not a good idea. but lets do it until its a problem
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  
+
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;

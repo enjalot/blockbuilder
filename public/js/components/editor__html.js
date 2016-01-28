@@ -88,18 +88,18 @@ var EditorHTML = React.createClass({
       var tooltip = React.createElement(ErrorMarker);
 
       // handle error messages from iframe sandbox
-      window.addEventListener("message", function(event) {
-        if (event.origin==="null") {
-          if(!event.data || !event.data.message) return;
-          if(event.data.type === "runtime-error") {
-            var message = event.data.message.toString();
+      window.addEventListener("message", function(evt) {
+        if (evt.origin==="null") {
+          if(!evt.data || !evt.data.message) return;
+          if(evt.data.type === "runtime-error") {
+            var message = evt.data.message.toString();
             var marker = document.createElement("div");
             marker.style.color = "#dd737a";
-            this.codeMirror.setGutterMarker(event.data.lineNumber-1, "errors", marker);
+            this.codeMirror.setGutterMarker(evt.data.lineNumber-1, "errors", marker);
             d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(221, 115, 122, 1)")
             var component = ReactDOM.render(tooltip,marker);
             component.setMessage(message)
-            Actions.setCodeError(event.data.lineNumber, message)
+            Actions.setCodeError(evt.data.lineNumber, message)
           }
         }
       }.bind(this))
