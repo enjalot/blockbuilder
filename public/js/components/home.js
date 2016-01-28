@@ -136,8 +136,12 @@ var Home = React.createClass({
         url);
 
       window.onbeforeunload = null;
-      window.location = url;
-
+      if(this.state.embed) {
+        var win = window.open(url, '_blank');
+        win.focus();
+      } else {
+        window.location = url;
+      }
     } else if(data.type === 'fork:failed'){
       var failMessage = 'Could not save gist';
       if(data.response && data.response.message){
@@ -262,7 +266,7 @@ var Home = React.createClass({
     }
     var fullscreenClass = this.state.fullscreen ? "fullscreen" : "";
     return ( 
-      <div id='block__wrapper'>
+      <div id='block__wrapper' className={this.state.embed ? "embed" : ""}>
         <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
           <KeyboardShortcuts {...this.props} gist={this.state.gistData} paused={this.state.pauseAutoRun} />
           <SiteNav />

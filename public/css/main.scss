@@ -557,6 +557,40 @@ $frameHeight: $filesHeight + $headerHeight;
   }
 }
 
+/* embedded */
+#block__wrapper.embed {
+  #block__site-nav {
+    display: none;
+  }
+  #block__nav-gist-title input.description {
+    border: 0;
+    outline: 0;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  #site-header__save-fork {
+    #block__lock {
+      display: none;
+    }
+    #block__new {
+      display: none;
+    }
+  }
+  #site-header__user {
+    display: none;
+  }
+  #block__popper {
+    background-color: #F8F8F8;
+  }
+  #block__popper:hover {
+    background-color: #f5f5f5;
+  }
+  .popped #block__popper{
+    background-color: #F7E2AD;
+  }
+}
+
+/* fullscreen mode */
 .fullscreen {
   .renderer{
     #block__iframe {

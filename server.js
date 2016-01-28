@@ -166,6 +166,8 @@ app.get('/auth/logout', function(req, res) {
 // ------------------------------------
 // Get the authenticated user
 app.get('/api/me', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // this is safe as it is just the user id, login name and avatar url
   var user;
   if(req.session.passport) user = req.session.passport.user;
@@ -177,6 +179,11 @@ app.get('/api/gist/:gistId', function(req, res) {
   // we have a proxy for getting a gist using the app's auth token.
   // this allows us to get around the low rate-limit for anonymous requests.
   // we can also add caching here later
+
+  // this is potentially not a good idea. but lets do it until its a problem
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   var gistId = req.params.gistId;
   getGist(gistId, function(err, gist) {
     if(err) {
@@ -186,6 +193,10 @@ app.get('/api/gist/:gistId', function(req, res) {
   });
 });
 app.post('/api/save', function(req, res){
+  // this is potentially not a good idea. but lets do it until its a problem
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
@@ -201,8 +212,9 @@ app.post('/api/save', function(req, res){
 app.post('/api/fork', function (req, res) {
   // Potentially allow some other domains to post anon gists to quickly enable saving
   // will want to add their domains here if we want to do this
-  //res.header("Access-Control-Allow-Origin", "*");
-  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   var gist = req.body.gist;
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
