@@ -4,7 +4,10 @@ var usersNumeric = {}
 var usersString = {}
 var user;
 
-cursor = db.users.find({_id: {$type: 1} }); //numeric _id
+//var NUMERIC = 1 //mongo 2.6, ids are doubles not ints
+var NUMERIC = 16 //mongo 3.0, ids are ints
+
+cursor = db.users.find({_id: {$type: NUMERIC} }); //numeric _id
 while ( cursor.hasNext() ) {
   user = cursor.next();
   //printjson(user);
@@ -18,6 +21,8 @@ while ( cursor.hasNext() ) {
   usersString[user._id] = user;
 }
 
+print("found", Object.keys(usersNumeric).length, "numeric id users");
+print("found", Object.keys(usersString).length, "string id users");
 Object.keys(usersNumeric).forEach(function(nid) {
   var user = usersNumeric[nid];
   var sid = nid +""
@@ -30,5 +35,6 @@ Object.keys(usersNumeric).forEach(function(nid) {
     user._id = sid;
     db.users.insert(user)
   }
-  //db.users.remove({_id: {$and: [{_id: nid}, {_id: {$type: 1}} ] }})
 })
+// manually removing all _id: $type:1 users (numeric) with:
+// db.users.remove({_id: {$type: 16}})
