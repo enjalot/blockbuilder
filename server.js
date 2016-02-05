@@ -114,12 +114,13 @@ MongoClient.connect(mongoUrl, function(err, db) {
       callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-      users.findOne({ '_id': profile.id }, function (err, user) {
+      var profileId = profile.id + "";
+      users.findOne({ '_id': profileId }, function (err, user) {
         if(!user) {
-          profile._id = profile.id;
+          profile._id = profileId;
           user = profile._json;
-          user._id = profile.id;
-          users.update({_id: profile.id}, user, {upsert: true}, function(err){
+          user._id = profileId;
+          users.update({_id: profileId}, user, {upsert: true}, function(err){
             profile.login = user.login;
             profile.avatar_url = user.avatar_url;
             profile.accessToken = accessToken;
@@ -185,8 +186,11 @@ app.get('/api/gist/:gistId', function(req, res) {
 
   var gistId = req.params.gistId;
   getGist(gistId, function(err, gist) {
+    if(gist && gist.message === "Not Found") {
+      return res.status(404).send({error: gist})
+    }
     if(err) {
-      res.status(500).send({error: err});
+      return res.status(500).send({error: err});
     }
     res.send(gist);
   });
@@ -293,7 +297,7 @@ app.get('/:username/:gistId', function (req, res) {
     } catch(e) { }
     var meta;
     if(err) {
-      //res.status(500).send({error: err});
+      //return; //res.status(500).send({error: err});
     } else {
       var files = gist.files;
       var thumbnail = "";

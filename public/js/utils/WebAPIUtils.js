@@ -31,7 +31,8 @@ var WebAPIUtils = {
       return new Promise(function( fulfill, reject){
         window.d3.json("/api/gist/" + gistId, function(err, data) {
           if(err){ return reject(err); }
-
+          // TODO: make this use reliable error handling
+          if(data.statusCode == 404 || data.statusCode == 500) return reject(data)
           try {
             data = {
               response: JSON.parse(data.body),
