@@ -276,14 +276,41 @@ app.get('/:username', function (req, res) {
 
 // Get the block editing page for a particular gist
 app.get('/:username/:gistId', function (req, res) {
-  // NOTE: no data needs to be passed into template; react router gets url
-  // params
   var username = req.params.username;
   var gistId = req.params.gistId;
 
+  // the currently logged in user
   var user;
   if(req.session.passport) user = req.session.passport.user;
-  return res.render('base', {user: user, ga: nconf.get("analytics:ga")});
+  // we are going to load the gist server side so we can pull metadata
+  // for generating the social cards. eventually it should also be used
+  // to populate the app, rather than another API hit
+  var gistId = req.params.gistId;
+  getGist(gistId, function(err, response) {
+    var gist = {};
+    try {
+      gist = JSON.parse(response.body);
+    } catch(e) { }
+    var meta;
+    if(err) {
+      //res.status(500).send({error: err});
+    } else {
+      var files = gist.files;
+      var thumbnail = "";
+      if(files && files['thumbnail.png']) thumbnail = files['thumbnail.png'].raw_url
+      // the author of the gist
+      var author = "";
+      if(gist.owner) author = "@" + gist.owner.login 
+      meta = {
+        author: author, 
+        title: gist.description,
+        thumbnail: thumbnail
+      }
+    }
+    // TODO: since we have already fetched the gist, it would be nice to send it down to the page right here.
+    // this would save an additional request and load things faster
+    return res.render('base', {user: user, ga: nconf.get("analytics:ga"), meta: meta});
+  });
 });
 
 function saveGist(gist, method, token, cb) {
@@ -358,7 +385,7 @@ function modifyGistForHistory(gist) {
 }
 
 function getGist(gistId, cb) {
-  // TODO: add our app's token to avoid rate limiting
+  // TODO: use a cache to avoid hitting the API everytime. would need to invalidate on save.
   var options = {
     url: "https://api.github.com/gists/" + gistId,
     qs: {

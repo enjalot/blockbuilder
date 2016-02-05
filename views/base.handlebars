@@ -12,6 +12,13 @@
   <link rel="stylesheet" href="/inlet/inlet.css" type="text/css" media="screen"  title="no title" charset="utf-8">
 
   <link rel="stylesheet" href="/public/build/css/main.css" type="text/css" charset="utf-8">
+  {{#if meta}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@enjalot">
+    <meta name="twitter:title" content="{{meta.title}}">
+    <meta name="twitter:description" content="by {{meta.author}}">
+    <meta name="twitter:image" content="{{meta.thumbnail}}">
+  {{/if}}
 </head>
 
 <body>
