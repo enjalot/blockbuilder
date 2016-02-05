@@ -39,12 +39,33 @@ var SaveForkNav = React.createClass({
       )
 
     var saveKeyCommand = "<br/>(Ctrl+S or Cmd+S) to save at any time."
+    var tip;
+    var lockLink;
+    var icon;
+    if(gist && gist.public) {
+      tip = "This block is public";
+      icon = (<IconPublic></IconPublic>)
+    } else {
+      tip = "This block is private";
+      icon = (<IconPrivate></IconPrivate>)
+    }
     if(user && gist && gist.owner && user.id === gist.owner.id) {
+      //setup the lock links
+      var editPage = "https://gist.github.com/" + gist.owner.login + "/" + gist.id + "/edit";
+      var target = "_blank";
+      tip = "This block is " + (gist.public ? "public": "private" ) + ". You must edit it via GitHub's interface to change it to " + (gist.public ? "private" : "public") + "."; 
+      lockLink = (
+        <a href={editPage} target={target}>
+          {icon}
+        </a>
+      )
       if(this.props.saving) {
         save = loading;
       } else {
         save = ( <div id='block__save' data-tip={"Save your work." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="float" onClick={ this.save }>Save</div> )
       }
+    } else {
+      lockLink = icon;
     }
     var forkText = "Fork";
     if(gist && !gist.id) {
@@ -59,6 +80,9 @@ var SaveForkNav = React.createClass({
       fork = <div id='block__fork' data-tip={"Create your own copy of this code." + saveKeyCommand} data-multiline={true} data-place="bottom" data-effect="float" onClick={ this.fork }>{forkText}</div>
     }
 
+    if(gist && gist.owner) {
+    
+    }
     var lock = "";
     // Because the gist API doesn't allow us to modify the privacy of an existing gist
     // we need different logic depending on if we are creating a gist or looking at an existing one
@@ -79,14 +103,14 @@ var SaveForkNav = React.createClass({
     } else {
       if(gist && !gist.public) {
         lock = ( 
-          <div id="block__lock" data-tip="This block is private." data-place="bottom" data-effect="float">
-            <IconPrivate></IconPrivate>
-          </div> 
+          <div id="block__lock" data-tip={tip} data-place="bottom" data-effect="float">
+          {lockLink}
+          </div>
         )
       } else if(gist) {
         lock = (
-          <div id="block__lock" data-tip="This block is public." data-place="bottom" data-effect="float">
-            <IconPublic></IconPublic>
+          <div id="block__lock" data-tip={tip} data-place="bottom" data-effect="float">
+          {lockLink}
           </div>
         )
       }
