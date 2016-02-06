@@ -82,29 +82,19 @@ a:hover {
   .frame-holder { 
     margin: 25px 10px;
     margin-bottom: 20px;
-    width: 480px;
+    width: 240px;
     height: 250px;
     float: left;
-    a {
-      margin-left: 10px;
-      margin-right: 30px;
-    }
     p {
       margin-top: -250px;
-      float: left;
       clear:left;
     }
+    img {
+      width: 240px;
+      float: left;
+    }
   }
-  iframe {
-    border: none;
-    outline: none;
-    margin: 0;
-    width: 960px;
-    height: 500px;
-    -webkit-transform: scale(0.5) translate(-480px, -250px);
-    transform: scale(0.5) translate(-480px, -250px);
-    float:left;
-  }
+  
 }
 
 #site-wrapper {
