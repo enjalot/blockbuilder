@@ -36,6 +36,10 @@ exports.save = function save(gistId, imageData, token, cb) {
 
 // Big ups to gistup! https://github.com/mbostock/gistup/blob/master/bin/gistup
 function gitClone(data, cb) {
+  // we need to use our token to avoid rate limiting
+  // https://github.com/blog/1270-easier-builds-and-deployments-using-git-over-https-and-oauth
+  // TODO: switch to using git init and putting token in pull url (to avoid token being written to disk)
+  //var url = "https://" + data.token + "@gist.github.com/" + data.id + ".git"
   var url = "https://gist.github.com/" + data.id + ".git"
   console.log("cloning", url)
   child.exec("cd /tmp; git clone " + url, function(error, stdout, stderr) {
@@ -49,7 +53,7 @@ function gitClone(data, cb) {
 }
 function gitCommit(data, cb) {
   console.log("adding and commiting thumbnail", data.id)
-  var author = '"Building blocks <enjalot+buildingblocks@gmail.com>"' 
+  var author = '"Building blocks <enjalot+buildingblocks@gmail.com>"'
   child.exec("cd /tmp/" + data.id + "; git add thumbnail.png; git commit --author " + author + " -m 'update thumbnail.png'", function(error, stdout, stderr) {
     if (!error && stderr && stderr.toLowerCase().indexOf("error") >= 0) {
       process.stderr.write(stderr);
@@ -63,9 +67,9 @@ function gitCommit(data, cb) {
 function gitPush(data, cb) {
   // figured this out from here: http://stackoverflow.com/questions/14092636/why-doesnt-my-git-auto-update-expect-script-work
   console.log("pushing to master", data.id)
-  // TODO: will this break when deployed?
+  // TODO: switch to using token in push url
   var filePath = __dirname + "/scripts/gitpush.expect"
-  var push = child.execFile(filePath, ["enjalot", data.token], 
+  var push = child.execFile(filePath, ["enjalot", data.token],
     {
       cwd: "/tmp/" + data.id,
     }, function(error, stdout, stderr) {
@@ -85,7 +89,7 @@ function writeImage(data, cb) {
   console.log("DATA IMAGE", data.image.slice(0, 25))
   base64Data = data.image.replace(/^data:image\/png;base64,/,""),
   binaryData = new Buffer(base64Data, 'base64')
-  fs.writeFile("/tmp/" + data.id + "/thumbnail.png", binaryData, 'binary', function(err) { //... 
+  fs.writeFile("/tmp/" + data.id + "/thumbnail.png", binaryData, 'binary', function(err) { //...
     if(err) console.log("IMAGE WRITE ERROR", err)
     cb(err);
   });
