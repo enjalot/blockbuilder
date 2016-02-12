@@ -166,8 +166,8 @@ app.get('/auth/logout', function(req, res) {
 // ------------------------------------
 // Get the authenticated user
 app.get('/api/me', function(req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // this is safe as it is just the user id, login name and avatar url
   var user;
   if(req.session.passport) user = req.session.passport.user;
@@ -181,8 +181,8 @@ app.get('/api/gist/:gistId', function(req, res) {
   // we can also add caching here later
 
   // this is potentially not a good idea. but lets do it until its a problem
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   var gistId = req.params.gistId;
   getGist(gistId, function(err, gist) {
@@ -197,8 +197,8 @@ app.get('/api/gist/:gistId', function(req, res) {
 });
 app.post('/api/save', function(req, res){
   // this is potentially not a good idea. but lets do it until its a problem
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   var gist = req.body.gist;
   var token;
@@ -215,8 +215,8 @@ app.post('/api/save', function(req, res){
 app.post('/api/fork', function (req, res) {
   // Potentially allow some other domains to post anon gists to quickly enable saving
   // will want to add their domains here if we want to do this
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   var gist = req.body.gist;
   var token;
@@ -304,9 +304,9 @@ app.get('/:username/:gistId', function (req, res) {
       if(files && files['thumbnail.png']) thumbnail = files['thumbnail.png'].raw_url
       // the author of the gist
       var author = "";
-      if(gist.owner) author = "@" + gist.owner.login 
+      if(gist.owner) author = "@" + gist.owner.login
       meta = {
-        author: author, 
+        author: author,
         title: gist.description,
         thumbnail: thumbnail
       }
@@ -337,7 +337,7 @@ function saveGist(gist, method, token, cb) {
   };
   if(token) {
     headers['Authorization'] = 'token ' + token
-  } 
+  }
   var options = {
     url: url,
     body: gist.toString(),
@@ -377,7 +377,7 @@ function modifyGistForHistory(gist) {
   }
 
   historyLine = "\n\nforked from <a href='http://bl.ocks.org/" + username + "/'>"
-    + username + "</a>'s block: <a href='http://bl.ocks.org/" + username + "/" + gist.id + "'>" 
+    + username + "</a>'s block: <a href='http://bl.ocks.org/" + username + "/" + gist.id + "'>"
     + gist.description + "</a>"
 
   if(!gist.files['README.md']) {
