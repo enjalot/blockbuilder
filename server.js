@@ -49,6 +49,9 @@ if(!nconf.get('github')){
     throw new Error('secrets.json file NOT found. be sure to `cp secrets.json-example secrets.json`');
 }
 
+// if running blockbuilder-search-index
+var es = nconf.get('elasticsearch') || {}
+
 nconf.add('app', {
   'type': 'literal',
   'app': {
@@ -201,13 +204,14 @@ app.post('/api/save', function(req, res){
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   var gist = req.body.gist;
+  console.log("GIST", gist)
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
   if(!token) return res.status(403).send({error: "Not logged in"});
   saveGist(gist, "PATCH", token, function(err, response) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
-    console.log("saved to", response.id);
     res.status(200).send(response);
+    indexGist(response);
   });
 });
 
@@ -225,9 +229,11 @@ app.post('/api/fork', function (req, res) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
     console.log("forked to", response.id);
     res.status(200).send(response);
+    indexGist(response)
   });
 });
 
+// allow a user to commit a thumbnail to their gist
 app.post('/api/thumbnail', function (req, res){
   var token;
   if(req.session.passport.user) token = req.session.passport.user.accessToken;
@@ -241,6 +247,38 @@ app.post('/api/thumbnail', function (req, res){
   });
 })
 
+
+// We try to send the gist to our ElasticSearch daemon who will figure out how to index it
+// we don't care if it fails, this is optional anyway (only happens if elasticsearch is configured in secrets.json)
+function indexGist(gist) {
+  if(!gist) return;
+  if(!es.host) return;
+  if(gist.public) {
+    var options = {
+      method: 'POST',
+      body: JSON.stringify(gist, null, 2),
+      url: es.host + "/index/gist",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    request(options, function(err, response) {
+      //console.log(err, response)
+      if(err) console.log(err)
+      if(response) console.log("indexed", gist.id, response.statusCode)
+    })
+  } else {
+    var options = {
+      method: 'GET',
+      url: es.host + "/delete/gist/" + gist.id,
+    };
+    request(options, function(err, response) {
+      //console.log(err, response)
+      if(err) console.log(err)
+      if(response) console.log("deleted", gist.id, response.statusCode)
+    })
+  }
+}
 
 // ------------------------------------
 // App routes
