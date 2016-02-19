@@ -5,7 +5,7 @@
  *
  * ========================================================================= */
 import React from 'react';
-import { IconHome, IconGrid, IconTerminal } from './icons.js';
+import { IconHome, IconSearch, IconTerminal, IconQuestion } from './icons.js';
 
 class SiteNav extends React.Component {
   render() {
@@ -14,10 +14,10 @@ class SiteNav extends React.Component {
           <a href="/" data-tip="Home" data-place="right" data-effect="float"><IconHome></IconHome></a>
         </div>
         <div className="nav-link">
-          <a href="/about" data-tip="About" data-place="right" data-effect="float"><IconTerminal></IconTerminal></a>
+          <a href="/about" data-tip="About" data-place="right" data-effect="float"><IconQuestion></IconQuestion></a>
         </div>
         <div className="nav-link">
-          <a href="/gallery" data-tip="Gallery" data-place="right" data-effect="float"><IconGrid></IconGrid></a>
+          <a href="/search" data-tip="Search" data-place="right" data-effect="float"><IconSearch></IconSearch></a>
         </div>
       </div>)
     }

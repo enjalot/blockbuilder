@@ -6,14 +6,14 @@
  *
  * ========================================================================= */
 import React from 'react';
-import {IconExternalLink,IconLoader} from './icons.js';
+import {IconExternalLink,IconLoader,IconGist} from './icons.js';
 
 import Actions from '../actions/actions.js';
 
 var GistNav = React.createClass({
   componentDidUpdate: function componentDidUpdate() {
     var gist = this.props.gist;
-    if(gist && gist.description){ 
+    if(gist && gist.description){
       d3.select("title").node().innerHTML = "Building Bl.ocks - " + gist.description;
     }
   },
@@ -29,8 +29,8 @@ var GistNav = React.createClass({
     if(gist && gist.owner) {
       userName = gist.owner.login;
       var profileUrl = "http://bl.ocks.org/" + userName;
-      profile = ( 
-        <span>by <a className="header-link" href={ profileUrl } target="_blank">{userName}</a></span>
+      profile = (
+        <span>by<a className="header-link" href={ profileUrl } target="_blank">{userName}</a></span>
       )
     } else {
       profile = ( <span> by {userName} </span> )
@@ -53,13 +53,18 @@ var GistNav = React.createClass({
         <span id='block__nav-gist-title'>
           <input className="description" defaultValue={ gist.description } onChange={this.handleDescriptionChange}></input>
         </span>
-        <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank">gist<IconExternalLink></IconExternalLink></a>
-        <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">bl.ock<IconExternalLink></IconExternalLink></a>
         <span id='block__nav-gist-author'>
-          {profile} 
+          {profile}
         </span>
-      </div> 
-    ) 
+        <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">
+          view on bl.ocks.org
+        </a>
+        <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank" data-tip='View underlying gist' data-place='bottom' data-effect="float" >
+          <IconGist></IconGist>
+        </a>
+
+      </div>
+    )
   }
 });
 

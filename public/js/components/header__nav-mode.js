@@ -7,7 +7,7 @@
  * ========================================================================= */
 import React from 'react';
 import Actions from '../actions/actions.js';
-import {IconFullScreenEnter, IconFullScreenExit} from './icons.js';
+import {IconFullScreenEnter, IconFullScreenExit, IconSideBySide, IconStandardMode} from './icons.js';
 
 var ModeNav = React.createClass({
   handleModeChange: function handleModeChange() {
@@ -27,12 +27,14 @@ var ModeNav = React.createClass({
   render: function render() {
     var mode, fullscreen;
     if(this.props.mode === "sidebyside") {
+      //☯
       mode = (
-        <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="float" onClick={this.handleModeChange}>☯</div>
+        <div id='block__mode' data-tip='Switch to standard mode' data-place='right' data-effect="float" onClick={this.handleModeChange}><IconStandardMode></IconStandardMode></div>
       )
     } else {
+      //☮
       mode = (
-        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="float" onClick={this.handleModeChange}>☮</div>
+        <div id='block__mode' data-tip='Switch to side-by-side mode' data-place='right' data-effect="float" onClick={this.handleModeChange}><IconSideBySide></IconSideBySide></div>
       )
     }
     if(this.props.fullscreen) {

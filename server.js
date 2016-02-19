@@ -50,7 +50,7 @@ if(!nconf.get('github')){
 }
 
 // if running blockbuilder-search-index
-var es = nconf.get('elasticsearch') || {}
+var esIndexer = nconf.get('elasticsearch-indexer') || {}
 
 nconf.add('app', {
   'type': 'literal',
@@ -163,6 +163,17 @@ app.get('/auth/logout', function(req, res) {
   res.redirect('/');
 });
 
+// ------------------------------------
+// SEARCH
+// ------------------------------------
+// we optionally support a search page if you've
+var searchConf = nconf.get('search');
+if(searchConf) {
+  var bbSearch = require('blockbuilder-search')(searchConf, app)
+  app.get('/search', bbSearch.page)
+  app.post('/api/search', bbSearch.api)
+}
+
 
 // ------------------------------------
 // API
@@ -251,17 +262,19 @@ app.post('/api/thumbnail', function (req, res){
 // We try to send the gist to our ElasticSearch daemon who will figure out how to index it
 // we don't care if it fails, this is optional anyway (only happens if elasticsearch is configured in secrets.json)
 function indexGist(gist) {
+  //console.log("esIndexer", esIndexer.host, gist.public)
   if(!gist) return;
-  if(!es.host) return;
+  if(!esIndexer.host) return;
   if(gist.public) {
     var options = {
       method: 'POST',
       body: JSON.stringify(gist, null, 2),
-      url: es.host + "/index/gist",
+      url: esIndexer.host + "/index/gist",
       headers: {
         "Content-Type": "application/json"
       }
     };
+    //console.log("posting", options)
     request(options, function(err, response) {
       //console.log(err, response)
       if(err) console.log(err)
@@ -270,7 +283,7 @@ function indexGist(gist) {
   } else {
     var options = {
       method: 'GET',
-      url: es.host + "/delete/gist/" + gist.id,
+      url: esIndexer.host + "/delete/gist/" + gist.id,
     };
     request(options, function(err, response) {
       //console.log(err, response)

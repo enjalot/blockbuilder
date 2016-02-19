@@ -65,21 +65,18 @@ a:hover {
   LAYOUT
 *********************/
 
-#about {
+#about, #gallery {
   width: 715px;
   #block__header {
     border: none;
     height: 0;
   }
-}
 
-#gallery {
-  #block__header {
-    border: none;
-    height: 0;
+  .gallery {
+    width: 1000px;
+    float:left;
   }
-  width: 1000px;
-  .frame-holder { 
+  .frame-holder {
     margin: 25px 10px;
     margin-bottom: 20px;
     width: 240px;
@@ -94,7 +91,7 @@ a:hover {
       float: left;
     }
   }
-  
+
 }
 
 #site-wrapper {
@@ -115,7 +112,7 @@ $headerHeight: 50px;
 }
 
 #block__title {
-  float: left; 
+  float: left;
   height: 80px;
   line-height: $headerHeight;
   padding: 0 5px;
@@ -138,7 +135,7 @@ a.header-link:hover {
 }
 
 #block__nav {
-  float: left;  
+  float: left;
   height: $headerHeight;
 }
 
@@ -146,7 +143,10 @@ a.header-link:hover {
   font-size: 28px;
   font-weight: bold;
   padding-right: 5px;
-  margin-right: 20px;
+  margin-right: 5px;
+}
+#block__nav-gist-author {
+  margin-right: 15px
 }
 
 #block__content {
@@ -206,7 +206,7 @@ a.header-link:hover {
 }
 .absolute-files {
   position: absolute;
-  top: $blockHeight; 
+  top: $blockHeight;
 }
 .fixed-files {
   position: fixed;
@@ -499,7 +499,7 @@ $frameHeight: $filesHeight + $headerHeight;
     left: 0px;
     top: $frameHeight;
   }
-  
+
   .renderer {
     position: fixed;
     top: $frameHeight;
@@ -712,7 +712,7 @@ Tutorial overlay styles
 
 #tutorial__overlay {
   position: fixed;
-  top: 0; 
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -788,10 +788,10 @@ Tutorial overlay styles
 Inlet styles
 ----------------------*/
 
-.ColorPicker { 
-  -moz-box-sizing: content-box; 
-  -webkit-box-sizing: content-box; 
-  box-sizing: content-box; 
+.ColorPicker {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 // https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
@@ -804,8 +804,8 @@ Inlet styles
 /* -------------------
 borrowed styles
 ----------------------*/
-/* 
-  css loader from http://tobiasahlin.com/spinkit/ 
+/*
+  css loader from http://tobiasahlin.com/spinkit/
 */
 .sk-cube-grid {
   width: 100px;
@@ -818,7 +818,7 @@ borrowed styles
   background-color: $blue;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
 }
 .sk-cube-grid .sk-cube1 {
   -webkit-animation-delay: 0.2s;
@@ -855,7 +855,7 @@ $min: 0.2;
             transform: scale3D(1, 1, 1);
   } 35% {
     -webkit-transform: scale3D($min, $min, 1);
-            transform: scale3D($min, $min, 1); 
+            transform: scale3D($min, $min, 1);
   }
 }
 @keyframes sk-cubeGridScaleDelay {
@@ -865,5 +865,5 @@ $min: 0.2;
   } 35% {
     -webkit-transform: scale3D($min, $min, 1);
             transform: scale3D($min, $min, 1);
-  } 
+  }
 }

@@ -20,6 +20,31 @@ import SaveForkNav from './header__nav-save-fork.js'
 // Functionality
 //
 // ========================================================================
+
+var blocks = [
+  { url: 'https://bl.ocks.org/emeeks/raw/c42968993536f921a5c8',
+    thumb: "https://gist.githubusercontent.com/emeeks/c42968993536f921a5c8/raw/306e61f19338f7a65905c4c17b62c1ccfdcc9d5b/thumbnail.png"},
+  { url: 'https://bl.ocks.org/d3noob/raw/a0cbcddc6bf0eb9569fe',
+    thumb: "https://gist.githubusercontent.com/d3noob/a0cbcddc6bf0eb9569fe/raw/8b1fbc5a50fd1d73a534b331fd8933de7fa6575e/thumbnail.png" },
+  { url: 'https://bl.ocks.org/trinary/raw/9011649d262c27c6774b',
+    thumb: "https://gist.githubusercontent.com/enjalot/da9b86b448149483d10c/raw/538afdf3b565f3c12986d4a86e6fe84b326e77e5/thumbnail.png" },
+  { url: 'https://bl.ocks.org/mbostock/raw/1021103',
+    thumb: "https://gist.githubusercontent.com/mbostock/1021103/raw/792d9fdd80d77ae1ae97ef20051c59b974a7d998/thumbnail.png" },
+  { url: 'https://bl.ocks.org/dowstreet/raw/bfab4be2185584fba431',
+    thumb: "https://gist.githubusercontent.com/dowstreet/bfab4be2185584fba431/raw/a2825e2520af8ad2f7bf4e1b0c49959b93db1442/thumbnail.png" },
+  { url: 'https://bl.ocks.org/mbostock/raw/1062544',
+    thumb: "https://gist.githubusercontent.com/mbostock/1062544/raw/03f3cf8bc6da59dd8fd14849da4a73cf47b620bf/thumbnail.png" },
+  { url: 'https://bl.ocks.org/mbostock/raw/1353700',
+    thumb: "https://gist.githubusercontent.com/mbostock/1353700/raw/c9ed26af986771b51e9b6d1df06257e8fabc8af4/thumbnail.png" },
+  { url: 'https://bl.ocks.org/zanarmstrong/raw/23137b412caf6e80b34a',
+    thumb: "https://gist.githubusercontent.com/enjalot/687657e23c6d5b45fbcf/raw/3c0edff446242cc130bc9d2038cf4d13c0f1892a/thumbnail.png" },
+  { url: 'https://bl.ocks.org/mbostock/raw/5446416',
+    thumb: "https://gist.githubusercontent.com/mbostock/5446416/raw/9fc5680cce2856988cbcb62ffa5835895c72bc57/thumbnail.png" },
+  { url: 'https://bl.ocks.org/mbostock/raw/615dfa9bf9b55878f7f6',
+    thumb: "https://gist.githubusercontent.com/mbostock/615dfa9bf9b55878f7f6/raw/ce3e2c5ed1ea290118fe404f89a2fff1bf9a3a40/thumbnail.png" }
+  ]
+
+
 var About = React.createClass({
   componentWillMount: function(){
     logger.log('components/About:component:componentWillMount', 'called');
@@ -29,6 +54,22 @@ var About = React.createClass({
     logger.log('components/About:component:render', 'called | %O', {
       state: this.state, props: this.props, params: this.props.params
     });
+
+    var thumbs = []
+    blocks.forEach(function(d) {
+      var split = d.url.split("/raw")
+      var bblink = split[0].replace('https://bl.ocks.org', '') + split[1]
+
+      thumbs.push (<div className="frame-holder">
+        <a href={bblink}>
+        <img src={d.thumb} />
+        </a>
+        <p>
+        {/*<a href={d}>♨_♨ block</a> */}
+        <a href={bblink}>\(• ◡ •)/ play</a>
+        </p>
+      </div>)
+    })
 
     return (
       <div id='about'>
@@ -40,17 +81,17 @@ var About = React.createClass({
         </div>
         <h1>About</h1>
           <p>
-            Getting started with Building Blocks? read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how this site works!</a> 
+            Getting started with Building Blocks? read about <a href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how this site works!</a>
             <br></br>
             Watch the short video below for an overview of the functionality:
             </p>
-          
+
           <iframe src="https://player.vimeo.com/video/138783462" width="711" height="400" frameBorder="0" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe>
 
             <p>
             The whole point of this project is to make it easier for you to make <a href="http://bl.ocks.org">blocks</a>.
             Blocks are the de-facto way of sharing
-            visualizations and code samples in the d3.js community. 
+            visualizations and code samples in the d3.js community.
             Invented and hosted by <a href="http://bost.ocks.org/mike/">Mike Bostock</a>, blocks are key to realizing the <a href="http://bost.ocks.org/mike/example/">power of examples</a>.
           </p>
 
@@ -62,7 +103,9 @@ var About = React.createClass({
           <p> This project is open source, so all the code is <a href="https://github.com/enjalot/building-blocks">on GitHub</a>!
             See how the project came about <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">on kickstarter</a>.
           </p>
-          
+
+
+
 
           <h2>Kickstarter Backers</h2>
           <p><a href="https://frontendmasters.com/courses/interactive-data-visualization-d3-js/">
@@ -79,14 +122,25 @@ var About = React.createClass({
             <img src="https://s3-us-west-2.amazonaws.com/building-blocks/logos/kaywa.png" ></img>
             </a>
           </p>
-          
-          <p>♥ <a href="https://twitter.com/shirleyxywu">Shirley Wu</a><br></br>♥ <a href="https://twitter.com/jamescwaters">James Waters</a><br></br>♥ <a href="http://elijahmeeks.com/">Elijah Meeks</a><br></br>♥ <a href="http://www.d3noob.org/">d3noob</a><br></br>♥ <a href="http://vasir.net">Erik Hazzard</a><br></br>♥ <a href="http://blog.zanarmstrong.com/about/">Zan Armstrong</a><br></br>♥ <a href="https://twitter.com/milr0c">Miles McCrocklin</a><br></br>♥ <a href="https://twitter.com/trinary">Erik Cunningham</a><br></br>♥ <a href="http://bl.ocks.org/saraquigley">Sara Quigley</a><br></br>♥ <a href="http://owendall.com">Owen Dall</a><br></br>♥ <a href="http://ramble.io">Dow Street</a><br></br>♥ <a href="https://www.dashingd3js.com">Sebastian Gutierrez</a><br></br>♥ <a href="http://encodingpixels.com">Andrew Thornton</a><br></br>♥ <a href="http://postarchitectural.com">Sha Hwang</a><br></br>♥ <a href="https://twitter.com/gelicia">Kristina</a><br></br>♥ <a href="https://twitter.com/maxgoldst">Max Goldstein</a><br></br>♥ <a href="https://twitter.com/ReneCNielsen">René Clausen Nielsen</a><br></br>♥ <a href="https://twitter.com/N2InformaticsRN">Charles Boicey</a><br></br>♥ <a href="http://www.mettihoof.be">Maarten Vanhoof</a><br></br>♥ <a href="roadtolarissa.com">Adam Pearce</a><br></br>♥ <a href="https://twitter.com/timelyportfolio">Kent Russell</a><br></br>♥ <a href="http://jyri.codes">Jyri Tuulos</a><br></br>♥ <a href="https://twitter.com/laneharrison">Lane Harrison</a><br></br>♥ <a href="https://twitter.com/sjengle">Sophie Engle</a><br></br>♥ <a href="http://Vallandingham.me">Jim Vallandingham</a><br></br>♥ <a href="http://macwright.org/">Tom MacWright</a><br></br>♥ <a href="https://uwba.org/Donate">nthitz</a><br></br>♥ <a href="https://twitter.com/jinlongyang">Jinlong Yang</a><br></br>♥ <a href="http://www.lonriesberg.com/">Lon Riesberg</a><br></br>♥ <a href="http://www.brendansudol.com">Brendan Sudol</a><br></br>♥ <a href="http://www.susielu.com">Susie Lu</a><br></br>♥ <a href="https://twitter.com/samselikoff">Sam Selikoff</a><br></br>♥ <a href="http://mfviz.com">Mike Freeman</a><br></br>♥ <a href="https://twitter.com/jsundram">Jason Sundram</a><br></br>♥ <a href="http://www.austgate.co.uk">Iain Emsley</a><br></br>♥ <a href="http://www.noansknv.io">noansknv</a><br></br>♥ <a href="https://twitter.com/d3visualization">Christophe Viau</a><br></br>♥ <a href="https://github.com/gordonwoodhull">Gordon Woodhull</a><br></br>♥ <a href="https://twitter.com/krsanford">Karl Sanford</a><br></br>♥ <a href="http://yaniv.bz">Yaniv Ben-Zaken</a><br></br>♥ <a href="https://twitter.com/BKilmartinIT">Brian Kilmartin</a><br></br>♥ <a href="https://github.com/roundrobin">Nils Schlomann</a><br></br>♥ <a href="http://tomvanantwerp.com">Tom VanAntwerp</a><br></br>♥ <a href="http://jonsadka.com">Jon Sadka</a><br></br>♥ <a href="https://openhatch.org/people/brylie/">Brylie Christopher Oxley</a><br></br>♥ <a href="https://twitter.com/herrstucki">Jeremy Stucki</a><br></br>♥ <a href="http://twitter.com/grssnbchr">Timo Grossenbacher</a><br></br>♥ <a href="https://twitter.com/cherdarchuk">Joey Cherdarchuk</a><br></br>♥ <a href="http://www.sketchflow.com/">paul van slembrouck</a><br></br>♥ <a href="https://github.com/shobhitg">Shobhit Gupta</a><br></br>♥ <a href="https://twitter.com/tonyrgarcia">Tony Garcia</a><br></br>♥ <a href="http://twitter.com/blockspring">Paul Katsen</a><br></br>♥ <a href="https://twitter.com/onfooty">Sarah Rudd</a><br></br>♥ <a href="http://twitter.com/adambreckler">Adam Breckler</a><br></br>♥ <a href="http://www.munafassaf.com">Munaf Assaf</a><br></br>♥ <a href="http://bit.ly/15iIaY3">Douglass Turner</a><br></br>♥ <a href="http://tarekrached.com/">Tarek Rached</a><br></br>♥ <a href="https://twitter.com/ba6dotus">David Mann</a><br></br>♥ <a href="http://fredbenenson.com/">Fred Benenson</a><br></br>♥ <a href="https://twitter.com/SkiWether">Lynn Wetherell</a><br></br>♥ <a href="https://twitter.com/jarthurthompson">John A Thompson</a><br></br>♥ <a href="https://twitter.com/dcabo">David Cabo</a><br></br>♥ <a href="https://www.apricot.com/~scanner">Scanner</a><br></br>♥ <a href="http://johnguerra.co">John Alexis Guerra Gomez</a><br></br>♥ <a href="http://twitter.com/tonyhschu">Tony Chu</a><br></br>♥ <a href="http://twitter.com/bdon">Brandon Liu</a><br></br>♥ <a href="http://ninjapixel.io/">ninjaPixel</a><br></br>♥ <a href="http://fengshuo.co/">fengshuo</a><br></br>♥ <a href="http://economistry.com/">Jonathan Page</a><br></br>♥ <a href="http://kbroman.org">Karl Broman</a><br></br>♥ <a href="http://mahir.nyc">Mahir Yavuz</a><br></br>♥ <a href="twitter.com/arrayjam">Yuri Feldman</a><br></br>♥ <a href="http://matthieu-martin.com">Matthieu Martin</a><br></br>♥ <a href="https://www.facebook.com/draco.paganin">Enrico Paganin</a><br></br>♥ <a href="https://twitter.com/Curt_Mitch">Curtis Mitchell</a><br></br>♥ <a href="twitter.com/georgelmurphy">George Murphy</a><br></br>♥ <a href="http://twitter.com/francoisromain">François Romain</a><br></br>♥ <a href="dcochran.com">Danny Cochran</a><br></br>♥ <a href="https://es.linkedin.com/pub/ignacio-campo/25/4b2/b4">Ignacio Campo</a><br></br>♥ <a href="https://twitter.com/fabian_dubois">Fabian Dubois</a><br></br>♥ <a href="http://www.michael-groncki.com">Michael Groncki</a><br></br>♥ <a href="http://phillipadsmith.com/">Phillip Smith</a><br></br>♥ <a href="https://www.quora.com/Yassine-Alouini">Yassine Alouini</a><br></br>♥ <a href="https://twitter.com/storesyntax">Geo Miller</a><br></br>♥ <a href="https://twitter.com/alinelernerLLC">Aline Lerner</a><br></br>♥ <a href="https://twitter.com/Claud_Alexander">Claud Alexander</a><br></br>♥ <a href="https://twitter.com/jofu_">Johanna Fulda</a><br></br>♥ <a href="http://bl.ocks.org/syntagmatic">Kai Chang</a> <br></br>♥ <a href="http://visualoop.com/geoffmcghee">Geoff McGhee</a> <br></br>♥ <a href="https://www.linkedin.com/pub/ariel-azoulay/38/615/560">Ariel Azoulay</a></p>
-          <p>
-            A special thanks to some friends who supported this project in several ways: <a href="http://twitter.com/enoex">Erik Hazzard</a>, <a href="http://twitter.com/vicapow">Victor Powell</a> and <a href="http://twitter.com/zanstrong">Zan Armstrong</a>.
-          </p>
-          <p>Of course thanks to everyone who <a href="https://github.com/enjalot/building-blocks/graphs/contributors">contributed code</a>.</p>
 
-          <p>Much love to <a href="http://bl.ocks.org/enjalot/476c804335f77198447e">everyone who backed</a>!</p>
+          <h2>Gallery</h2>
+          <p> Bl.ocks chosen by the "Building Block" level <a href="https://www.kickstarter.com/projects/1058500513/building-blocks-0">kickstarter backers</a>.
+          <br/>
+          These bl.ocks represent people's favorite examples, so try playing with them in Block Builder.
+          </p>
+          <div className="gallery">
+            {thumbs}
+          </div>
+          <div className="backers">
+            <h2>All Backers</h2>
+            <p>♥ <a href="https://twitter.com/shirleyxywu">Shirley Wu</a><br></br>♥ <a href="https://twitter.com/jamescwaters">James Waters</a><br></br>♥ <a href="http://elijahmeeks.com/">Elijah Meeks</a><br></br>♥ <a href="http://www.d3noob.org/">d3noob</a><br></br>♥ <a href="http://vasir.net">Erik Hazzard</a><br></br>♥ <a href="http://blog.zanarmstrong.com/about/">Zan Armstrong</a><br></br>♥ <a href="https://twitter.com/milr0c">Miles McCrocklin</a><br></br>♥ <a href="https://twitter.com/trinary">Erik Cunningham</a><br></br>♥ <a href="http://bl.ocks.org/saraquigley">Sara Quigley</a><br></br>♥ <a href="http://owendall.com">Owen Dall</a><br></br>♥ <a href="http://ramble.io">Dow Street</a><br></br>♥ <a href="https://www.dashingd3js.com">Sebastian Gutierrez</a><br></br>♥ <a href="http://encodingpixels.com">Andrew Thornton</a><br></br>♥ <a href="http://postarchitectural.com">Sha Hwang</a><br></br>♥ <a href="https://twitter.com/gelicia">Kristina</a><br></br>♥ <a href="https://twitter.com/maxgoldst">Max Goldstein</a><br></br>♥ <a href="https://twitter.com/ReneCNielsen">René Clausen Nielsen</a><br></br>♥ <a href="https://twitter.com/N2InformaticsRN">Charles Boicey</a><br></br>♥ <a href="http://www.mettihoof.be">Maarten Vanhoof</a><br></br>♥ <a href="roadtolarissa.com">Adam Pearce</a><br></br>♥ <a href="https://twitter.com/timelyportfolio">Kent Russell</a><br></br>♥ <a href="http://jyri.codes">Jyri Tuulos</a><br></br>♥ <a href="https://twitter.com/laneharrison">Lane Harrison</a><br></br>♥ <a href="https://twitter.com/sjengle">Sophie Engle</a><br></br>♥ <a href="http://Vallandingham.me">Jim Vallandingham</a><br></br>♥ <a href="http://macwright.org/">Tom MacWright</a><br></br>♥ <a href="https://uwba.org/Donate">nthitz</a><br></br>♥ <a href="https://twitter.com/jinlongyang">Jinlong Yang</a><br></br>♥ <a href="http://www.lonriesberg.com/">Lon Riesberg</a><br></br>♥ <a href="http://www.brendansudol.com">Brendan Sudol</a><br></br>♥ <a href="http://www.susielu.com">Susie Lu</a><br></br>♥ <a href="https://twitter.com/samselikoff">Sam Selikoff</a><br></br>♥ <a href="http://mfviz.com">Mike Freeman</a><br></br>♥ <a href="https://twitter.com/jsundram">Jason Sundram</a><br></br>♥ <a href="http://www.austgate.co.uk">Iain Emsley</a><br></br>♥ <a href="http://www.noansknv.io">noansknv</a><br></br>♥ <a href="https://twitter.com/d3visualization">Christophe Viau</a><br></br>♥ <a href="https://github.com/gordonwoodhull">Gordon Woodhull</a><br></br>♥ <a href="https://twitter.com/krsanford">Karl Sanford</a><br></br>♥ <a href="http://yaniv.bz">Yaniv Ben-Zaken</a><br></br>♥ <a href="https://twitter.com/BKilmartinIT">Brian Kilmartin</a><br></br>♥ <a href="https://github.com/roundrobin">Nils Schlomann</a><br></br>♥ <a href="http://tomvanantwerp.com">Tom VanAntwerp</a><br></br>♥ <a href="http://jonsadka.com">Jon Sadka</a><br></br>♥ <a href="https://openhatch.org/people/brylie/">Brylie Christopher Oxley</a><br></br>♥ <a href="https://twitter.com/herrstucki">Jeremy Stucki</a><br></br>♥ <a href="http://twitter.com/grssnbchr">Timo Grossenbacher</a><br></br>♥ <a href="https://twitter.com/cherdarchuk">Joey Cherdarchuk</a><br></br>♥ <a href="http://www.sketchflow.com/">paul van slembrouck</a><br></br>♥ <a href="https://github.com/shobhitg">Shobhit Gupta</a><br></br>♥ <a href="https://twitter.com/tonyrgarcia">Tony Garcia</a><br></br>♥ <a href="http://twitter.com/blockspring">Paul Katsen</a><br></br>♥ <a href="https://twitter.com/onfooty">Sarah Rudd</a><br></br>♥ <a href="http://twitter.com/adambreckler">Adam Breckler</a><br></br>♥ <a href="http://www.munafassaf.com">Munaf Assaf</a><br></br>♥ <a href="http://bit.ly/15iIaY3">Douglass Turner</a><br></br>♥ <a href="http://tarekrached.com/">Tarek Rached</a><br></br>♥ <a href="https://twitter.com/ba6dotus">David Mann</a><br></br>♥ <a href="http://fredbenenson.com/">Fred Benenson</a><br></br>♥ <a href="https://twitter.com/SkiWether">Lynn Wetherell</a><br></br>♥ <a href="https://twitter.com/jarthurthompson">John A Thompson</a><br></br>♥ <a href="https://twitter.com/dcabo">David Cabo</a><br></br>♥ <a href="https://www.apricot.com/~scanner">Scanner</a><br></br>♥ <a href="http://johnguerra.co">John Alexis Guerra Gomez</a><br></br>♥ <a href="http://twitter.com/tonyhschu">Tony Chu</a><br></br>♥ <a href="http://twitter.com/bdon">Brandon Liu</a><br></br>♥ <a href="http://ninjapixel.io/">ninjaPixel</a><br></br>♥ <a href="http://fengshuo.co/">fengshuo</a><br></br>♥ <a href="http://economistry.com/">Jonathan Page</a><br></br>♥ <a href="http://kbroman.org">Karl Broman</a><br></br>♥ <a href="http://mahir.nyc">Mahir Yavuz</a><br></br>♥ <a href="twitter.com/arrayjam">Yuri Feldman</a><br></br>♥ <a href="http://matthieu-martin.com">Matthieu Martin</a><br></br>♥ <a href="https://www.facebook.com/draco.paganin">Enrico Paganin</a><br></br>♥ <a href="https://twitter.com/Curt_Mitch">Curtis Mitchell</a><br></br>♥ <a href="twitter.com/georgelmurphy">George Murphy</a><br></br>♥ <a href="http://twitter.com/francoisromain">François Romain</a><br></br>♥ <a href="dcochran.com">Danny Cochran</a><br></br>♥ <a href="https://es.linkedin.com/pub/ignacio-campo/25/4b2/b4">Ignacio Campo</a><br></br>♥ <a href="https://twitter.com/fabian_dubois">Fabian Dubois</a><br></br>♥ <a href="http://www.michael-groncki.com">Michael Groncki</a><br></br>♥ <a href="http://phillipadsmith.com/">Phillip Smith</a><br></br>♥ <a href="https://www.quora.com/Yassine-Alouini">Yassine Alouini</a><br></br>♥ <a href="https://twitter.com/storesyntax">Geo Miller</a><br></br>♥ <a href="https://twitter.com/alinelernerLLC">Aline Lerner</a><br></br>♥ <a href="https://twitter.com/Claud_Alexander">Claud Alexander</a><br></br>♥ <a href="https://twitter.com/jofu_">Johanna Fulda</a><br></br>♥ <a href="http://bl.ocks.org/syntagmatic">Kai Chang</a> <br></br>♥ <a href="http://visualoop.com/geoffmcghee">Geoff McGhee</a> <br></br>♥ <a href="https://www.linkedin.com/pub/ariel-azoulay/38/615/560">Ariel Azoulay</a></p>
+            <p>
+              A special thanks to some friends who supported this project in several ways: <a href="http://twitter.com/enoex">Erik Hazzard</a>, <a href="http://twitter.com/vicapow">Victor Powell</a> and <a href="http://twitter.com/zanstrong">Zan Armstrong</a>.
+            </p>
+            <p>Of course thanks to everyone who <a href="https://github.com/enjalot/building-blocks/graphs/contributors">contributed code</a>.</p>
+
+            <p>Much love to <a href="http://bl.ocks.org/enjalot/476c804335f77198447e">everyone who backed</a>!</p>
+          </div>
       </div>
     );
   }
