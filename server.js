@@ -169,7 +169,7 @@ app.get('/auth/logout', function(req, res) {
 // we optionally support a search page if you've
 var searchConf = nconf.get('search');
 if(searchConf) {
-  var bbSearch = require('blockbuilder-search')(searchConf, app)
+  var bbSearch = require('blockbuilder-search')(searchConf, app, nconf.get("analytics:ga"))
   app.get('/search', bbSearch.page)
   app.get('/api/search', bbSearch.api)
   app.get('/api/aggregateD3api', bbSearch.aggregateD3API)
