@@ -214,11 +214,9 @@ app.post('/api/save', function(req, res){
   // this is potentially not a good idea. but lets do it until its a problem
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
   var gist = req.body.gist;
-  console.log("GIST", gist)
   var token;
-  if(req.session.passport.user) token = req.session.passport.user.accessToken;
+  if(req.session.passport && req.session.passport.user) token = req.session.passport.user.accessToken;
   if(!token) return res.status(403).send({error: "Not logged in"});
   saveGist(gist, "PATCH", token, function(err, response) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
