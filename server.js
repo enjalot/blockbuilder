@@ -171,7 +171,8 @@ var searchConf = nconf.get('search');
 if(searchConf) {
   var bbSearch = require('blockbuilder-search')(searchConf, app)
   app.get('/search', bbSearch.page)
-  app.post('/api/search', bbSearch.api)
+  app.get('/api/search', bbSearch.api)
+  app.get('/api/aggregateD3api', bbSearch.aggregateD3API)
 }
 
 
