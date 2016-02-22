@@ -16,11 +16,9 @@ class SiteNav extends React.Component {
         <div className="nav-link">
           <a href="/about" data-tip="About" data-place="right" data-effect="float"><IconQuestion></IconQuestion></a>
         </div>
-        {/*
         <div className="nav-link">
           <a href="/search" data-tip="Search" data-place="right" data-effect="float"><IconSearch></IconSearch></a>
         </div>
-        */}
       </div>)
     }
 }
