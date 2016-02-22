@@ -171,15 +171,15 @@ var searchConf = nconf.get('search');
 if(searchConf) {
   var bbSearch = require('blockbuilder-search')(searchConf, app, nconf.get("analytics:ga"))
   app.get('/search', bbSearch.page)
-  app.get('/api/search', function(res, req, next) {
+  app.get('/api/search', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    bbSearch.api(res, req, next)
+    bbSearch.api(req, res, next)
   })
-  app.get('/api/aggregateD3api', function(res, req, next) {
+  app.get('/api/aggregateD3api', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    bbSearch.aggregateD3API(res, req, next)
+    bbSearch.aggregateD3API(req, res, next)
   })
 }
 
