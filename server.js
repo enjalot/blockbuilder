@@ -274,12 +274,8 @@ function indexGist(gist) {
   if(!esIndexer.host) return;
   if(gist.public) {
     var options = {
-      method: 'POST',
-      body: JSON.stringify(gist, null, 2),
-      url: esIndexer.host + "/index/gist",
-      headers: {
-        "Content-Type": "application/json"
-      }
+      method: 'GET',
+      url: esIndexer.host + "/index/gist/" + gist.id,
     };
     //console.log("posting", options)
     request(options, function(err, response) {
