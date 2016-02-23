@@ -33,7 +33,7 @@ var GistNav = React.createClass({
         <span>by<a className="header-link" href={ profileUrl } target="_blank">{userName}</a></span>
       )
     } else {
-      profile = ( <span> by {userName} </span> )
+      profile = ( <span className="header-link"> by {userName}</span> )
     }
 
     var gistUrl = "https://gist.github.com/" + userName + '/' + this.props.params.gistId
