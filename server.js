@@ -242,7 +242,7 @@ app.post('/api/fork', function (req, res) {
 
   var gist = req.body.gist;
   var token;
-  if(req.session.passport.user) token = req.session.passport.user.accessToken;
+  if(req.session.passport && req.session.passport.user) token = req.session.passport.user.accessToken;
   saveGist(gist, "POST", token, function(err, response) {
     if(err){ console.log(err); return res.status(400).send({error: err}); }
     console.log("forked to", response.id);
@@ -254,7 +254,7 @@ app.post('/api/fork', function (req, res) {
 // allow a user to commit a thumbnail to their gist
 app.post('/api/thumbnail', function (req, res){
   var token;
-  if(req.session.passport.user) token = req.session.passport.user.accessToken;
+  if(req.session.passport && req.session.passport.user) token = req.session.passport.user.accessToken;
   if(!token) return res.status(403).send({error: "Not logged in"});
   var gistId = req.body.gistId;
   var image = req.body.image; //base64 encoded png
