@@ -30,19 +30,6 @@ function parseCode(template, files) {
     })
   }
 
-  // horrible hack to support jquery ajax requests, something common enough
-  // that it shouldn't break by default. we need to tell jQuery to support CORS by default
-  // because of the sandboxed blob-based iframe.
-  var re = new RegExp("<script (?!src).*?>", 'g')
-  var matches = template.match(re);
-  if(!matches) {
-    re = new RegExp("<script>")
-    matches = template.match(re);
-  }
-  // we add this line to the first matching script tag that isn't loading from an external src.
-  // this should cover most reasonable cases and not ever interfere with anyone's code
-  if(matches) { template = template.replace(matches[0], matches[0] + "if(window.jQuery){try{window.jQuery.support.cors=true}catch(e){}}\n") }
-
   var referencedFiles = {}
   // we need to keep track of injected lines for error line number offset
   var lines = 0;
@@ -131,7 +118,9 @@ function parseCode(template, files) {
   // as the file changes.
   // I was able to figure this out thanks to this page:
   // http://ajaxref.com/ch7/xhrhijackfullprototype.html
-  var xmloverride = `<script>(function() {
+
+  // the jQuery line in the beginning here allows us to support cors from a null origin iframe like our renderer
+  var xmloverride = `<script>if(window.jQuery){try{window.jQuery.support.cors=true}catch(e){}}; (function() {
     var XHR = window.XMLHttpRequest;
     window.XMLHttpRequest = function() {
       // create our "real" xhr instance
@@ -181,7 +170,7 @@ function parseCode(template, files) {
       return this.xhr.overrideMimeType(mime);
     }
     window.XMLHttpRequest.prototype.send = function(data) {
-      //we need to remap the fake XHR to the real one inside the onload/onreadystatechange functions 
+      //we need to remap the fake XHR to the real one inside the onload/onreadystatechange functions
       var that = this;
       // unfortunately we need to do our copying of handlers in the next tick as
       // it seems with normal XHR you can add them after firing off send... which seems
@@ -201,7 +190,7 @@ function parseCode(template, files) {
               that.response = this.response;
               that.readyState = this.readyState;
               that.status = this.status;
-              that.statusText = this.statusText; 
+              that.statusText = this.statusText;
             } catch(e) { console.log("onload", e) }
             try {
               if(that.responseType == '') {
@@ -228,7 +217,7 @@ function parseCode(template, files) {
               that.status = this.status;
               that.statusText = this.statusText;
             } catch(e){
-               console.log("e", e) 
+               console.log("e", e)
             }
             ready();
           }
