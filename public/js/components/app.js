@@ -44,7 +44,7 @@ var App = React.createClass({
   componentWillMount: function componentWillMount(){
     var appElement = document.getElementById("app");
     Modal.setAppElement(appElement);
-    Modal.injectCSS();
+    //Modal.injectCSS();
     if(!this.state.user.login){
       Actions.fetchMe();
     }
