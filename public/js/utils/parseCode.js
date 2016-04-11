@@ -241,7 +241,7 @@ function parseCode(template, files) {
   // We intercept onerror to give better line numbers in your console
   // 6 is a manual count of the added template code for this section of the template
   // we could use this offset to set a marker in the codemirror gutter
-  lines = lines + xmloverride.split(/\r\n|\r|\n/).length + 7
+  lines = lines + xmloverride.split(/\r\n|\r|\n/).length + 6
   template = `<script>(function(){
     window.onerror = function(msg, url, lineNumber) {
       window.parent.postMessage({type: "runtime-error", lineNumber:(lineNumber-`+lines+`), message:msg}, "`+window.location.origin+`")
