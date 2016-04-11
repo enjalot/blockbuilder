@@ -40,7 +40,7 @@ var FilesAdd = React.createClass({
   },
   handleBlob: function handleBlob(file) {
     var reader = new FileReader();
-    Actions.setModal("Sorry, the gist API supports text files only.") 
+    Actions.setModal("Sorry, the gist API supports text files only.")
     console.log("TEXT FILES ONLY")
     document.getElementById('files__input').value = '';
     // TODO: clear the file input
@@ -48,14 +48,13 @@ var FilesAdd = React.createClass({
   selectFile: function selectFile(evt) {
     var files = evt.target.files;
     var file = files[0];
-    console.log("FILE", file)
     // TODO error handling
     if(!file) return;
     if(file.size > 10000000) {
       console.log("ERROR", "file too big!", file.size, " > 10mb")
       return;
     }
-    console.log("file type", file.type, file.type.indexOf("text/"))
+    //console.log("file type", file.type, file.type.indexOf("text/"))
     if(file.type.indexOf("text/") === 0) {
       console.log("handle text")
       this.handleText(file);
@@ -65,10 +64,11 @@ var FilesAdd = React.createClass({
       // TODO make this redirect to the thumbnail tab
       this.handleBlob(file);
     } else {
-      this.handleBlob(file);
+      console.log("don't recognize type", file.type, file)
+      this.handleText(file);
     }
   },
-  
+
   handleFilenameInput: function handleFilenameInput(evt) {
     var value = this.refs.filenameInput.value;
     this.setState({newFileName: value})
@@ -110,7 +110,7 @@ var FilesAdd = React.createClass({
 
     let newFile = ""
     if(this.state.showNewFile) {
-      // 
+      //
       newFile = (
           <div id="files__add-new" className="file">
             <a data-tip={"Save " + this.state.newFileName } data-place='bottom' onClick={this.saveNew} className="file" data-effect="float">Save</a>
