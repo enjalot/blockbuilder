@@ -181,6 +181,11 @@ if(searchConf) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     bbSearch.aggregateD3API(req, res, next)
   })
+  app.get('/api/aggregateD3modules', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    bbSearch.aggregateD3Modules(req, res, next)
+  })
 }
 
 
