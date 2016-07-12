@@ -9,6 +9,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import logger from 'bragi-browser';
+var ReactTooltip = require("react-tooltip")
 
 // Disable detailed logging for now
 logger.options.groupsEnabled = [];
@@ -55,13 +56,13 @@ var Block = React.createClass({
    */
   getInitialState: function getInitialState(){
     var gistData = GistsStore.getGistMaybe(this.props.params.gistId);
-    return { 
-      gistData: gistData, 
-      failed: false, 
-      activeFile: 'index.html', 
-      mode: "blocks", 
-      fullscreen: false, 
-      pauseAutoRun: false 
+    return {
+      gistData: gistData,
+      failed: false,
+      activeFile: 'index.html',
+      mode: "blocks",
+      fullscreen: false,
+      pauseAutoRun: false
     };
   },
 
@@ -72,14 +73,14 @@ var Block = React.createClass({
     logger.log('components/Block:component:fileStoreChange',
       'file store updated : %O', data);
 
-    if(data.type === 'setActiveFile') { 
+    if(data.type === 'setActiveFile') {
       this.setState({activeFile: data.activeFile})
     } else if(data.type === 'addFile') {
       var gist = this.state.gistData;
       gist.files[data.file.name] = {content: data.file.content, filename: data.file.name };
       this.setState({ gistData: gist, fileAdded: true })
       this.setState({activeFile: data.file.name})
-    } else if(data.type === 'removeFile') { 
+    } else if(data.type === 'removeFile') {
       var gist = this.state.gistData;
       console.log("removeFile", data.file.filename)
       gist.files[data.file.filename] = null;
@@ -95,7 +96,7 @@ var Block = React.createClass({
     logger.log('components/Home:appStoreChange',
       'file store updated : %O', data);
 
-    if(data.type === 'setMode') { 
+    if(data.type === 'setMode') {
       this.setState({mode: data.mode})
     } else if(data.type === 'setFullScreen'){
       this.setState({fullscreen: data.fullscreen})
@@ -106,13 +107,13 @@ var Block = React.createClass({
 
   checkForTruncated: function checkForTruncated(gist) {
     // Checks a gist for truncated files. will return true if one is present.
-    // This will also kick off the fetch 
+    // This will also kick off the fetch
     var files = Object.keys(gist.files);
     for(var i = 0; i < files.length; i++) {
       var fileName = files[i];
       var file = gist.files[fileName];
       if(file.truncated) {
-        if(file.size > 10000000) { 
+        if(file.size > 10000000) {
           // we can't handle files greater than ~10mb
           // https://developer.github.com/v3/gists/#truncation
           var failMessage = "Can't handle files larger than 10mb: " + fileName;
@@ -120,7 +121,7 @@ var Block = React.createClass({
             gistData: null, failed: true,
             failMessage: failMessage
           });
-          return true 
+          return true
         }
         // TODO: this is synchronously loading truncated files. not ideal
         Actions.fetchTruncatedFile(file.raw_url, gist.id, file.filename)
@@ -274,7 +275,7 @@ var Block = React.createClass({
     var files = window.d3.select('#block__code-files');
     // TODO make this always be the same as the iframe height/offset
     // currently its slightly fudged due to diff between abs and fixed position
-    if(scrollTop >= 515) { 
+    if(scrollTop >= 515) {
       files.classed("fixed-files", true)
       files.classed("absolute-files", false)
     } else {
@@ -331,17 +332,17 @@ var Block = React.createClass({
       // SUCCESS - data exists
       blockContent = (
         <div>
-          <Renderer gist={this.state.gistData} 
-            active={this.state.activeFile} 
-            mode={this.state.mode} 
+          <Renderer gist={this.state.gistData}
+            active={this.state.activeFile}
+            mode={this.state.mode}
             description={this.state.gistData.description}
             paused={this.state.pauseAutoRun}
           ></Renderer>
           <Files gist={this.state.gistData} active={this.state.activeFile}></Files>
-          <Editor gist={this.state.gistData} 
-            user={this.props.user} 
-            active={this.state.activeFile} 
-            mode={this.state.mode} 
+          <Editor gist={this.state.gistData}
+            user={this.props.user}
+            active={this.state.activeFile}
+            mode={this.state.mode}
             saving={this.state.saving}
           ></Editor>
           <div id="block__code-handle"></div>
@@ -350,7 +351,7 @@ var Block = React.createClass({
     }
 
     var fullscreenClass = this.state.fullscreen ? "fullscreen" : "";
-    return ( 
+    return (
       <div id='block__wrapper' className={this.state.embed ? "embed" : ""}>
         <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
           <KeyboardShortcuts {...this.props} gist={this.state.gistData} paused={this.state.pauseAutoRun} />
@@ -370,6 +371,7 @@ var Block = React.createClass({
         <div id='block__content' className={this.state.mode + " " + fullscreenClass}>
           {blockContent}
         </div>
+        <ReactTooltip/>
       </div>
     );
   }
