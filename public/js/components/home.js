@@ -33,24 +33,26 @@ import {IconLoader} from './icons.js';
 var defaultIndexContent = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
   <style>
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-    svg { width:100%; height: 100% }
   </style>
 </head>
 
 <body>
   <script>
-    // Feel free to change or delete any of the code you see!
+    // Feel free to change or delete any of the code you see in this editor!
     var svg = d3.select("body").append("svg")
-    svg.append("rect")
-      .attr({x: 100, y: 10, width: 700, height: 480})
-      .style({ fill: "#a72d1a"})
-      .transition().duration(3000).ease("bounce")
-      .style({ fill: "#5db9e3"})
+      .attr("width", 960)
+      .attr("height", 500)
 
-    console.log("you are now rocking with d3", d3);
+    svg.append("text")
+      .text("Edit the code below to change me!")
+      .attr("y", 200)
+      .attr("x", 120)
+      .style("font-size", 36)
+      .style("font-family", "monospace")
+
   </script>
 </body>
 `
@@ -76,9 +78,9 @@ var Home = React.createClass({
       },
       public: true
     }
-    return { 
-      gistData: gistData, 
-      activeFile: 'index.html', 
+    return {
+      gistData: gistData,
+      activeFile: 'index.html',
       mode: "blocks",
       fullscreen: false,
       showOverlay: true,
@@ -92,14 +94,14 @@ var Home = React.createClass({
     logger.log('components/Home:fileStoreChange',
       'file store updated : %O', data);
 
-    if(data.type === 'setActiveFile') { 
+    if(data.type === 'setActiveFile') {
       this.setState({activeFile: data.activeFile})
     } else if(data.type === 'addFile') {
       var gist = this.state.gistData;
       gist.files[data.file.name] = {content: data.file.content, filename: data.file.name };
       this.setState({ gistData: gist, fileAdded: true })
       this.setState({activeFile: data.file.name})
-    } else if(data.type === 'removeFile') { 
+    } else if(data.type === 'removeFile') {
       var gist = this.state.gistData;
       console.log("removeFile", data.file.filename)
       delete gist.files[data.file.filename]
@@ -114,7 +116,7 @@ var Home = React.createClass({
     logger.log('components/Home:appStoreChange',
       'file store updated : %O', data);
 
-    if(data.type === 'setMode') { 
+    if(data.type === 'setMode') {
       this.setState({mode: data.mode})
     } else if(data.type === 'setFullScreen'){
       this.setState({fullscreen: data.fullscreen})
@@ -216,7 +218,7 @@ var Home = React.createClass({
 
             <h2>Create and Edit</h2>
             <p className="tut">
-              If you login with GitHub, all of your examples will save to GitHub gists associated with your account. 
+              If you login with GitHub, all of your examples will save to GitHub gists associated with your account.
               Everything is powered by URL, so when you create a new block in Block Builder your URL will change to something like
             </p>
             <pre className="url">
@@ -230,7 +232,7 @@ var Home = React.createClass({
             <pre className="url">
               <a target="_blank" href="http://bl.ocks.org/enjalot/64dbd9b7b740ba44462f">http://<span className="domain">bl.ocks.org</span>/enjalot/64dbd9b7b740ba44462f</a>
             </pre>
-            This means you can quickly come back and edit code you wrote earlier. 
+            This means you can quickly come back and edit code you wrote earlier.
             All you need is the URL of one of your blocks!
             <h2>Fork</h2>
             <p className="tut">
@@ -246,13 +248,13 @@ var Home = React.createClass({
             </p>
             <h3>Bookmarklet</h3>
             <p className="tut">
-              It can get annoying to edit the URL all the time. If you drag this link: <a href='javascript:(function()%7Bvar current %3D window.location %2B ""%3Bvar newUrl %3D current.replace("http%3A%2F%2Fbl.ocks.org"%2C "http%3A%2F%2Fblockbuilder.org")%3BnewUrl %3D newUrl.replace("https%3A%2F%2Fgist.github.com"%2C "http%3A%2F%2Fblockbuilder.org")%3Bwindow.location %3D newUrl%7D)()'>Block Builder</a> into 
+              It can get annoying to edit the URL all the time. If you drag this link: <a href='javascript:(function()%7Bvar current %3D window.location %2B ""%3Bvar newUrl %3D current.replace("http%3A%2F%2Fbl.ocks.org"%2C "http%3A%2F%2Fblockbuilder.org")%3BnewUrl %3D newUrl.replace("https%3A%2F%2Fgist.github.com"%2C "http%3A%2F%2Fblockbuilder.org")%3Bwindow.location %3D newUrl%7D)()'>Block Builder</a> into
               your bookmark bar and click it while on a gist or block it will take you to blockbuilder.org!
             </p>
 
             <h3>How it works</h3>
             <p className="tut">
-              Read more here about <a target="_blank" href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how Block Builder works</a>. 
+              Read more here about <a target="_blank" href="https://github.com/enjalot/building-blocks/wiki/How-it-works">how Block Builder works</a>.
               It is <a target="_blank" href="https://github.com/enjalot/building-blocks">open source software</a>, so checkout the <a href="https://github.com/enjalot/building-blocks/issues">issues</a> or catch us in <a target="_blank" href="https://gitter.im/enjalot/building-blocks">our chat room</a>.
             </p>
             <h3>Try it out</h3>
@@ -265,7 +267,7 @@ var Home = React.createClass({
       )
     }
     var fullscreenClass = this.state.fullscreen ? "fullscreen" : "";
-    return ( 
+    return (
       <div id='block__wrapper' className={this.state.embed ? "embed" : ""}>
         <div id='block__header' className={this.state.mode + " " + fullscreenClass}>
           <KeyboardShortcuts {...this.props} gist={this.state.gistData} paused={this.state.pauseAutoRun} />
@@ -284,9 +286,9 @@ var Home = React.createClass({
 
         <div id='block__content' className={this.state.mode + " " + fullscreenClass}>
           {overlay}
-          <Renderer gist={this.state.gistData} 
-            active={this.state.activeFile} 
-            mode={this.state.mode} 
+          <Renderer gist={this.state.gistData}
+            active={this.state.activeFile}
+            mode={this.state.mode}
             description={this.state.gistData.description}
             paused={this.state.pauseAutoRun}
           ></Renderer>
