@@ -117,13 +117,14 @@ MongoClient.connect(mongoUrl, function(err, db) {
       callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-      var profileId = profile.id + "";
+      var profileId = profile.id + ""; //we make sure we are always using strings for our internal ids
       users.findOne({ '_id': profileId }, function (err, user) {
-        if(!user) {
+        if (!user) {
           profile._id = profileId;
           user = profile._json;
           user._id = profileId;
           users.update({_id: profileId}, user, {upsert: true}, function(err){
+            profile.id = +profile.id; //GitHub seems to return a string upon user creation (but numbers the rest of the time)
             profile.login = user.login;
             profile.avatar_url = user.avatar_url;
             profile.accessToken = accessToken;
