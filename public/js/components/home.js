@@ -238,7 +238,7 @@ var Home = React.createClass({
             </p>
             <p className="tut">
               <a target="_blank" href="http://bl.ocks.org/enjalot/raw/211bd42857358a60a936/">
-                <img src="/img/thumbs.png" width="715px" />
+                <img src="/img/thumbs.jpg" width="715px" />
               </a>
             </p>
             <p className="tut">
