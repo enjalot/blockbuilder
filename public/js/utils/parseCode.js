@@ -120,7 +120,7 @@ function parseCode(template, files) {
   // http://ajaxref.com/ch7/xhrhijackfullprototype.html
 
   // the jQuery line in the beginning here allows us to support cors from a null origin iframe like our renderer
-  var xmloverride = `<script>if(window.jQuery){try{window.jQuery.support.cors=true}catch(e){}}; (function() {
+  var xmlOverride = `<script>if(window.jQuery){try{window.jQuery.support.cors=true}catch(e){}}; (function() {
     var XHR = window.XMLHttpRequest;
     window.XMLHttpRequest = function() {
       // create our "real" xhr instance
@@ -234,18 +234,22 @@ function parseCode(template, files) {
         that.xhr.send(data)
       }, 0)
     }
-  })()</script>`;
+  })()</script>`
 
-  template = xmloverride + template;
+  var alertOverride = `
+  <script>window.alert = function(msg) { console.log(msg) };</script>
+  `
+  var override = xmlOverride + alertOverride
 
+  template = override + template
   // We intercept onerror to give better line numbers in your console
   // 6 is a manual count of the added template code for this section of the template
   // we could use this offset to set a marker in the codemirror gutter
-  lines = lines + xmloverride.split(/\r\n|\r|\n/).length + 6
+  lines = lines + override.split(/\r\n|\r|\n/).length + 6
   template = `<script>(function(){
     window.onerror = function(msg, url, lineNumber) {
-      window.parent.postMessage({type: "runtime-error", lineNumber:(lineNumber-`+lines+`), message:msg}, "`+window.location.origin+`")
-      //console.debug('blockbuilder editor error on line: ' + (lineNumber-`+lines+`))
+      window.parent.postMessage({type: "runtime-error", lineNumber:(lineNumber-` + lines + `), message:msg}, "` + window.location.origin + `")
+      //console.debug('blockbuilder editor error on line: ' + (lineNumber-` + lines + `))
     }
   })()</script>` + template
 
