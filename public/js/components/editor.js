@@ -24,6 +24,7 @@ import EditorCSS from './editor__css.js'
 import EditorMD from './editor__md.js'
 import EditorTXT from './editor__txt.js'
 import EditorPNG from './editor__png.js'
+import EditorSettings from './editor__settings.js'
 
 // ========================================================================
 //
@@ -31,7 +32,7 @@ import EditorPNG from './editor__png.js'
 // ========================================================================
 var Editor = React.createClass({
 
-  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) { 
+  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
     logger.log('components/Editor:component:shouldComponentUpdate', 'nextProps: %0', nextProps);
     if(!nextProps) return true;
     if(nextProps.active !== this.props.active) return true;
@@ -125,7 +126,7 @@ var Editor = React.createClass({
       if(editorWidth < 40) return;
       var style = "calc(100% - " + editorWidth + "px)"
       d3.select("#block__code-wrapper").style("width", style)
-    }) 
+    })
 
     handle.call(resizeDrag)
     */
@@ -135,7 +136,7 @@ var Editor = React.createClass({
     var gist = this.props.gist;
     var active = this.props.active;
     var editor;
-    if(active.indexOf('.html') >= 0){ 
+    if(active.indexOf('.html') >= 0){
       editor = ( <EditorHTML {...this.props} ref="cm"></EditorHTML>)
     } else if(active.indexOf('.md') >= 0) {
       editor = ( <EditorMD {...this.props}></EditorMD>)
@@ -149,6 +150,8 @@ var Editor = React.createClass({
       editor = ( <EditorCSS {...this.props}></EditorCSS>)
     } else if(active.indexOf('.png') >= 0) {
       editor = ( <EditorPNG {...this.props}></EditorPNG>)
+    } else if(active === '.block') {
+      editor = ( <EditorSettings {...this.props}></EditorSettings>)
     } else {
       editor = ( <EditorTXT {...this.props}></EditorTXT>)
     }

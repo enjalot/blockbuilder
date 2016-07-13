@@ -13,7 +13,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { 
+            {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: "babel-loader",
@@ -21,7 +21,7 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
-            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") },
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("css-loader") },
             { test: /\.scss$/, loader: ExtractTextPlugin.extract('css!sass') }
         ]
     },

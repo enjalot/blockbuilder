@@ -51,6 +51,7 @@
     "react-dom": "^0.14.2",
     "react-modal": "^0.6.1",
     "react-router": "^0.13.5",
+    "react-select": "^0.9.1",
     "react-tools": "^0.13.3",
     "react-tooltip": "^1.0.3",
     "redis": "^2.4.2",

@@ -293,6 +293,15 @@ a.header-link:hover {
   display: none;
 }
 
+#files__settings {
+  margin: 3px 3px;
+  cursor: pointer;
+}
+#files__settings svg {
+  width: 14px;
+  height: 14px;
+}
+
 #files__add-wrapper {
   display: inline-block;
   float:right;
@@ -320,7 +329,11 @@ a.header-link:hover {
   margin: 5px;
 }
 
-
+#editor__settings-controls {
+  .Select {
+    width: 300px;
+  }
+}
 
 #block__code-wrapper {
   position: absolute;

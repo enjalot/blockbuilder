@@ -15,6 +15,8 @@ import logger from 'bragi-browser';
 // ------------------------------------
 import FilesTab from './files__tab.js';
 import FilesAdd from './files__add.js';
+import Actions from '../actions/actions.js';
+import {IconSettings} from './icons.js';
 
 var defaults = ['index.html', 'README.md', 'thumbnail.png'];
 
@@ -28,6 +30,9 @@ var Files = React.createClass({
   },
   showMore: function showMore(){
     this.setState({show: !this.state.show});
+  },
+  showSettings: function showSettings() {
+    Actions.setActiveFile('.block')
   },
   render: function render() {
     logger.log('components/files:render', 'render called');
@@ -55,10 +60,11 @@ var Files = React.createClass({
     if(!gist.files["index.html"]) gist.files["index.html"] = {content: "<html></html>", filename:"index.html"}
     if(!gist.files["README.md"]) gist.files["README.md"] = {content: "", filename:"README.md"}
     if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
+    if(!gist.files[".block"]) gist.files[".block"] = {content: "license: gpl-3.0", filename:".block"}
 
     var hideShowButton = ""
     if(!files.length){
-      hideShowButton = "hidden"      
+      hideShowButton = "hidden"
     }
     var thumbTab = (<FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>)
     if(this.props.hidethumb){
@@ -77,6 +83,11 @@ var Files = React.createClass({
         </a>
         <div id='files__more' className={show}>
           {files}
+        </div>
+        <div id='files__settings'>
+          <a onClick={this.showSettings}>
+            <IconSettings></IconSettings>
+          </a>
         </div>
       </div>
     );
