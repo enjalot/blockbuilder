@@ -1,3 +1,10 @@
 extends: standard
 plugins:
   - standard
+
+rules:
+  semi:
+    - error
+    - always
+  quotes:
+    - 0
