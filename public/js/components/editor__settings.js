@@ -339,7 +339,7 @@ var LICENSES = [
   'zpl-2.1',
   'bsd-3-clause-no-nuclear-license',
   'bsd-3-clause-no-nuclear-warranty',
-  'bsd-3-clause-no-nuclear-license-2014'
+  'bsd-3-clause-no-nuclear-license-2014',
   'none'
 ]
 var LICENSE_OPTIONS = []
