@@ -51,14 +51,16 @@ var SaveForkNav = React.createClass({
     }
     if(user && gist && gist.owner && user.id === gist.owner.id) {
       //setup the lock links
+      tip = "This block is " + (gist.public ? "public": "private" ) + ". GitHub doesn't allow changing of a gist's privacy settings.";
+      /*
       var editPage = "https://gist.github.com/" + gist.owner.login + "/" + gist.id + "/edit";
       var target = "_blank";
-      tip = "This block is " + (gist.public ? "public": "private" ) + ". You must edit it via GitHub's interface to change it to " + (gist.public ? "private" : "public") + "."; 
       lockLink = (
         <a href={editPage} target={target}>
           {icon}
         </a>
       )
+      */
       if(this.props.saving) {
         save = loading;
       } else {
@@ -81,17 +83,17 @@ var SaveForkNav = React.createClass({
     }
 
     if(gist && gist.owner) {
-    
+
     }
     var lock = "";
     // Because the gist API doesn't allow us to modify the privacy of an existing gist
     // we need different logic depending on if we are creating a gist or looking at an existing one
     if(this.props.page === "home") {
       if(gist && !gist.public) {
-        lock = ( 
+        lock = (
           <div id="block__lock" className="clickable" onClick={ this.makePublic } data-tip="This block is private. Click to make it public on your next save." data-place="bottom" data-effect="float">
             <IconPrivate></IconPrivate>
-          </div> 
+          </div>
         )
       } else if(gist) {
         lock = (
@@ -102,15 +104,15 @@ var SaveForkNav = React.createClass({
       }
     } else {
       if(gist && !gist.public) {
-        lock = ( 
+        lock = (
           <div id="block__lock" data-tip={tip} data-place="bottom" data-effect="float">
-          {lockLink}
+            <IconPrivate></IconPrivate>
           </div>
         )
       } else if(gist) {
         lock = (
           <div id="block__lock" data-tip={tip} data-place="bottom" data-effect="float">
-          {lockLink}
+            <IconPublic></IconPublic>
           </div>
         )
       }

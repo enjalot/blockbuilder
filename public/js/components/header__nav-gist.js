@@ -56,8 +56,8 @@ var GistNav = React.createClass({
         <span id='block__nav-gist-author'>
           {profile}
         </span>
-        <a className="header-link" href={ blocksUrl } id="block__nav-block" target="_blank">
-          view on bl.ocks.org
+        <a className="header-link blocks-link" href={ blocksUrl } id="block__nav-block" target="_blank">
+          view bl.ock
         </a>
         <a className="header-link" href={ gistUrl } id="block__nav-gist" target="_blank" data-tip='View underlying gist' data-place='bottom' data-effect="float" >
           <IconGist></IconGist>
