@@ -1,4 +1,3 @@
-
 /* =========================================================================
  *
  *  files.js
@@ -9,30 +8,30 @@
 // ------------------------------------
 import React from 'react';
 import logger from 'bragi-browser';
-//var ReactTooltip = require("react-tooltip")
+// var ReactTooltip = require("react-tooltip")
 
 // Internal Dependencies
 // ------------------------------------
 import FilesTab from './files__tab.js';
 import FilesAdd from './files__add.js';
 import Actions from '../actions/actions.js';
-import {IconSettings} from './icons.js';
+import { IconSettings } from './icons.js';
 
 var defaults = ['index.html', 'README.md', 'thumbnail.png'];
 
 var Files = React.createClass({
-  getInitialState: function getInitialState(){
+  getInitialState: function getInitialState() {
     return { show: false };
   },
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     // we close the menu if any selection is made...
-    this.setState({show: false});
+    this.setState({ show: false });
   },
-  showMore: function showMore(){
-    this.setState({show: !this.state.show});
+  showMore: function showMore() {
+    this.setState({ show: !this.state.show });
   },
   showSettings: function showSettings() {
-    Actions.setActiveFile('.block')
+    Actions.setActiveFile('.block');
   },
   render: function render() {
     logger.log('components/files:render', 'render called');
@@ -41,33 +40,33 @@ var Files = React.createClass({
     // build the list of files that will render in the "more" menu
     let files = [];
     Object.keys(gist.files).forEach(function(name) {
-      if(defaults.indexOf(name) >= 0) return;
+      if (defaults.indexOf(name) >= 0) return;
       var file = gist.files[name];
-      if(!file || !file.content) return;
-      files.push( (<FilesTab file={ file } key={name} ></FilesTab>) );
+      if (!file || !file.content) return;
+      files.push((<FilesTab file={ file } key={name} ></FilesTab>));
     });
 
     // render the filename of the active tab if it's not one of the defaults
     let extra = '';
-    if(defaults.indexOf(this.props.active) < 0) {
+    if (defaults.indexOf(this.props.active) < 0) {
       extra = (<FilesTab file={gist.files[this.props.active]} {...this.props}></FilesTab>);
     }
 
     let show = '';
-    if(this.state.show){
+    if (this.state.show) {
       show = 'show';
     }
-    if(!gist.files["index.html"]) gist.files["index.html"] = {content: "<html></html>", filename:"index.html"}
-    if(!gist.files["README.md"]) gist.files["README.md"] = {content: "", filename:"README.md"}
-    if(!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = {content: "", filename:"thumbnail.png"}
-    if(!gist.files[".block"]) gist.files[".block"] = {content: "license: gpl-3.0", filename:".block"}
+    if (!gist.files["index.html"]) gist.files["index.html"] = { content: "<html></html>", filename: "index.html" };
+    if (!gist.files["README.md"]) gist.files["README.md"] = { content: "", filename: "README.md" };
+    if (!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = { content: "", filename: "thumbnail.png" };
+    if (!gist.files[".block"]) gist.files[".block"] = { content: "license: gpl-3.0", filename: ".block" };
 
-    var hideShowButton = ""
-    if(!files.length){
-      hideShowButton = "hidden"
+    var hideShowButton = "";
+    if (!files.length) {
+      hideShowButton = "hidden";
     }
-    var thumbTab = (<FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>)
-    if(this.props.hidethumb){
+    var thumbTab = (<FilesTab file={gist.files['thumbnail.png']} {...this.props}></FilesTab>);
+    if (this.props.hidethumb) {
       thumbTab = "";
     }
 
@@ -78,7 +77,7 @@ var Files = React.createClass({
         {thumbTab}
         {extra}
         <FilesAdd {...this.props}></FilesAdd>
-        <a id="files__show" data-tip="Show more files" data-place='bottom' data-effect="float" onClick={this.showMore} className={"file " + hideShowButton} >
+        <a id='files__show' data-tip='Show more files' data-place='bottom' data-effect='float' onClick={this.showMore} className={"file " + hideShowButton} >
         ⋯ ({files.length})
         </a>
         <div id='files__more' className={show}>

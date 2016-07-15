@@ -68,6 +68,6 @@ pre {
 }
   </style>
 </head>
-`
+`;
 
 export default markdownTemplate;

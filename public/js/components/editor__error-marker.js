@@ -5,7 +5,7 @@
  *
  * ========================================================================= */
 import React from 'react';
-var ReactTooltip = require("react-tooltip")
+var ReactTooltip = require("react-tooltip");
 
 var ErrorMarker = React.createClass({
   getInitialState() {
@@ -17,24 +17,24 @@ var ErrorMarker = React.createClass({
     this.setState({
       visible: true,
       message: message
-    })
+    });
   },
-  handleDestroy(){
+  handleDestroy() {
     this.setState({
-      destroy:true
+      destroy: true
     });
   },
   render() {
-    if(this.state.destroy) {
+    if (this.state.destroy) {
       return null;
     }
     return (
       <div>
-        <div data-for='ErrorMarker' data-tip={this.state.message} data-place='right' data-effect="float">●</div>
-        <ReactTooltip id='ErrorMarker' placeholder="error" />
+        <div data-for='ErrorMarker' data-tip={this.state.message} data-place='right' data-effect='float'>●</div>
+        <ReactTooltip id='ErrorMarker' placeholder='error' />
       </div>
-    )
+    );
   }
 });
 
-export default ErrorMarker
+export default ErrorMarker;

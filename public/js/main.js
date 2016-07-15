@@ -15,9 +15,9 @@ import ReactDOM from 'react-dom';
 // Configure logger
 import logger from 'bragi-browser';
 logger.transports.get('console').property('showMeta', false);
-//logger.options.groupsEnabled = false;
-//logger.options.groupsEnabled = [/[Ss]tore/];
-//logger.options.groupsEnabled = [/ItemList/];
+// logger.options.groupsEnabled = false;
+// logger.options.groupsEnabled = [/[Ss]tore/];
+// logger.options.groupsEnabled = [/ItemList/];
 
 // Internal Dependencies
 // ------------------------------------

@@ -10,7 +10,7 @@
 // ------------------------------------
 import React from 'react';
 import logger from 'bragi-browser';
-import Select from 'react-select'
+import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 // Internal Dependencies
@@ -341,20 +341,20 @@ var LICENSES = [
   'bsd-3-clause-no-nuclear-warranty',
   'bsd-3-clause-no-nuclear-license-2014',
   'none'
-]
-var LICENSE_OPTIONS = []
+];
+var LICENSE_OPTIONS = [];
 LICENSES.forEach(function(license) {
-  LICENSE_OPTIONS.push({value: license, label: license})
-})
+  LICENSE_OPTIONS.push({ value: license, label: license });
+});
 
 var BORDER_OPTIONS = [
-  {value: "yes", label: "yes"},
-  {value: "no", label: "no"},
-]
+  { value: "yes", label: "yes" },
+  { value: "no", label: "no" }
+];
 var SCROLLABLE_OPTIONS = [
-  {value: "no", label: "no"},
-  {value: "yes", label: "yes"},
-]
+  { value: "no", label: "no" },
+  { value: "yes", label: "yes" }
+];
 
 // ========================================================================
 //
@@ -367,82 +367,81 @@ var EditorSettings = React.createClass({
 
     // We are checking if this gist is already owned by the authenticated user.
     // The only case we want to support the adding/editing of a thumbnail is if the gist is already created/owned by the user
-    if(gist && gist.id && gist.owner && this.props.user && gist.owner.id === this.props.user.id) {
-      this.setState({ canEdit: true })
+    if (gist && gist.id && gist.owner && this.props.user && gist.owner.id === this.props.user.id) {
+      this.setState({ canEdit: true });
     } else {
-      this.setState({ canEdit: false})
+      this.setState({ canEdit: false });
     }
   },
-  componentDidMount: function componentDidMount(){
+  componentDidMount: function componentDidMount() {
     logger.log('components/EditorSettings:component:componentDidMount', 'called');
   },
-  componentDidUpdate: function componentDidUpdate(){
+  componentDidUpdate: function componentDidUpdate() {
     logger.log('components/EditorSettings:component:componentDidUpdate', 'called');
   },
 
   getConfig: function() {
     var gist = this.props.gist;
     var settings;
-    if(gist.files[".block"]) {
-      settings = gist.files[".block"].content
+    if (gist.files[".block"]) {
+      settings = gist.files[".block"].content;
     } else {
       settings = "";
     }
-    var config = parseConfig(settings)
+    var config = parseConfig(settings);
     return config;
   },
   saveConfig: function(config) {
     var gist = this.props.gist;
     var yaml = serializeConfig(config);
     gist.files['.block'].content = yaml;
-    console.log("config", config)
+    console.log("config", config);
     Actions.localGistUpdate(gist);
   },
   handleLicenseChange: function(value) {
-    var config = this.getConfig()
-    config.license = value
-    this.saveConfig(config)
+    var config = this.getConfig();
+    config.license = value;
+    this.saveConfig(config);
   },
   handleBorderChange: function(value) {
-    var config = this.getConfig()
-    config.border = value
-    this.saveConfig(config)
+    var config = this.getConfig();
+    config.border = value;
+    this.saveConfig(config);
   },
   handleScrollableChange: function(value) {
-    var config = this.getConfig()
-    config.scrolling = value
-    this.saveConfig(config)
+    var config = this.getConfig();
+    config.scrolling = value;
+    this.saveConfig(config);
   },
   handleHeightChange: function(value) {
-    var config = this.getConfig()
-    config.height = parseInt(height)
-    this.saveConfig(config)
+    var config = this.getConfig();
+    config.height = parseInt(height); // Where does height come from?
+    this.saveConfig(config);
   },
 
   render: function render() {
     var gist = this.props.gist;
     var settings;
-    if(gist.files[".block"]) {
-      settings = gist.files[".block"].content
+    if (gist.files[".block"]) {
+      settings = gist.files[".block"].content;
     } else {
       settings = "license: gpl-3.0";
     }
-    var config = parseConfig(settings)
-
+    var config = parseConfig(settings);
 
     // TODO: border
     // TODO: scrollable
     // TODO: support height configuration
     return (
       <div id='block__code-index'>
-        <div id="editor__settings-controls">
+        <div id='editor__settings-controls'>
           <br/>
-          Edit block settings, <a href="http://bl.ocks.org/-/about">compatible with bl.ocks.org</a>
+          Edit block settings, <a href='http://bl.ocks.org/-/about'>compatible with bl.ocks.org</a>
           <br/>
           <br/>
           Choose license:
           <Select
-            name="license-select"
+            name='license-select'
             options={LICENSE_OPTIONS}
             value={config.license}
             onChange={this.handleLicenseChange}
@@ -450,7 +449,7 @@ var EditorSettings = React.createClass({
 
           Iframe border:
           <Select
-            name="border-select"
+            name='border-select'
             options={BORDER_OPTIONS}
             value={config.border}
             onChange={this.handleBorderChange}
@@ -458,41 +457,42 @@ var EditorSettings = React.createClass({
 
           Iframe scrollable:
           <Select
-            name="scrollable-select"
+            name='scrollable-select'
             options={SCROLLABLE_OPTIONS}
             value={config.scrollable}
             onChange={this.handleScrollableChange}
           ></Select>
 
           Iframe height: <br/>
-          <input type="number" onChange={this.handleHeightChange} />
+          <input type='number' onChange={this.handleHeightChange} />
 
         </div>
       </div>
-    )
+    );
   }
 
-})
+});
 
 export default EditorSettings;
 
 function parseConfig(yaml) {
-  var lines = yaml.split("\n")
-  var config = {}
+  var lines = yaml.split("\n");
+  var config = {};
   lines.forEach(function(line) {
-    var pair = line.split(":")
-    var key = pair[0] || ""
-    var value = pair[1] || ""
-    if(key)
-      config[key] = value.trim()
-  })
-  return config
+    var pair = line.split(":");
+    var key = pair[0] || "";
+    var value = pair[1] || "";
+    if (key) {
+      config[key] = value.trim();
+    }
+  });
+  return config;
 }
 
 function serializeConfig(config) {
-  var yaml = ""
+  var yaml = "";
   Object.keys(config).forEach(function(key) {
-    yaml += key + ": " + config[key] + "\n"
-  })
+    yaml += key + ": " + config[key] + "\n";
+  });
   return yaml;
 }
