@@ -2,9 +2,25 @@ extends: standard
 plugins:
   - standard
 
+env:
+  browser: true
+  node: true
+  es6: true
+
+globals:
+  d3: true
+
 rules:
   semi:
     - error
     - always
   quotes:
     - 0
+  no-path-concat:
+    - 0
+  space-before-function-paren:
+    - error
+    - never
+  object-curly-spacing:
+    - error
+    - always
