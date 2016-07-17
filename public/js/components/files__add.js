@@ -55,7 +55,6 @@ var FilesAdd = React.createClass({
     }
     // console.log("file type", file.type, file.type.indexOf("text/"))
     if (file.type.indexOf("text/") === 0) {
-      console.log("handle text");
       this.handleText(file);
     } else if (file.type.indexOf("application/json") === 0) {
       this.handleText(file);
