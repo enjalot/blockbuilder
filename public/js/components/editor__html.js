@@ -68,7 +68,7 @@ var EditorHTML = React.createClass({
         tabSize: 2,
         value: codeMirrorValue,
         mode: {name: 'htmlmixed',
-               scriptTypes: [{matches: /^text\/babel$/i,
+               scriptTypes: [{matches: /^text\/(babel|jsx)$/i,
                               mode: "javascript"}]},
         htmlMode: true,
         lineNumbers: true,
