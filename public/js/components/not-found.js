@@ -7,9 +7,7 @@
 // External Dependencies
 // ------------------------------------
 import React from 'react';
-import {RouteHandler} from 'react-router';
 import logger from 'bragi-browser';
-
 
 // Internal Dependencies
 // ------------------------------------
@@ -20,7 +18,7 @@ import logger from 'bragi-browser';
 //
 // ========================================================================
 var NotFound = React.createClass({
-  render: function render(){
+  render: function render() {
     logger.log('components/NotFound:component:render', 'called');
 
     return (

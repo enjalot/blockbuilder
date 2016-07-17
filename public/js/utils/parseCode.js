@@ -1,5 +1,4 @@
 function parseCode(template, files) {
-
   // We parse the user's code to handle some cases where people expect
   // to be able to use relative urls to load files associated with the block
   // (things like external script files, style files or using XHR to grab data)
@@ -11,77 +10,77 @@ function parseCode(template, files) {
   // Lets replace relative URL that ignores protocol with http
   // this should work, but its probably an iframe problem
   // http://stackoverflow.com/questions/550038/is-it-valid-to-replace-http-with-in-a-script-src-http
-  var find = "<link.*?href=[\"\']//.*?[\"\'].*?>"
-  var re = new RegExp(find, 'g')
-  var matches = template.match(re)
-  if(matches) {
-    matches.forEach(function(match,i) {
+  var find = "<link.*?href=[\"\']//.*?[\"\'].*?>";
+  var re = new RegExp(find, 'g');
+  var matches = template.match(re);
+  if (matches) {
+    matches.forEach(function(match, i) {
       var proto = match.replace("//", "http://");
-      template = template.replace(match,  proto)
-    })
+      template = template.replace(match, proto);
+    });
   }
-  var find = "<script.*?src=[\"\']//.*?[\"\'].*?>"
-  var re = new RegExp(find, 'g')
-  var matches = template.match(re)
-  if(matches) {
-    matches.forEach(function(match,i) {
+  var find = "<script.*?src=[\"\']//.*?[\"\'].*?>";
+  var re = new RegExp(find, 'g');
+  var matches = template.match(re);
+  if (matches) {
+    matches.forEach(function(match, i) {
       var proto = match.replace("//", "http://");
-      template = template.replace(match,  proto)
-    })
+      template = template.replace(match, proto);
+    });
   }
 
-  var referencedFiles = {}
+  var referencedFiles = {};
   // we need to keep track of injected lines for error line number offset
   var lines = 0;
   var fileNames = Object.keys(files);
   fileNames.forEach(function(file) {
-    if(!files[file] || !files[file].content) return;
-    if(file === "index.html") return;
-    if(file === "thumbnail.png") return; // lets ignore the thumbnail if its there
+    if (!files[file] || !files[file].content) return;
+    if (file === "index.html") return;
+    if (file === "thumbnail.png") return; // lets ignore the thumbnail if its there
 
-    if(file.indexOf(".js") > 0) {
+    if (file.indexOf(".js") > 0) {
       // We first try to find instances of loading js files through a <script> tag.
       // We can't fall back on the raw_url because you can't load scripts with MIME type text.
       // This does have the benefit of live reloading when changing a script file.
-      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>"
-      var re = new RegExp(find, 'g')
-      var matches = template.match(re)
-      if(matches) {
+      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>";
+      var re = new RegExp(find, 'g');
+      var matches = template.match(re);
+      if (matches) {
         // if we found one, replace it with the code and return.
-        template = template.replace(re, "<script>" + files[file].content)
-        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
+        template = template.replace(re, "<script>" + files[file].content);
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1;
         // this won't work for code that has non-ascii characters in it... which is quite a lot of d3 code
-        //template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
+        // template = template.replace(re, '<script src="data:text/javascript;base64,' + btoa(files[file].content) + '">')
         // this works with non-ascii characters but would take more acrobatics to support the defer keyword
         // and also seems like it would make debugging the inserted scripts more complicated
-        //template = template.replace(re, '<script src="data:text/javascript;base64,' + b64EncodeUnicode(files[file].content) + '">')
+        // template = template.replace(re, '<script src="data:text/javascript;base64,' + b64EncodeUnicode(files[file].content) + '">')
         return;
       }
     }
-    if(file.indexOf(".coffee") > 0) {
+    if (file.indexOf(".coffee") > 0) {
       // We first try to find instances of loading js files through a <script> tag.
       // We can't fall back on the raw_url because you can't load scripts with MIME type text.
       // This does have the benefit of live reloading when changing a script file.
-      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>"
-      var re = new RegExp(find, 'g')
-      var matches = template.match(re)
-      if(matches) {
+      var find = "<script.*?src=[\"\']" + file + "[\"\'].*?>";
+      var re = new RegExp(find, 'g');
+      var matches = template.match(re);
+      if (matches) {
         // if we found one, replace it with the code and return.
-        template = template.replace(re, "<script type='text/coffeescript'>" + files[file].content)
-        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
+        template = template.replace(re, "<script type='text/coffeescript'>" + files[file].content);
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1;
         return;
       }
     }
-    if(file.indexOf(".css") > 0) {
+    if (file.indexOf(".css") > 0) {
       // We support loading of css files with relative paths if they are included in the gist.
       // This has the added benefit of live reloading the iframe when editing the style
-      var find = "<link.*?href=[\"\']" + file + "[\"\'].*?>"
-      var re = new RegExp(find, 'g')
-      var matches = template.match(re)
-      if(matches) {
+      var find = "<link.*?href=[\"\']" + file + "[\"\'].*?>";
+      var re = new RegExp(find, 'g');
+      var matches = template.match(re);
+      if (matches) {
         // if we found one, replace it with the code and return.
-        template = template.replace(re, "<style>" + files[file].content + "</style>")
-        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1
+        template = template.replace(re, "<style>" + files[file].content + "</style>");
+        lines = lines + files[file].content.split(/\r\n|\r|\n/).length - 1;
         return;
       }
     }
@@ -89,7 +88,7 @@ function parseCode(template, files) {
     // don't try to make html files loadable in this way
     // it has the chance of screwing up the rest of the actual file, and unlikely
     // someone wants to load an html file via ajax...
-    if(file.indexOf(".html") >= 0) return;
+    if (file.indexOf(".html") >= 0) return;
 
     /*
     var find = "[\"\']" + file + "[\"\']"
@@ -99,19 +98,19 @@ function parseCode(template, files) {
     // we keep a list of all the files we might allow people to XHR request.
     // it would be possible to optimize by using the above commented out regex
     // but if a user programatically generates
-    referencedFiles[file] = files[file].content
-  })
+    referencedFiles[file] = files[file].content;
+  });
 
   // We need to have the file names and their contents available inside the iframe
   // if we want to be able to return them in our short-circuited XHR requests.
   var filesString = encodeURIComponent(JSON.stringify(referencedFiles));
-  var fileNamesString = JSON.stringify(Object.keys(referencedFiles))
-  template = '<meta charset="utf-8"><script>'
-    //+ 'var __files = ' + filesString + ';'
-    + 'var __filesURI = \"' + filesString + '\";\n'
-    + 'var __files = JSON.parse(decodeURIComponent(__filesURI));\n'
-    + 'var __fileNames = ' + fileNamesString + ';'
-    + '</script>' + template
+  var fileNamesString = JSON.stringify(Object.keys(referencedFiles));
+  template = '<meta charset="utf-8"><script>' +
+    // 'var __files = ' + filesString + ';' +
+    'var __filesURI = \"' + filesString + '\";\n' +
+    'var __files = JSON.parse(decodeURIComponent(__filesURI));\n' +
+    'var __fileNames = ' + fileNamesString + ';' +
+    '</script>' + template;
 
   // We override the XMLHttpRequest API in order to serve our local copies of files
   // without going to the server. This allows us to live-update the iframe as soon
@@ -234,24 +233,24 @@ function parseCode(template, files) {
         that.xhr.send(data)
       }, 0)
     }
-  })()</script>`
+  })()</script>`;
 
   var alertOverride = `
   <script>window.alert = function(msg) { console.log(msg) };</script>
-  `
-  var override = xmlOverride + alertOverride
+  `;
+  var override = xmlOverride + alertOverride;
 
-  template = override + template
+  template = override + template;
   // We intercept onerror to give better line numbers in your console
   // 6 is a manual count of the added template code for this section of the template
   // we could use this offset to set a marker in the codemirror gutter
-  lines = lines + override.split(/\r\n|\r|\n/).length + 6
+  lines = lines + override.split(/\r\n|\r|\n/).length + 6;
   template = `<script>(function(){
     window.onerror = function(msg, url, lineNumber) {
       window.parent.postMessage({type: "runtime-error", lineNumber:(lineNumber-` + lines + `), message:msg}, "` + window.location.origin + `")
       //console.debug('blockbuilder editor error on line: ' + (lineNumber-` + lines + `))
     }
-  })()</script>` + template
+  })()</script>` + template;
 
   return template;
 }
