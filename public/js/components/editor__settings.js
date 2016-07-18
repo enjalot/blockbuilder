@@ -395,7 +395,6 @@ var EditorSettings = React.createClass({
     var gist = this.props.gist;
     var yaml = serializeConfig(config);
     gist.files['.block'].content = yaml;
-    console.log("config", config);
     Actions.localGistUpdate(gist);
   },
   handleLicenseChange: function(value) {
@@ -413,9 +412,9 @@ var EditorSettings = React.createClass({
     config.scrolling = value;
     this.saveConfig(config);
   },
-  handleHeightChange: function(value) {
+  handleHeightChange: function(evt) {
     var config = this.getConfig();
-    config.height = parseInt(height); // Where does height come from?
+    config.height = parseInt(evt.target.value);
     this.saveConfig(config);
   },
 
@@ -429,9 +428,6 @@ var EditorSettings = React.createClass({
     }
     var config = parseConfig(settings);
 
-    // TODO: border
-    // TODO: scrollable
-    // TODO: support height configuration
     return (
       <div id='block__code-index'>
         <div id='editor__settings-controls'>
