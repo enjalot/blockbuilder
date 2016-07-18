@@ -723,6 +723,23 @@ $frameHeight: $filesHeight + $headerHeight;
   }
 }
 
+/* -------------------
+About page styles
+----------------------*/
+
+.backers {
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    p {
+      width: 30%;
+      &:before {
+        content: '♥ ';
+      }
+    }
+  }
+}
+
 
 /* -------------------
 Tutorial overlay styles
