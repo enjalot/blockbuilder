@@ -60,12 +60,9 @@ var Gallery = React.createClass({
 
       thumbs.push(<div className='frame-holder'>
         <a href={bblink}>
-        <img src={d.thumb} />
+          <img src={d.thumb} />
+          <p>\(• ◡ •)/ play</p>
         </a>
-        <p>
-        {/* <a href={d}>♨_♨ block</a> */}
-        <a href={bblink}>\(• ◡ •)/ play</a>
-        </p>
       </div>);
     });
 
@@ -82,7 +79,7 @@ var Gallery = React.createClass({
         <br/>
         These bl.ocks represent people's favorite examples, so try playing with them in Block Builder.
         </p>
-        <div>
+        <div className='gallery columns-two'>
           {thumbs}
         </div>
       </div>
