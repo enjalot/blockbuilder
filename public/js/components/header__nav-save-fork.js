@@ -7,6 +7,7 @@
  * ========================================================================= */
 import React from 'react';
 import Actions from '../actions/actions.js';
+
 import { IconLoader, IconPublic, IconPrivate } from './icons.js';
 
 var SaveForkNav = React.createClass({
@@ -34,6 +35,8 @@ var SaveForkNav = React.createClass({
     var saveKeyCommand = "<br/>(Ctrl+S or Cmd+S) to save at any time.";
     var save = "";
     var tip;
+    var items = [];
+
     var loading = (
       <div id='nav__loading'>
         <IconLoader></IconLoader>
@@ -115,11 +118,16 @@ var SaveForkNav = React.createClass({
       }
     }
 
+    items.push([
+      { label: 'save' },
+      { label: 'fork' }
+    ]);
+
     return (
       <div>
         <div id='block__new' data-tip='Create a brand new block' data-place='bottom' data-effect='float' onClick={ this.newBlock }>New</div>
         {fork}
-        {save}
+        {save} <SaveMenu items={items}></SaveMenu>
         {lock}
       </div>
     );
