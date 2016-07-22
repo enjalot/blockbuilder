@@ -81,7 +81,7 @@ var Block = React.createClass({
       this.setState({ activeFile: data.file.name });
     } else if (data.type === 'removeFile') {
       var gist = this.state.gistData;
-      console.log("removeFile", data.file.filename);
+      // console.log("removeFile", data.file.filename);
       gist.files[data.file.filename] = null;
       this.setState({ gistData: gist, fileAdded: true });
       var that = this;
@@ -200,17 +200,17 @@ var Block = React.createClass({
       }
       this.setState({ failed: true, failMessage: failMessage });
     } else if (data.type === 'save:completed') {
-      console.log("SAVED");
+      // console.log("SAVED");
       this.setState({ saving: false });
       window.onbeforeunload = null;
     } else if (data.type === 'save:failed') {
-      console.log("SAVE FAILED :(");
+      // console.log("SAVE FAILED :(");
       this.setState({ failed: "save" });
       this.setState({ saving: false });
-      console.log("Data", data);
+      // console.log("Data", data);
       Actions.setModal("Failed to save: " + data.data);
     } else if (data.type === 'save-thumbnail:completed') {
-      console.log("SAVED THUMBNAIL");
+      // console.log("SAVED THUMBNAIL");
       this.setState({ saving: false });
     } else if (data.type === 'save-thumbnail:failed') {
       Actions.setModal("Failed to save thumbnail");

@@ -44,7 +44,7 @@ var EditorPNG = React.createClass({
     if (!file) return;
     if (file.size > 10000000) {
       Actions.setModal(`ERROR: ${file.name} is too big, ${file.size} > 10mb`);
-      console.log("ERROR", "file too big!", file.size, " > 10mb");
+      // console.log("ERROR", "file too big!", file.size, " > 10mb");
       return;
     }
     if (file.type.indexOf("image/") === 0) {
@@ -89,7 +89,7 @@ var EditorPNG = React.createClass({
     } else {
       // TODO: error modal
       Actions.setModal(`ERROR: ${file.name} is Not an image`);
-      console.log("ERROR", "not an image!", file);
+      // console.log("ERROR", "not an image!", file);
     }
   },
 

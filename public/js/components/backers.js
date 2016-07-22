@@ -89,6 +89,6 @@ const backers = [
   { "url": "http://bl.ocks.org/syntagmatic", "name": "Kai Chang" },
   { "url": "http://visualoop.com/geoffmcghee", "name": "Geoff McGhee" },
   { "url": "https://www.linkedin.com/pub/ariel-azoulay/38/615/560", "name": "Ariel Azoulay" }
-]
+];
 
 export default backers;

@@ -7,7 +7,6 @@
 // External Dependencies
 // ------------------------------------
 import React from 'react';
-import logger from 'bragi-browser';
 
 // Internal Dependencies
 // ------------------------------------
@@ -38,9 +37,9 @@ var FilesAdd = React.createClass({
     reader.readAsText(file);
   },
   handleBlob: function handleBlob(file) {
-    var reader = new FileReader();
+    // var reader = new FileReader();
     Actions.setModal("Sorry, the gist API supports text files only.");
-    console.log("TEXT FILES ONLY");
+    // console.log("TEXT FILES ONLY");
     document.getElementById('files__input').value = '';
     // TODO: clear the file input
   },
@@ -50,7 +49,7 @@ var FilesAdd = React.createClass({
     // TODO error handling
     if (!file) return;
     if (file.size > 10000000) {
-      console.log("ERROR", "file too big!", file.size, " > 10mb");
+      // console.log("ERROR", "file too big!", file.size, " > 10mb");
       return;
     }
     // console.log("file type", file.type, file.type.indexOf("text/"))
@@ -62,7 +61,7 @@ var FilesAdd = React.createClass({
       // TODO make this redirect to the thumbnail tab
       this.handleBlob(file);
     } else {
-      console.log("don't recognize type", file.type, file);
+      // console.log("don't recognize type", file.type, file);
       this.handleText(file);
     }
   },

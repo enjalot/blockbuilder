@@ -8,7 +8,6 @@
 // ------------------------------------
 import React from 'react';
 import Reflux from 'reflux';
-import { RouteHandler, Link } from 'react-router';
 import logger from 'bragi-browser';
 
 // Internal Dependencies
@@ -28,7 +27,6 @@ import UserNav from './header__nav-user.js';
 import GistNav from './header__nav-gist.js';
 import SaveForkNav from './header__nav-save-fork.js';
 import ModeNav from './header__nav-mode.js';
-import { IconLoader } from './icons.js';
 
 var defaultIndexContent = `<!DOCTYPE html>
 <head>
@@ -103,7 +101,7 @@ var Home = React.createClass({
       this.setState({ activeFile: data.file.name });
     } else if (data.type === 'removeFile') {
       var gist = this.state.gistData;
-      console.log("removeFile", data.file.filename);
+      // console.log("removeFile", data.file.filename);
       delete gist.files[data.file.filename];
       this.setState({ gistData: gist, fileAdded: true });
       var that = this;
@@ -160,7 +158,7 @@ var Home = React.createClass({
     } else if (data.type == 'public:update') {
       var gist = this.state.gistData;
       gist.public = data.public;
-      console.log("PUBLIC", gist.public);
+      // console.log("PUBLIC", gist.public);
       this.setState({ gistData: gist });
     }
   },
@@ -177,7 +175,7 @@ var Home = React.createClass({
         var keyvalue = option.split("=");
         object[keyvalue[0]] = keyvalue[1];
       });
-      console.log("hash", hash, object);
+      // console.log("hash", hash, object);
       this.setState(object);
     }
   },
