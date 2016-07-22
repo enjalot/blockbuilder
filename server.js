@@ -385,7 +385,7 @@ function saveGist(gist, method, token, cb) {
     gist = modifyGistForHistory(parsed);
   }
   var headers = {
-    'User-Agent': 'Building Bl.ocks',
+    'User-Agent': 'Bl.ock Builder',
     'content-type': 'application/json',
     'accept': 'application/json'
   };
@@ -451,7 +451,7 @@ function getGist(gistId, cb) {
       'client_secret': nconf.get('github:secret')
     },
     headers: {
-      'User-Agent': 'Building Bl.ocks'
+      'User-Agent': 'Bl.ock Builder'
     }
   };
   request.get(options, cb);
@@ -461,5 +461,5 @@ var server = app.listen(nconf.get('app:port'), function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Building Bl.ocks listening at http://%s:%s', host, port);
+  console.log('Bl.ock Builder listening at http://%s:%s', host, port);
 });

@@ -75,9 +75,9 @@ var Gallery = React.createClass({
           </div>
         </div>
         <h1>Gallery</h1>
-        <p> Bl.ocks chosen by the "Building Block" level <a href='https://www.kickstarter.com/projects/1058500513/building-blocks-0'>kickstarter backers</a>.
+        <p>Bl.ocks chosen by the "Bl.ock Builder" level <a href='https://www.kickstarter.com/projects/1058500513/building-blocks-0'>kickstarter backers</a>.
         <br/>
-        These bl.ocks represent people's favorite examples, so try playing with them in Block Builder.
+        These bl.ocks represent people's favorite examples, so try playing with them in Bl.ock Builder.
         </p>
         <div className='gallery columns-two'>
           {thumbs}

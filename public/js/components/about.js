@@ -83,7 +83,7 @@ var About = React.createClass({
 
         <h1>About</h1>
         <p>
-          Getting started with Building Blocks? read about <a href='https://github.com/enjalot/building-blocks/wiki/How-it-works'>how this site works!</a>
+          Getting started with Bl.ock Builder? read about <a href='https://github.com/enjalot/blockbuilder/wiki/How-it-works'>how this site works!</a>
           <br></br>
           Watch the short video below for an overview of the functionality:
         </p>
@@ -99,10 +99,10 @@ var About = React.createClass({
 
         <p>
           Reach out to <a href='http://twitter.com/enjalot'>enjalot</a> for feedback & ideas.
-          Please <a href='https://github.com/enjalot/building-blocks/issues'>add an issue</a> on GitHub if you find a bug!
+          Please <a href='https://github.com/enjalot/blockbuilder/issues'>add an issue</a> on GitHub if you find a bug!
         </p>
 
-        <p> This project is open source, so all the code is <a href='https://github.com/enjalot/building-blocks'>on GitHub</a>!
+        <p> This project is open source, so all the code is <a href='https://github.com/enjalot/blockbuilder'>on GitHub</a>!
           See how the project came about <a href='https://www.kickstarter.com/projects/1058500513/building-blocks-0'>on kickstarter</a>.
         </p>
 
@@ -135,7 +135,7 @@ var About = React.createClass({
         <p>
           Bl.ocks chosen by the "Building Block" level <a href='https://www.kickstarter.com/projects/1058500513/building-blocks-0'>kickstarter backers</a>.
           <br/>
-          These bl.ocks represent people's favorite examples, so try playing with them in Block Builder.
+          These bl.ocks represent people's favorite examples, so try playing with them in Bl.ock Builder.
         </p>
 
         <div className='gallery'>
@@ -149,7 +149,7 @@ var About = React.createClass({
           <p>
             A special thanks to some friends who supported this project in several ways: <a href='http://twitter.com/enoex'>Erik Hazzard</a>, <a href='http://twitter.com/vicapow'>Victor Powell</a> and <a href='http://twitter.com/zanstrong'>Zan Armstrong</a>.
           </p>
-          <p>Of course thanks to everyone who <a href='https://github.com/enjalot/building-blocks/graphs/contributors'>contributed code</a>.</p>
+          <p>Of course thanks to everyone who <a href='https://github.com/enjalot/blockbuilder/graphs/contributors'>contributed code</a>.</p>
 
           <p>Much love to <a href='http://bl.ocks.org/enjalot/476c804335f77198447e'>everyone who backed</a>!</p>
         </div>
