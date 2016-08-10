@@ -33,7 +33,7 @@
     "blockbuilder-search": "^0.2.0",
     "body-parser": "^1.14.2",
     "bragi-browser": "0.0.12",
-    "codemirror-inlet": "^0.1.5",
+    "codemirror-inlet": "^0.1.9",
     "compression": "^1.5.1",
     "connect-redis": "^3.0.2",
     "cookie-parser": "^1.4.1",
