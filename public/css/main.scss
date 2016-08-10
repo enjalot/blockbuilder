@@ -841,9 +841,29 @@ Inlet styles
 }
 
 // https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
-.inlet_slider input[type=range]::-webkit-slider-thumb{
+.inlet_slider input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  margin-top: -16px;
+  margin-top: -2px;
+}
+//http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
+/* for some reason these don't seem to work
+.inlet_slider input[type=range]::-moz-range-thumb {
+}
+.inlet_slider input[type=range]::-moz-range-track {
+}
+*/
+.inlet_slider input[type=range]:-moz-focusring{
+    outline: none;
+}
+.inlet_slider input[type=range]:focus {
+    outline: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .inlet_slider .range {
+    border: 1px solid #aaf;
+    height: 17px;
+  }
 }
 
 
