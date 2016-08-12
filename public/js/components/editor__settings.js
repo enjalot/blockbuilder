@@ -424,7 +424,7 @@ var EditorSettings = React.createClass({
     if (gist.files[".block"]) {
       settings = gist.files[".block"].content;
     } else {
-      settings = "license: gpl-3.0";
+      settings = "license: mit";
     }
     var config = parseConfig(settings);
 
