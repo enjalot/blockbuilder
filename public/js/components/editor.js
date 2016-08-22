@@ -11,8 +11,6 @@ import logger from 'bragi-browser';
 
 // Internal Dependencies
 // ------------------------------------
-import Actions from '../actions/actions.js';
-import parseCode from '../utils/parseCode.js';
 import EditorControls from './editor__controls.js';
 import EditorHTML from './editor__html.js';
 import EditorJS from './editor__js.js';
@@ -95,7 +93,6 @@ var Editor = React.createClass({
 
     body.on("mousemove.resizing", function() {
       if (!resizing) return;
-      var bodyWidth = window.innerWidth;
       var nx = d3.event.clientX;
       // restrict draggin beyond left controls and size of iframe
       if (nx < 35) { nx = 35; }

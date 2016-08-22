@@ -79,9 +79,6 @@ var SaveForkNav = React.createClass({
       fork = <div id='block__fork' data-tip={"Create your own copy of this code." + saveKeyCommand} data-multiline={true} data-place='bottom' data-effect='float' onClick={ this.fork }>{forkText}</div>;
     }
 
-    if (gist && gist.owner) {
-
-    }
     var lock = "";
     // Because the gist API doesn't allow us to modify the privacy of an existing gist
     // we need different logic depending on if we are creating a gist or looking at an existing one

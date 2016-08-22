@@ -11,7 +11,6 @@ import logger from 'bragi-browser';
 
 // Internal Dependencies
 // ------------------------------------
-import Actions from '../actions/actions.js';
 
 import parseCode from '../utils/parseCode.js';
 import markdownTemplate from '../utils/markdownTemplate.js';
@@ -76,7 +75,7 @@ var Renderer = React.createClass({
     var template;
     if (active.indexOf('.md') >= 0) {
       template = markdownTemplate;
-      template += marked(gist.files[active].content);
+      template += marked(gist.files[active].content); // FIX: marked is not defined
     } else {
       template = parseCode(gist.files['index.html'].content, gist.files);
     }

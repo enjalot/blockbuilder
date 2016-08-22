@@ -7,7 +7,6 @@
 // External Dependencies
 // ------------------------------------
 import React from 'react';
-import { RouteHandler, Link } from 'react-router';
 import logger from 'bragi-browser';
 
 // Internal Dependencies
@@ -30,11 +29,11 @@ var User = React.createClass({
     });
 
     // TODO: Fetch all of the user's blocks and render them
-    var userBlocks = (
-      <Link to='block' params={ { username: 'enjalot', gistId: 'a89c6592b82db2aec99b' } }>
-        Small multiples
-      </Link>
-    );
+    // var userBlocks = (
+    //   <Link to='block' params={ { username: 'enjalot', gistId: 'a89c6592b82db2aec99b' } }>
+    //     Small multiples
+    //   </Link>
+    // );
     var username = this.props.params.username;
     var userLink = "http://bl.ocks.org/" + username;
 

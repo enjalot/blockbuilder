@@ -69,7 +69,7 @@ var About = React.createClass({
     });
 
     var backers = Backers.map((backer) => {
-      return `<p><a href=${backer.url}>${backer.name}</a></p>`
+      return `<p><a href=${backer.url}>${backer.name}</a></p>`;
     }).join('\n');
 
     return (

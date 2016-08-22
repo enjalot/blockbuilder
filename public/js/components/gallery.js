@@ -7,7 +7,6 @@
 // External Dependencies
 // ------------------------------------
 import React from 'react';
-import { RouteHandler, Link } from 'react-router';
 import logger from 'bragi-browser';
 
 // Internal Dependencies

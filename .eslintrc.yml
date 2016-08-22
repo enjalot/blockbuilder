@@ -1,11 +1,20 @@
-extends: standard
+extends:
+  - standard
+  - eslint:recommended
+  - plugin:react/recommended
+
 plugins:
   - standard
+  - react
 
 env:
   browser: true
   node: true
   es6: true
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
 
 globals:
   d3: true
@@ -24,3 +33,7 @@ rules:
   object-curly-spacing:
     - error
     - always
+  react/prop-types:
+    - 0
+  react/no-danger:
+    - 0

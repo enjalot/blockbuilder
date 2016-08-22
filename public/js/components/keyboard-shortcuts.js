@@ -15,11 +15,11 @@ var KeyboardShortcuts = React.createClass({
       var user = that.props.user;
       var gist = that.props.gist;
       if (user && gist && gist.owner && user.id === gist.owner.id) {
-        console.log("saving");
+        // console.log("saving");
         Actions.setSaveFork("saving");
         Actions.saveGist(that.props.gist);
       } else {
-        console.log("forking");
+        // console.log("forking");
         window.onbeforeunload = null;
         Actions.setSaveFork("forking");
         Actions.forkGist(that.props.gist);
@@ -67,7 +67,6 @@ shortcut = {
 
     var ele = opt.target;
     if (typeof opt.target == 'string') ele = document.getElementById(opt.target);
-    var ths = this;
     shortcut_combination = shortcut_combination.toLowerCase();
 
     // The function to be called at keypress

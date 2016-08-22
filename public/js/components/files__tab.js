@@ -22,7 +22,7 @@ var FilesTab = React.createClass({
     Actions.setActiveFile(name);
   },
   removeFile: function setActive() {
-    console.log("remove file", this.props.file);
+    // console.log("remove file", this.props.file);
     Actions.removeFile(this.props.file);
   },
   render: function render() {
