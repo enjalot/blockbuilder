@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/enjalot/building-blocks.git"
+    "url": "git+https://github.com/enjalot/blockbuilder.git"
   },
   "keywords": [
     "d3.js",
@@ -22,9 +22,9 @@
   "author": "Ian Johnson",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/enjalot/building-blocks/issues"
+    "url": "https://github.com/enjalot/blockbuilder/issues"
   },
-  "homepage": "https://github.com/enjalot/building-blocks#readme",
+  "homepage": "https://github.com/enjalot/blockbuilder#readme",
   "dependencies": {
     "babel-core": "^6.4.0",
     "babel-loader": "^6.2.1",

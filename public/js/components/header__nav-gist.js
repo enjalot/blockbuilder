@@ -14,7 +14,7 @@ var GistNav = React.createClass({
   componentDidUpdate: function componentDidUpdate() {
     var gist = this.props.gist;
     if (gist && gist.description) {
-      d3.select("title").node().innerHTML = gist.description + " - Building Bl.ocks";
+      d3.select("title").node().innerHTML = gist.description + " - Bl.ock Builder";
     }
   },
   handleDescriptionChange: function handleDescriptionChange() {

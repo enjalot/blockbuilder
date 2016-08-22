@@ -1,6 +1,6 @@
 # Bl.ock Builder
 
-[![Join the chat at https://gitter.im/enjalot/blockbuilder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enjalot/building-blocks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
+[![Join the chat at https://gitter.im/enjalot/blockbuilder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enjalot/blockbuilder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  
 Create, fork and edit d3.js code snippets for use with bl.ocks.org right in the browser, no terminal required.
 
 # Usage
