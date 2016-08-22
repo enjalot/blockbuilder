@@ -59,7 +59,7 @@ var Files = React.createClass({
     if (!gist.files["index.html"]) gist.files["index.html"] = { content: "<html></html>", filename: "index.html" };
     if (!gist.files["README.md"]) gist.files["README.md"] = { content: "", filename: "README.md" };
     if (!gist.files["thumbnail.png"]) gist.files["thumbnail.png"] = { content: "", filename: "thumbnail.png" };
-    if (!gist.files[".block"]) gist.files[".block"] = { content: "license: gpl-3.0", filename: ".block" };
+    if (!gist.files[".block"]) gist.files[".block"] = { content: "license: mit", filename: ".block" };
 
     var hideShowButton = "";
     if (!files.length) {
