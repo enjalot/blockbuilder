@@ -38,8 +38,8 @@ var UserNav = React.createClass({
         );
     } else {
       auth = (
-        <div id='user' data-tip=''>
-          <img src={ user.avatar_url }></img>
+        <div id='user'>
+          <a href={`/search#user=${user.login}`} data-tip="View my blocks"><img src={ user.avatar_url }></img></a>
           <a className='header-link' id='logout' href={ "/auth/logout/?redirect=" + this.props.path }>logout</a>
         </div>
       );
