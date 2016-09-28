@@ -459,7 +459,7 @@ function getGist(gistId, cb) {
 
 var server = app.listen(nconf.get('app:port'), function() {
   var host = server.address().address;
-  if (host === '::') host = 'localhost';
+  if (host === '::') host = '[::]';
   var port = server.address().port;
 
   console.log('Bl.ock Builder listening at http://%s:%s', host, port);
