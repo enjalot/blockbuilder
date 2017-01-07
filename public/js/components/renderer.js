@@ -124,7 +124,7 @@ var Renderer = React.createClass({
   render: function render() {
     var iframe;
     if (this.props.mode === "blocks" && this.props.active.indexOf('.md') < 0) {
-      iframe = (<iframe id='block__iframe' scrolling='no'></iframe>);
+      iframe = (<iframe id='block__iframe' scrolling='no' allowvr></iframe>);
     } else {
       iframe = (<div><iframe id='block__iframe'></iframe></div>);
     }
