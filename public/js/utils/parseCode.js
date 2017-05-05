@@ -252,6 +252,9 @@ function parseCode(template, files) {
     }
   })()</script>` + template;
 
+  // put the DOCTYPE at the top of the compiled index.html for the user
+  template = '<!DOCTYPE html>' + template;
+
   return template;
 }
 
