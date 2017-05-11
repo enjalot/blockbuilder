@@ -167,7 +167,8 @@ app.get('/auth/logout', function(req, res) {
 // ------------------------------------
 // SEARCH
 // ------------------------------------
-// we optionally support a search page if you've
+// we optionally support a search page if you've installed and setup the search module
+// https://github.com/enjalot/blockbuilder-search
 var searchConf = nconf.get('search');
 if (searchConf) {
   var bbSearch = require('blockbuilder-search')(searchConf, app, nconf.get("analytics:ga"));
