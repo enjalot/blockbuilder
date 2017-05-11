@@ -67,7 +67,7 @@ var GistsStore = Reflux.createStore({
     // making another fetch request if they look at the same gistId
     this.gistsById[data.gistId] = data.response;
 
-    var index = data.response.files["index.html"];
+    var index = data.response.files["index.html"] || { content: "" };
     index.content = stripRelativeBlock(index.content);
 
     this.trigger({
