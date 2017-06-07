@@ -48,8 +48,8 @@ var defaultIndexContent = `<!DOCTYPE html>
       .text("Edit the code below to change me!")
       .attr("y", 200)
       .attr("x", 120)
-      .style("font-size", 36)
-      .style("font-family", "monospace")
+      .attr("font-size", 36)
+      .attr("font-family", "monospace")
 
   </script>
 </body>
