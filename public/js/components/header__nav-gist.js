@@ -39,6 +39,8 @@ var GistNav = React.createClass({
     var gistUrl = "https://gist.github.com/" + userName + '/' + this.props.params.gistId;
     var blocksUrl = "http://bl.ocks.org/" + userName + '/' + this.props.params.gistId;
 
+    if (gist && gist.history) blocksUrl += '/' + gist.history[0].version;
+
     if (!gist) return (<div id='block__nav'></div>);
     if (this.props.page === "home") return (
       <div id='block__nav'>
