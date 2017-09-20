@@ -12,7 +12,7 @@ import logger from 'bragi-browser';
 // Internal Dependencies
 // ------------------------------------
 
-import parseCode from '../utils/parseCode.js';
+import magicSandbox from 'magic-sandbox';
 import markdownTemplate from '../utils/markdownTemplate.js';
 
 // ========================================================================
@@ -77,7 +77,7 @@ var Renderer = React.createClass({
       template = markdownTemplate;
       template += marked(gist.files[active].content); // FIX: marked is not defined
     } else {
-      template = parseCode(gist.files['index.html'].content, gist.files);
+      template = magicSandbox(gist.files['index.html'].content, gist.files);
     }
     this.updateIFrame(template, iframe);
 

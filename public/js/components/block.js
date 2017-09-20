@@ -201,7 +201,9 @@ var Block = React.createClass({
       this.setState({ failed: true, failMessage: failMessage });
     } else if (data.type === 'save:completed') {
       // console.log("SAVED");
-      this.setState({ saving: false });
+      var gist = this.state.gistData;
+      gist.history = data.gist.history;
+      this.setState({ saving: false, gistData: gist });
       window.onbeforeunload = null;
     } else if (data.type === 'save:failed') {
       // console.log("SAVE FAILED :(");
