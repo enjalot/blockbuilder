@@ -94,7 +94,7 @@ var EditorHTML = React.createClass({
             var message = evt.data.message.toString();
             var marker = document.createElement("div");
             marker.style.color = "#dd737a";
-            this.codeMirror.setGutterMarker(evt.data.lineNumber - 1, "errors", marker);
+            this.codeMirror.setGutterMarker(evt.data.lineNumber, "errors", marker);
             d3.select(".CodeMirror-gutters").style("border-left", "6px solid rgba(221, 115, 122, 1)");
             var component = ReactDOM.render(tooltip, marker);
             component.setMessage(message);
