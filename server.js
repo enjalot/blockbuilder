@@ -277,7 +277,7 @@ function indexGist(gist) {
   // console.log("esIndexer", esIndexer.host, gist.public)
   if (!gist) return;
   if (!esIndexer.host) return;
-  if (gist.public) {
+  if (gist.public && (gist.description && gist.description.indexOf("[UNLISTED]") < 0)) {
     var options = {
       method: 'GET',
       url: esIndexer.host + "/index/gist/" + gist.id
