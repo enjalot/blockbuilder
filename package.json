@@ -30,7 +30,7 @@
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "blockbuilder-search": "^0.3.0",
+    "blockbuilder-search": "^0.3.1",
     "body-parser": "^1.14.2",
     "bragi-browser": "0.0.12",
     "codemirror-inlet": "^0.1.10",
