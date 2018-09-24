@@ -1,0 +1,17 @@
+[Unit]
+Description=Blockbuilder Front-end
+
+[Service]
+ExecStart=/usr/bin/node /home/ubuntu/blockbuilder/server.js
+Restart=always
+RestartSec=10                       # Restart service after 10 seconds if node service crashes
+StandardOutput=syslog               # Output to syslog
+StandardError=syslog                # Output to syslog
+SyslogIdentifier=elasticsearch-indexer
+User=ubuntu
+#Group=<alternate group>
+Environment=DISPLAY=:99
+
+
+[Install]
+WantedBy=multi-user.target

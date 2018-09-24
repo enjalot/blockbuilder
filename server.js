@@ -53,7 +53,7 @@ var esIndexer = nconf.get('elasticsearch-indexer') || {};
 nconf.add('app', {
   'type': 'literal',
   'app': {
-    'port': 8889,
+    'port': nconf.get("port") || 8889,
     'allowedDomains': '*',
     'cookie': {
       'maxAge': 86400000 * 365, // one year, in milliseconds

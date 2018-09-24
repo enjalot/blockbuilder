@@ -4,6 +4,9 @@ These are scripts for deploying your own server.
 # Amazon AMI
 You can install everything yourself, or use a pre-packaged AMI running Ubuntu 14.04 with everything up and running. The AMI id is `ami-d52e87be`. The user is `ubuntu` and the code is deployed in `/home/ubuntu/Code/building-blocks`. 
 
+(We recently switched to Google Cloud Platform using Ubuntu 16.04)
+
+
 ## Updating:
 This process also applied if you are running your own server
 
@@ -13,6 +16,42 @@ This will run `git pull` to update the code base. It will also run `npm install`
 
 # Rolling Your Own Server
 If you wish to roll your own server, the following steps serve as a guide for getting everything up and running.
+
+
+## System service
+Newer ubuntu uses systemd rather than upstart. For our recent deployment to Ubuntu 16.04 we will use `blockbuilder.service` with systemd.
+To install the service (which makes sure the server stays running, even after a reboot) put `blockbuilder.service`
+in `/etc/systemd/system/blockbuilder.service`  
+
+```bash
+sudo systemctl start elasticsearch
+sudo systemctl stop elasticsearch
+sudo systemctl status elasticsearch
+```
+
+If you want to start it on boot:
+
+```bash
+sudo systemctl enable elasticsearch
+```
+
+## Git
+
+If your server doesn't have it installed, you will need to get `expect`
+```bash
+sudo apt-get install expect
+````
+
+If you encounter an error where git is complaining about not knowing who you are when trying to save a thumbnail. Run:
+```bash
+sudo su root
+git config --global user.email "buildingblocks@example.com"
+git config --global user.name "Building Blocks"
+ ```
+
+
+
+# Deprecated instructions below
 
 ## IP Tables
 Note that the server runs on port `8889`, so you will need to redirect port 80 traffic to port 8889. You can do this on ubuntu by using `iptables-persistent` and adding the following to end of `/etc/iptables/rules.v4`:
@@ -28,7 +67,6 @@ Note that the server runs on port `8889`, so you will need to redirect port 80 t
 COMMIT
 #Done
 ```
-
 ## Upstart / Monit
 The following assumes that everything is setup in `/home/ubuntu/Code/building-blocks`
 
@@ -47,16 +85,3 @@ Configuration file for monit. Copy to `/etc/monit/monitrc`
 ### monit-building-blocks
 Configuration file for watching building-blocks with monit. Copy to `/etc/monit/conf.d/building-blocks`
 
-## Git
-
-If your server doesn't have it installed, you will need to get `expect`
-```bash
-sudo apt-get install expect
-````
-
-If you encounter an error where git is complaining about not knowing who you are when trying to save a thumbnail. Run:
-```bash
-sudo su root
-git config --global user.email "buildingblocks@example.com"
-git config --global user.name "Building Blocks"
- ```
