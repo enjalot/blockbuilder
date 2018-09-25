@@ -34,6 +34,7 @@ var hbs = exphbs.create({
   }
 });
 app.engine('handlebars', hbs.engine);
+app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 // in production we need to set:
 // process.env.NODE_ENV === "production"

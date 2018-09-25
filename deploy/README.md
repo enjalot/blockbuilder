@@ -35,6 +35,14 @@ If you want to start it on boot:
 sudo systemctl enable elasticsearch
 ```
 
+## Networking
+Note that the server runs on port `8889`, so you will need to redirect port 80 traffic to port 8889 due to Ubuntu's security restrictions.
+
+```bash
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8889
+sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
+```
+
 ## Git
 
 If your server doesn't have it installed, you will need to get `expect`
