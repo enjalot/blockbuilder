@@ -18,8 +18,12 @@ var app = express()
 
 var http = require('http')
 var https = require('https')
-var privateKey = fs.readFileSync(`${__dirname}/sslcert/privkey.pem`, 'utf8')
-var certificate = fs.readFileSync(`${__dirname}/sslcert/fullchain.pem`, 'utf8')
+try {
+  var privateKey = fs.readFileSync(`${__dirname}/sslcert/privkey.pem`, 'utf8')
+  var certificate = fs.readFileSync(`${__dirname}/sslcert/fullchain.pem`, 'utf8')
+} catch(e) {
+  console.log("error with https files", e)
+}
 
 var credentials = { key: privateKey, cert: certificate }
 
