@@ -6,3 +6,5 @@ public/build/css
 .DS_Store?
 secrets.json
 dump.rdb
+sslcert
+.well-known
