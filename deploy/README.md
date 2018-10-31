@@ -28,24 +28,40 @@ npm -v
 # 6.4.1
 ```
 
-## Install dependencies & build
+## Install JavaScript dependencies & build
 
 ```bash
 npm install
 npm run buildProd
  ```
  
- ## Copy over secrets.json
- 
- ## Start MongoD
- 
- ## Start Redis
+## Copy over secrets.json
+   
+## Install Redis
+blockbuilder uses Redis for `${some kind of caching}` _TODO document what exactly we use Redis for_
+
+install Redis on Ubuntu 16.04 
+
+```bash
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+sudo make install
+```
+
+you can also folow the instructions here https://redis.io/topics/quickstart
+
+## Start Redis
  
  ```bash 
  redis-server
  ```
  
- ## Test server
+## Start MongoD
+ 
+ 
+## Test server
 
 ```bash
 cd blockbuilder
