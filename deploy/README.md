@@ -1,5 +1,5 @@
 # Deploy
-These are scripts for deploying your own server. We currently host blockbuilder on a Google Cloud Platform `n1-standard-2 (2 vCPUs, 7.5 GB memory)` running Ubuntu 16.04 LTS
+These are scripts for deploying your own server. We currently host blockbuilder on a Google Cloud Platform `n1-standard-2 (2 vCPUs, 7.5 GB memory)` VM instance running Ubuntu 16.04 LTS
 
 
 ## Update
