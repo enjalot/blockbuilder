@@ -1,38 +1,28 @@
 # Deploy
-These are scripts for deploying your own server.
-
-# Amazon AMI
-You can install everything yourself, or use a pre-packaged AMI running Ubuntu 14.04 with everything up and running. The AMI id is `ami-d52e87be`. The user is `ubuntu` and the code is deployed in `/home/ubuntu/Code/building-blocks`. 
-
-(We recently switched to Google Cloud Platform using Ubuntu 16.04)
+These are scripts for deploying your own server. We currently host blockbuilder on a Google Cloud Platform `n1-standard-2 (2 vCPUs, 7.5 GB memory)` running Ubuntu 16.04 LTS
 
 
-## Updating:
-This process also applied if you are running your own server
-
+## Update
 SSH into server and run `make update`.
 
 This will run `git pull` to update the code base. It will also run `npm install` and `npm run build` to ensure dependencies are up to date after a pull and to build the build artifacts. 
 
-# Rolling Your Own Server
-If you wish to roll your own server, the following steps serve as a guide for getting everything up and running.
-
-
 ## System service
-Newer ubuntu uses systemd rather than upstart. For our recent deployment to Ubuntu 16.04 we will use `blockbuilder.service` with systemd.
+we create a linux service called `blockbuilder.service` with [systemd](https://en.wikipedia.org/wiki/Systemd)
+
 To install the service (which makes sure the server stays running, even after a reboot) put `blockbuilder.service`
 in `/etc/systemd/system/blockbuilder.service`  
 
 ```bash
-sudo systemctl start elasticsearch
-sudo systemctl stop elasticsearch
-sudo systemctl status elasticsearch
+sudo systemctl start blockbuilder
+sudo systemctl stop blockbuilder
+sudo systemctl status blockbuilder
 ```
 
 If you want to start it on boot:
 
 ```bash
-sudo systemctl enable elasticsearch
+sudo systemctl enable blockbuilder
 ```
 
 ## Networking
@@ -60,6 +50,12 @@ git config --global user.name "Building Blocks"
 <details>
 <summary>Deprecated instructions</summary>
  
+# Amazon AMI
+You can install everything yourself, or use a pre-packaged AMI running Ubuntu 14.04 with everything up and running. The AMI id is `ami-d52e87be`. The user is `ubuntu` and the code is deployed in `/home/ubuntu/Code/building-blocks`. 
+
+# Roll Your Own Server
+If you wish to roll your own server, the following steps serve as a guide for getting everything up and running.
+
 ## IP Tables
 Note that the server runs on port `8889`, so you will need to redirect port 80 traffic to port 8889. You can do this on ubuntu by using `iptables-persistent` and adding the following to end of `/etc/iptables/rules.v4`:
 ```
