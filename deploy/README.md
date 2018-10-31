@@ -28,6 +28,13 @@ npm -v
 # 6.4.1
 ```
 
+## Install dependencies & build
+
+```bash
+	npm install
+	npm run buildProd
+ ```
+
 ## Update
 SSH into server and run `make update`.
 
