@@ -34,17 +34,17 @@ npm -v
 npm install
 npm run buildProd
  ```
+ 
+ ## Create a system service
+We create a linux service called `blockbuilder.service` with [systemd](https://en.wikipedia.org/wiki/Systemd).  Wrapping our nodejs + express web server in a linux service makes sure that the blockbuilder nodejs + express web server stays running, even after a host-server reboot.
 
-## Update
-SSH into server and run `make update`.
+to install the service, copy the service defintion from the blockbuilder repo to this systemd directory: 
 
-This will run `git pull` to update the code base. It will also run `npm install` and `npm run build` to ensure dependencies are up to date after a pull and to build the build artifacts. 
+```bash
+sudo cp /home/ubuntu/blockbuilder/deploy/blockbuilder.service /etc/systemd/system/blockbuilder.service
+```
 
-## System service
-we create a linux service called `blockbuilder.service` with [systemd](https://en.wikipedia.org/wiki/Systemd)
-
-To install the service (which makes sure the server stays running, even after a reboot) put `blockbuilder.service`
-in `/etc/systemd/system/blockbuilder.service`  
+We can now manage the `blockbuilder` service with these commands:
 
 ```bash
 sudo systemctl start blockbuilder
@@ -52,7 +52,7 @@ sudo systemctl stop blockbuilder
 sudo systemctl status blockbuilder
 ```
 
-If you want to start it on boot:
+to start our new `blockbuilder` service on boot:
 
 ```bash
 sudo systemctl enable blockbuilder
@@ -66,7 +66,13 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8889
 sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443
 ```
 
+## Update
+SSH into server and run `make update`.
 
+This will run `git pull` to update the code base. It will also run `npm install` and `npm run build` to ensure dependencies are up to date after a pull and to build the build artifacts. 
+
+
+## Other dependencies
 
 If your server doesn't have it installed, you will need to get `expect`
 ```bash
