@@ -31,8 +31,8 @@ npm -v
 ## Install dependencies & build
 
 ```bash
-	npm install
-	npm run buildProd
+npm install
+npm run buildProd
  ```
 
 ## Update
