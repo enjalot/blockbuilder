@@ -35,7 +35,26 @@ npm install
 npm run buildProd
  ```
  
- ## Create a system service
+ ## Copy over secrets.json
+ 
+ ## Start MongoD
+ 
+ ## Start Redis
+ 
+ ```bash 
+ redis-server
+ ```
+ 
+ ## Test server
+
+```bash
+cd blockbuilder
+node server.js
+```
+ 
+ Make sure that that `node server.js` works without errors before proceeding.  It's easier to read the webserver logs and debug errors here, before we wrap it in a linux system service.
+ 
+ ## Create blockbuilder system service to wrap nodejs + express server
 We create a linux service called `blockbuilder.service` with [systemd](https://en.wikipedia.org/wiki/Systemd).  Wrapping our nodejs + express web server in a linux service makes sure that the blockbuilder nodejs + express web server stays running, even after a host-server reboot.
 
 to install the service, copy the service defintion from the blockbuilder repo to this systemd directory: 
