@@ -57,10 +57,8 @@ git config --global user.email "buildingblocks@example.com"
 git config --global user.name "Building Blocks"
  ```
 
-
-
-# Deprecated instructions below
-
+<details>
+<summary>Deprecated instructions</sumary>
 ## IP Tables
 Note that the server runs on port `8889`, so you will need to redirect port 80 traffic to port 8889. You can do this on ubuntu by using `iptables-persistent` and adding the following to end of `/etc/iptables/rules.v4`:
 ```
@@ -92,4 +90,4 @@ Configuration file for monit. Copy to `/etc/monit/monitrc`
 
 ### monit-building-blocks
 Configuration file for watching building-blocks with monit. Copy to `/etc/monit/conf.d/building-blocks`
-
+</details>
