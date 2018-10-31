@@ -15,7 +15,9 @@ git config --global user.name "Building Blocks"
 
 ## Install nodejs and npm
 
-Follow [this guide from Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04) to install  nodejs version `v8.12.0` 
+Install  nodejs version `v8.12.0` 
+
+Follow [this guide from Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04), starting at the `How To Install Using NVM` section
 
 ## Update
 SSH into server and run `make update`.
