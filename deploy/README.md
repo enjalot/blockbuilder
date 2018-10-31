@@ -13,11 +13,20 @@ git config --global user.name "Building Blocks"
  
 (this prevents an error where git is complains about not knowing who you are when trying to save a thumbnail image)  
 
-## Install nodejs and npm
+## Install node & npm with nvm
 
-Install  nodejs version `v8.12.0` 
+Install  node version `v8.12.0` 
 
 Follow [this guide from Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04), starting at the `How To Install Using NVM` section
+
+once you install node & npm, you should see:
+
+```bash
+node -v
+# v8.12.0
+npm -v
+# 6.4.1
+```
 
 ## Update
 SSH into server and run `make update`.
