@@ -18,9 +18,13 @@ var app = express()
 
 var http = require('http')
 var https = require('https')
+var privateKey, certificate;
+var callbackURL = "http://localhost:8889/auth/github/callback"
 try {
-  var privateKey = fs.readFileSync(`${__dirname}/sslcert/privkey.pem`, 'utf8')
-  var certificate = fs.readFileSync(`${__dirname}/sslcert/fullchain.pem`, 'utf8')
+  privateKey = fs.readFileSync(`${__dirname}/sslcert/privkey.pem`, 'utf8')
+  certificate = fs.readFileSync(`${__dirname}/sslcert/fullchain.pem`, 'utf8')
+  // if we have a certificate, we are in production (this should be better configured)
+  callbackURL = "https://blockbuilder.org/auth/github/callback"
 } catch(e) {
   console.log("error with https files", e)
 }
@@ -145,7 +149,7 @@ MongoClient.connect(
         {
           clientID: nconf.get('github:clientId'),
           clientSecret: nconf.get('github:secret'),
-          callbackURL: '/auth/github/callback'
+          callbackURL: callbackURL
         },
         function(accessToken, refreshToken, profile, done) {
           var profileId = profile.id + '' // we make sure we are always using strings for our internal ids
