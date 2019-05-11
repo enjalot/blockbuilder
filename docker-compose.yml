@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+
+  # Docker service, because mongo_client can't find the right redis host
+  # Instead, run node server.js on your local machine and it should be fine.
+  # web:
+  #   image: node:alpine
+  #   volumes:
+  #     - ./:/app
+  #   working_dir: /app
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #   environment:
+  #     NODE_ENV: development
+  #   ports:
+  #     - 8889:8889
+  #   command: node server.js
+
+  # Backend Services
+  # Ports are defined in ./resources.json
+  redis:
+    image: "redis:alpine"
+    ports:
+      - 6379:6379
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  # TODO: Add elasticsearch 2.3.4 for blockbuilder-search-index
