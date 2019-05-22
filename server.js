@@ -13,21 +13,20 @@ var compression = require('compression')
 var passport = require('passport')
 var thumbnail = require('./thumbnail')
 var GitHubStrategy = require('passport-github').Strategy
-var path = require('path')
 
 var app = express()
 
 var http = require('http')
 var https = require('https')
-var privateKey, certificate
-var callbackURL = 'http://localhost:8889/auth/github/callback'
+var privateKey, certificate;
+var callbackURL = "http://localhost:8889/auth/github/callback"
 try {
   privateKey = fs.readFileSync(`${__dirname}/sslcert/privkey.pem`, 'utf8')
   certificate = fs.readFileSync(`${__dirname}/sslcert/fullchain.pem`, 'utf8')
   // if we have a certificate, we are in production (this should be better configured)
-  callbackURL = 'https://blockbuilder.org/auth/github/callback'
-} catch (e) {
-  console.log('error with https files', e)
+  callbackURL = "https://blockbuilder.org/auth/github/callback"
+} catch(e) {
+  console.log("error with https files", e)
 }
 
 var credentials = { key: privateKey, cert: certificate }
@@ -52,16 +51,8 @@ var hbs = exphbs.create({
     }
   }
 })
-app.engine(
-  'handlebars',
-  exphbs({
-    extname: '.handlebars',
-    defaultLayout: 'base',
-    partialsDir: path.join(__dirname, '/views'),
-    layoutsDir: path.join(__dirname, '/views')
-  })
-)
-app.set('views', path.join(__dirname, '/views'))
+app.engine('handlebars', hbs.engine)
+app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 // in production we need to set:
 // process.env.NODE_ENV === "production"
@@ -130,62 +121,65 @@ var mongoUrl =
   nconf.get('app:mongo:port') +
   '/' +
   nconf.get('app:mongo:db')
-MongoClient.connect(mongoUrl, function(err, db) {
-  var users = db.collection('users')
+MongoClient.connect(
+  mongoUrl,
+  function(err, db) {
+    var users = db.collection('users')
 
-  passport.serializeUser(function(user, done) {
-    done(null, {
-      id: user.id,
-      login: user.login,
-      avatar_url: user.avatar_url,
-      accessToken: user.accessToken
+    passport.serializeUser(function(user, done) {
+      done(null, {
+        id: user.id,
+        login: user.login,
+        avatar_url: user.avatar_url,
+        accessToken: user.accessToken
+      })
     })
-  })
 
-  passport.deserializeUser(function(id, done) {
-    // This is called to return a user from a passport
-    // stategy (e.g., after user logs in with GitHub)
-    // This also is what req.user is set to
-    users.findOne({ _id: id }, function(err, user) {
-      done(err, user)
+    passport.deserializeUser(function(id, done) {
+      // This is called to return a user from a passport
+      // stategy (e.g., after user logs in with GitHub)
+      // This also is what req.user is set to
+      users.findOne({ _id: id }, function(err, user) {
+        done(err, user)
+      })
     })
-  })
 
-  passport.use(
-    new GitHubStrategy(
-      {
-        clientID: nconf.get('github:clientId'),
-        clientSecret: nconf.get('github:secret'),
-        callbackURL: callbackURL
-      },
-      function(accessToken, refreshToken, profile, done) {
-        var profileId = profile.id + '' // we make sure we are always using strings for our internal ids
+    passport.use(
+      new GitHubStrategy(
+        {
+          clientID: nconf.get('github:clientId'),
+          clientSecret: nconf.get('github:secret'),
+          callbackURL: callbackURL
+        },
+        function(accessToken, refreshToken, profile, done) {
+          var profileId = profile.id + '' // we make sure we are always using strings for our internal ids
 
-        users.findOne({ _id: profileId }, function(err, user) {
-          if (!user) {
-            profile._id = profileId
-            user = profile._json
-            user._id = profileId
-            users.update({ _id: profileId }, user, { upsert: true }, function(
-              err
-            ) {
-              profile.id = +profile.id // GitHub seems to return a string upon user creation (but numbers the rest of the time)
-              profile.login = user.login
-              profile.avatar_url = user.avatar_url
-              profile.accessToken = accessToken
-              return done(err, profile)
-            })
-          } else {
-            user.accessToken = accessToken
-            return done(err, user)
-          }
-        })
-      }
+          users.findOne({ _id: profileId }, function(err, user) {
+            if (!user) {
+              profile._id = profileId
+              user = profile._json
+              user._id = profileId
+              users.update({ _id: profileId }, user, { upsert: true }, function(
+                err
+              ) {
+                profile.id = +profile.id // GitHub seems to return a string upon user creation (but numbers the rest of the time)
+                profile.login = user.login
+                profile.avatar_url = user.avatar_url
+                profile.accessToken = accessToken
+                return done(err, profile)
+              })
+            } else {
+              user.accessToken = accessToken
+              return done(err, user)
+            }
+          })
+        }
+      )
     )
-  )
 
-  app.use(passport.session())
-})
+    app.use(passport.session())
+  }
+)
 
 app.get('/auth/github', function(req, res, next) {
   if (req.query.redirect) {
