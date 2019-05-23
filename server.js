@@ -13,6 +13,7 @@ var compression = require('compression')
 var passport = require('passport')
 var thumbnail = require('./thumbnail')
 var GitHubStrategy = require('passport-github').Strategy
+var path = require('path')
 
 var app = express()
 
@@ -51,8 +52,16 @@ var hbs = exphbs.create({
     }
   }
 })
-app.engine('handlebars', hbs.engine)
-app.set('views', __dirname + '/views')
+app.engine(
+  'handlebars',
+  exphbs({
+    extname: '.handlebars',
+    defaultLayout: 'base',
+    partialsDir: path.join(__dirname, '/views'),
+    layoutsDir: path.join(__dirname, '/views')
+  })
+)
+app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'handlebars')
 // in production we need to set:
 // process.env.NODE_ENV === "production"
