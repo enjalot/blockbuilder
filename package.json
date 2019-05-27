@@ -9,6 +9,9 @@
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p"
   },
+  "engines": {
+    "node": ">=12.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder.git"
