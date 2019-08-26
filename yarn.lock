@@ -4393,10 +4393,10 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-magic-sandbox@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/magic-sandbox/-/magic-sandbox-1.2.0.tgz#eced90c30deae66f6be13cf2e0d73a305390262c"
-  integrity sha512-1Vvlvhkma3uec9XoOjN/OzAlqDZYsnZCEtoCjHrNT/ANMIzZUe68Dh2XSGgaXgtVOX2dIW41YxdXTQB0Y6BDJw==
+magic-sandbox@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/magic-sandbox/-/magic-sandbox-1.5.0.tgz#4363ae1228043ca583cf16e68cb83433ed7a9785"
+  integrity sha512-+5RBThSM2UsPCWfaOkVb/5m0Ew03HYH/h6Km6QnMvla7bcKFAxRVYsFggpRgGtOfQCUDRz03K1hIurk5+QDy6g==
 
 magic-string@^0.22.4:
   version "0.22.5"
