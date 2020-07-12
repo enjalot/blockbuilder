@@ -265,7 +265,7 @@ app.get('/api/me', function(req, res) {
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // this is safe as it is just the user id, login name and avatar url
   var user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   if (!user) return res.send({})
   res.send({ id: user.id, login: user.login, avatar_url: user.avatar_url })
 })
@@ -296,7 +296,7 @@ app.post('/api/save', function(req, res) {
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   var gist = req.body.gist
   var token
-  if (req.session.passport && req.session.passport.user)
+  if (req.session && req.session.passport && req.session.passport.user)
     token = req.session.passport.user.accessToken
   if (!token) return res.status(403).send({ error: 'Not logged in' })
   saveGist(gist, 'PATCH', token, function(err, response) {
@@ -318,7 +318,7 @@ app.post('/api/fork', function(req, res) {
 
   var gist = req.body.gist
   var token
-  if (req.session.passport && req.session.passport.user)
+  if (req.session && req.session.passport && req.session.passport.user)
     token = req.session.passport.user.accessToken
   saveGist(gist, 'POST', token, function(err, response) {
     if (err) {
@@ -334,7 +334,7 @@ app.post('/api/fork', function(req, res) {
 // allow a user to commit a thumbnail to their gist
 app.post('/api/thumbnail', function(req, res) {
   var token
-  if (req.session.passport && req.session.passport.user)
+  if (req.session && req.session.passport && req.session.passport.user)
     token = req.session.passport.user.accessToken
   if (!token) return res.status(403).send({ error: 'Not logged in' })
   var gistId = req.body.gistId
@@ -387,7 +387,7 @@ function indexGist(gist) {
 // ------------------------------------
 app.get('/', function(req, res) {
   var user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   return res.render('base', { user: user, ga: nconf.get('analytics:ga') })
 })
 
@@ -397,13 +397,13 @@ app.get('/_elb', function(req, res) {
 
 app.get('/about', function(req, res) {
   var user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   return res.render('base', { user: user, ga: nconf.get('analytics:ga') })
 })
 
 app.get('/gallery', function(req, res) {
   var user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   return res.render('base', { user: user, ga: nconf.get('analytics:ga') })
 })
 
@@ -412,7 +412,7 @@ app.get('/:username', function(req, res) {
   // NOTE: no data needs to be passed into template; react router gets url
   // params
   var user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   return res.render('base', { user: user, ga: nconf.get('analytics:ga') })
 })
 
@@ -422,7 +422,7 @@ app.get('/:username/:gistId', function(req, res) {
   var user
 
   // the currently logged in user
-  if (req.session.passport) user = req.session.passport.user
+  if (req.session && req.session.passport) user = req.session.passport.user
   // we are going to load the gist server side so we can pull metadata
   // for generating the social cards. eventually it should also be used
   // to populate the app, rather than another API hit
