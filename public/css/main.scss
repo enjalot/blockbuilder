@@ -78,6 +78,25 @@ a:hover {
   LAYOUT
 *********************/
 
+#announcement {
+  width: 100%;
+  z-index: 1000;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 70px;
+  background: #fd7878;
+  opacity: 90%;
+  line-height: 35px;
+  font-size: 20px;
+  padding: 10px;
+  padding-left: 40px;
+  a {
+    color: black;
+    font-weight: bold;
+  }
+}
+
 #about, #gallery {
   margin-bottom: 40px;
 
