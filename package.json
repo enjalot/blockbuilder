@@ -62,7 +62,7 @@
     "reflux": "^0.3.0",
     "request": "^2.59.0",
     "sass": "^1.13.2",
-    "superagent": "^1.6.1",
+    "superagent": "^5.0.2",
     "wrappy": "^1.0.2"
   },
   "devDependencies": {
