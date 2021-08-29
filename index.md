@@ -7,7 +7,7 @@ Almost 5 years after the [kickstarter made Blockbuilder real](https://www.kickst
 Back in 2015 there was no easy way to quickly share or tweak an existing d3 example, so almost 200 people backed the kickstarter, and in the 5 years since more than 5,000 people have used blockbuilder to create, fork and share d3 examples. In that same time period 400,000 people have visited Blockbuilder over 2 million times. The vast majority of those visits are to those very examples created by the community. 
 
 
-## Why?
+## Why shutdown?
 Keeping the IDE code, server backend and the continuous search infrastructure maintained has become too expensive, especially in regards to time:
 GitHub is [deprecating one of the ways we authenticate API calls](https://github.com/enjalot/blockbuilder/issues/252), the [elasticsearch index is brittle](https://github.com/enjalot/blockbuilder-search-index#scraping) and the [UI codebase](https://github.com/enjalot/blockbuilder) was established as the very first project I learned React with. shout out to [@micahstubbs](https://twitter.com/micahstubbs) who has been keeping the lights on and shepherding some nice improvements from [@hydrosquall](https://twitter.com/hydrosquall). Dedicating time and attention to refactor and re-architect fundamental aspects of the project is something I can't bring myself to do given the amazing alternatives available today.
 
