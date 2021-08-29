@@ -16,7 +16,9 @@ GitHub is [deprecating one of the ways we authenticate API calls](https://github
 
 There is also [@currankelleher's](https://twitter.com/currankelleher) [VizHub](https://vizhub.com/) which feels like an improved (and better maintained) implementation of blockbuilder's core concept.  
 
-On top of that, all the blocks anybody ever made in blockbuilder are still available on bl.ocks.org (the original goal was to help people make more blocks!)
+On top of that, all the blocks anybody ever made in blockbuilder are still available on bl.ocks.org (the original goal was to help people make more blocks!).
+
+You can also find over 40,000 blocks that were indexed for the search feature available for analysis and use at https://observablehq.com/@enjalot/blockbuilder-search-data
 
 All that said, Blockbuilder has always been open source and a sufficiently motivated person can certainly host their own copy of the IDE.  
 https://github.com/enjalot/blockbuilder  
