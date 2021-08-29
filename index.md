@@ -18,7 +18,7 @@ There is also [@currankelleher's](https://twitter.com/currankelleher) [VizHub](h
 
 On top of that, all the blocks anybody ever made in blockbuilder are still available on bl.ocks.org (the original goal was to help people make more blocks!).
 
-You can also find over 40,000 blocks that were indexed for the search feature available for analysis and use at https://observablehq.com/@enjalot/blockbuilder-search-data
+You can also find over [40,000 blocks](https://observablehq.com/@enjalot/blockbuilder-search-data) that were indexed for the search feature available for analysis and use.
 
 All that said, Blockbuilder has always been open source and a sufficiently motivated person can certainly host their own copy of the IDE.  
 https://github.com/enjalot/blockbuilder  
