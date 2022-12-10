@@ -40,7 +40,7 @@
     "compression": "^1.5.1",
     "connect-redis": "^3.0.2",
     "cookie-parser": "^1.4.1",
-    "express": "^4.13.1",
+    "express": "^4.17.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
     "install": "^0.4.1",
